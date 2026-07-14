@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Helanak Core 0.1.0\n"
+"Report-Msgid-Bugs-To: https://helanak.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: helanak-core\n"
+
+msgid "Age Range"
+msgstr "بازه‌ی سنی"
+
+msgid "Age Ranges"
+msgstr "بازه‌های سنی"
+
+msgid "Limited"
+msgstr "محدود"
+
+msgid "Hot"
+msgstr "داغ"
+
+msgid "Trending"
+msgstr "پرطرفدار"
+
+msgid "Best Seller"
+msgstr "پرفروش"
+
+msgid "Recommended"
+msgstr "پیشنهادی"
+
+msgid "Gift"
+msgstr "هدیه"
+
+msgid "Educational"
+msgstr "آموزشی"
+
+msgid "Organic"
+msgstr "ارگانیک"
+
+msgid "Safe Material"
+msgstr "مواد ایمن"
+
+msgid "Badges"
+msgstr "نشان‌ها"
+
+msgid "\"Sale\" and \"New\" badges are automatic (based on the product's sale price and publish date) and don't need a checkbox here."
+msgstr "نشان‌های «حراج» و «جدید» به‌صورت خودکار (بر اساس قیمت حراج و تاریخ انتشار محصول) تعیین می‌شوند و نیازی به تیک زدن اینجا ندارند."
+
+msgid "Sale"
+msgstr "حراج"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "— None —"
+msgstr "— هیچ‌کدام —"
+
+msgid "Category Theme (visual skin)"
+msgstr "تم دسته‌بندی (پوسته‌ی بصری)"
+
+msgid "Picks the hero art, accent colors, and motif this category uses on the shop archive. Purely a visual skin — never gates or hides products."
+msgstr "تصویر هیرو، رنگ‌های تأکیدی و نقش‌مایه‌ای که این دسته در آرشیو فروشگاه استفاده می‌کند را انتخاب می‌کند. صرفاً یک پوسته‌ی بصری است — هرگز محصولات را محدود یا پنهان نمی‌کند."
+
+msgid "Safety & Age"
+msgstr "ایمنی و سن"
+
+msgid "Age suitability note"
+msgstr "یادداشت مناسب بودن برای سن"
+
+msgid "Free-text guidance shown on the product page in addition to the Age Range taxonomy, e.g. \"Not suitable for children under 3 due to small parts.\""
+msgstr "راهنمای متنی آزاد که علاوه بر طبقه‌بندی بازه‌ی سنی در صفحه‌ی محصول نمایش داده می‌شود، مثلاً «به دلیل قطعات کوچک برای کودکان زیر ۳ سال مناسب نیست.»"
+
+msgid "Choking hazard warning"
+msgstr "هشدار خطر خفگی"
+
+msgid "Show a choking-hazard warning on the product page."
+msgstr "نمایش هشدار خطر خفگی در صفحه‌ی محصول."
+
+msgid "Choking hazard text"
+msgstr "متن هشدار خطر خفگی"
+
+msgid "Defaults to a standard small-parts warning if left blank."
+msgstr "در صورت خالی گذاشتن، هشدار استاندارد قطعات کوچک نمایش داده می‌شود."
+
+msgid "Material / safety certification"
+msgstr "جنس / گواهی ایمنی"
+
+msgid "e.g. \"OEKO-TEX Standard 100\" or \"EN 71-3 tested\". Shown as a trust line on the product page."
+msgstr "مثلاً «OEKO-TEX Standard 100» یا «تست‌شده مطابق EN 71-3». به‌عنوان خط اطمینان در صفحه‌ی محصول نمایش داده می‌شود."
+
+msgid "WARNING: Choking hazard — small parts. Not suitable for children under 3 years."
+msgstr "هشدار: خطر خفگی — قطعات کوچک. برای کودکان زیر ۳ سال مناسب نیست."
+
+msgid "Helanak Core requires WooCommerce to be installed and active. Its taxonomy, product-field, and badge features are disabled until then."
+msgstr "افزونه‌ی Helanak Core به نصب و فعال بودن ووکامرس نیاز دارد. تا آن زمان، ویژگی‌های طبقه‌بندی، فیلدهای محصول و نشان‌ها غیرفعال هستند."
+

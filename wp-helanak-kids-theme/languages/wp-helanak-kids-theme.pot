@@ -1,0 +1,23 @@
+# Copyright (C) 2026 Helanak
+# This file is distributed under the GPL v2 or later.
+#
+# Header-only stub: this repo has no build toolchain (no WP-CLI, no grunt/
+# npm i18n pipeline — see the root CLAUDE.md). Once the theme is installed
+# into a real WordPress checkout, regenerate the full catalog with:
+#   wp i18n make-pot wp-helanak-kids-theme languages/wp-helanak-kids-theme.pot
+# run from the theme's own directory. Every translatable string already goes
+# through __()/_e()/esc_html_e()/esc_attr_e() with the 'wp-helanak-kids-theme'
+# text domain, so make-pot needs no source changes to pick them all up.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Helanak Kids Theme 0.1.0\n"
+"Report-Msgid-Bugs-To: https://helanak.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-07-09T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-07-09T00:00:00+00:00\n"
+"X-Generator: manual-stub\n"
+"X-Domain: wp-helanak-kids-theme\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"

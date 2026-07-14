@@ -1,0 +1,691 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Helanak Kids Theme 0.1.0\n"
+"Report-Msgid-Bugs-To: https://helanak.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa_IR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: wp-helanak-kids-theme\n"
+
+msgid "Footer"
+msgstr "پاورقی"
+
+msgid "All rights reserved."
+msgstr "تمامی حقوق محفوظ است."
+
+msgid "Open cart"
+msgstr "باز کردن سبد خرید"
+
+msgid "Shopping cart"
+msgstr "سبد خرید"
+
+msgid "Close"
+msgstr "بستن"
+
+msgid "WP Helanak Kids Theme works best with the \"Helanak Core\" plugin active (age-range filtering, product safety fields, and merchandising badges depend on it). The theme will still function without it, using generic fallbacks."
+msgstr "قالب «WP Helanak Kids» با فعال بودن افزونه‌ی «Helanak Core» بهتر کار می‌کند (فیلتر بازه‌ی سنی، فیلدهای ایمنی محصول و نشان‌های فروش به آن وابسته‌اند). بدون آن نیز قالب کار می‌کند و از مقادیر پیش‌فرض عمومی استفاده می‌شود."
+
+msgid "WP Helanak Kids Theme requires WooCommerce to be installed and active."
+msgstr "قالب «WP Helanak Kids» به نصب و فعال بودن ووکامرس نیاز دارد."
+
+msgid "Free shipping over $50 · New seasonal arrivals · Safe, tested materials"
+msgstr "ارسال رایگان برای خرید بالای ۵۰$ · محصولات فصلی جدید · مواد امن و تست‌شده"
+
+msgid "Primary"
+msgstr "اصلی"
+
+msgid "Search products"
+msgstr "جستجوی محصولات"
+
+msgid "Search for toys, clothes…"
+msgstr "جستجوی اسباب‌بازی، لباس…"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Wishlist"
+msgstr "علاقه‌مندی‌ها"
+
+msgid "Cart"
+msgstr "سبد خرید"
+
+msgid "Menu"
+msgstr "منو"
+
+msgid "Stories, tips & new arrivals"
+msgstr "داستان‌ها، نکات و تازه‌ها"
+
+msgid "Sizing guides, seasonal picks, and a peek behind the scenes at Helanak Kids."
+msgstr "راهنمای سایز، انتخاب‌های فصلی و نگاهی به پشت‌صحنه‌ی هلنک کیدز."
+
+msgid "★ Featured"
+msgstr "★ ویژه"
+
+msgid "%1$s · %2$s"
+msgstr "%1$s · %2$s"
+
+msgid "No posts yet — check back soon!"
+msgstr "هنوز نوشته‌ای نیست — بعداً دوباره سر بزنید!"
+
+msgid "Added to cart"
+msgstr "به سبد اضافه شد"
+
+msgid "Reduced motion is respected automatically via prefers-reduced-motion."
+msgstr "کاهش انیمیشن به‌صورت خودکار و از طریق prefers-reduced-motion رعایت می‌شود."
+
+msgid "Spring"
+msgstr "بهار"
+
+msgid "Summer"
+msgstr "تابستان"
+
+msgid "Autumn"
+msgstr "پاییز"
+
+msgid "Winter"
+msgstr "زمستان"
+
+msgid "Rabbit"
+msgstr "خرگوش"
+
+msgid "Dog"
+msgstr "سگ"
+
+msgid "Cat"
+msgstr "گربه"
+
+msgid "Monkey"
+msgstr "میمون"
+
+msgid "Teddy"
+msgstr "خرس عروسکی"
+
+msgid "Fox"
+msgstr "روباه"
+
+msgid "Penguin"
+msgstr "پنگوئن"
+
+msgid "Bird"
+msgstr "پرنده"
+
+msgid "Announcement ticker"
+msgstr "نوار اعلان"
+
+msgid "Hero banner"
+msgstr "بنر اصلی"
+
+msgid "Category (\"worlds\") slider"
+msgstr "اسلایدر دسته‌بندی («دنیاها»)"
+
+msgid "New / featured product rail"
+msgstr "ردیف محصولات جدید/ویژه"
+
+msgid "Shop-by-age selector"
+msgstr "انتخاب‌گر خرید بر اساس سن"
+
+msgid "Flash sale banner"
+msgstr "بنر فروش ویژه"
+
+msgid "Trust badges strip"
+msgstr "نوار نشان‌های اعتماد"
+
+msgid "\"Meet our friends\" mascot parade"
+msgstr "رژه‌ی شخصیت‌های «با دوستان ما آشنا شوید»"
+
+msgid "Newsletter signup"
+msgstr "عضویت در خبرنامه"
+
+msgid "Floating mini-cart button"
+msgstr "دکمه‌ی شناور سبد خرید کوچک"
+
+msgid "Hover secondary image"
+msgstr "تصویر دوم هنگام هاور"
+
+msgid "Star rating"
+msgstr "امتیاز ستاره‌ای"
+
+msgid "Merchandising badge"
+msgstr "نشان فروش"
+
+msgid "Wishlist heart icon"
+msgstr "آیکون قلب علاقه‌مندی"
+
+msgid "Quick View button"
+msgstr "دکمه‌ی مشاهده‌ی سریع"
+
+msgid "Compare icon"
+msgstr "آیکون مقایسه"
+
+msgid "Age label"
+msgstr "برچسب سن"
+
+msgid "Stock indicator"
+msgstr "نشانگر موجودی"
+
+msgid "Helanak Kids Settings"
+msgstr "تنظیمات هلنک کیدز"
+
+msgid "Season colors, character visibility, and per-feature/detail toggles for the Helanak Kids storefront."
+msgstr "رنگ‌های فصل، نمایش شخصیت‌ها و کلیدهای روشن/خاموش هر بخش برای فروشگاه هلنک کیدز."
+
+msgid "Homepage & Site Sections"
+msgstr "صفحه‌ی اصلی و بخش‌های سایت"
+
+msgid "Show or hide entire storefront sections."
+msgstr "نمایش یا پنهان‌سازی کامل بخش‌های فروشگاه."
+
+msgid "Product Card Details"
+msgstr "جزئیات کارت محصول"
+
+msgid "Show or hide individual small details on every product card."
+msgstr "نمایش یا پنهان‌سازی جزئیات کوچک روی هر کارت محصول."
+
+msgid "Season Engine"
+msgstr "موتور فصل"
+
+msgid "Mode"
+msgstr "حالت"
+
+msgid "Automatic derives the season from today's date at the site timezone. Manual lets you pin one season year-round."
+msgstr "حالت خودکار فصل را از تاریخ امروز بر اساس منطقه‌ی زمانی سایت تعیین می‌کند. حالت دستی به شما امکان می‌دهد یک فصل را برای تمام سال ثابت کنید."
+
+msgid "Automatic (by date)"
+msgstr "خودکار (بر اساس تاریخ)"
+
+msgid "Manual"
+msgstr "دستی"
+
+msgid "Campaign (season + event layer)"
+msgstr "کمپین (فصل + رویداد)"
+
+msgid "Manual season"
+msgstr "فصل دستی"
+
+msgid "Campaign name"
+msgstr "نام کمپین"
+
+msgid "e.g. \"Back to School\", \"Eid\", \"Black Friday\". Layers on top of the base season as a data-campaign attribute for campaign-specific CSS/banners; it does not replace the season palette."
+msgstr "مثلاً «بازگشت به مدرسه»، «عید» یا «جمعه‌ی سیاه». به‌عنوان ویژگی data-campaign روی فصل پایه افزوده می‌شود تا برای CSS/بنرهای مخصوص کمپین استفاده شود؛ جایگزین پالت رنگی فصل نمی‌شود."
+
+msgid "Colors"
+msgstr "رنگ‌ها"
+
+msgid "Secondary"
+msgstr "رنگ دوم"
+
+msgid "Accent"
+msgstr "رنگ تأکیدی"
+
+msgid "%1$s — %2$s"
+msgstr "%1$s — %2$s"
+
+msgid "Shared — %s"
+msgstr "مشترک — %s"
+
+msgid "Character Engine"
+msgstr "موتور شخصیت‌ها"
+
+msgid "Show mascot characters at all"
+msgstr "نمایش شخصیت‌های ماسکوت به‌طور کلی"
+
+msgid "Master switch. Turning this off hides every character regardless of the per-character toggles below."
+msgstr "کلید اصلی. خاموش کردن آن همه‌ی شخصیت‌ها را صرف‌نظر از کلیدهای جداگانه‌ی زیر پنهان می‌کند."
+
+msgid "Ambient seasonal particles"
+msgstr "ذرات فصلی محیطی"
+
+msgid "Falling petals/leaves/snow etc. Always off when the visitor has prefers-reduced-motion enabled, regardless of this setting."
+msgstr "گلبرگ/برگ/برف در حال ریزش و مانند آن. در صورت فعال بودن prefers-reduced-motion برای بازدیدکننده، صرف‌نظر از این تنظیم همیشه خاموش است."
+
+msgid "Context-aware idle behaviors"
+msgstr "رفتارهای هوشمند در حالت بی‌کاری"
+
+msgid "Dog hops on add-to-cart, cat sleeps when idle, a bird flies past on scroll, etc. (spec section 8.4)."
+msgstr "سگ هنگام افزودن به سبد می‌پرد، گربه هنگام بی‌کاری می‌خوابد، پرنده هنگام اسکرول پرواز می‌کند و مانند آن (بخش ۸.۴ مشخصات)."
+
+msgid "Layout"
+msgstr "چیدمان"
+
+msgid "Content max width (px)"
+msgstr "حداکثر عرض محتوا (پیکسل)"
+
+msgid "Corner radius — %s (px)"
+msgstr "شعاع گوشه — %s (پیکسل)"
+
+msgid "Product not found."
+msgstr "محصول یافت نشد."
+
+msgid "View full details"
+msgstr "مشاهده‌ی جزئیات کامل"
+
+msgid "Safety & Age"
+msgstr "ایمنی و سن"
+
+msgid "Primary Menu"
+msgstr "منوی اصلی"
+
+msgid "Footer Menu"
+msgstr "منوی پاورقی"
+
+msgid "Shop Sidebar"
+msgstr "نوار کناری فروشگاه"
+
+msgid "Shown on the shop archive alongside the filter panel."
+msgstr "در آرشیو فروشگاه کنار پنل فیلتر نمایش داده می‌شود."
+
+msgid "Search results for \"%s\""
+msgstr "نتایج جستجو برای \"%s\""
+
+msgid "Latest posts"
+msgstr "آخرین نوشته‌ها"
+
+msgid "Nothing found."
+msgstr "چیزی یافت نشد."
+
+msgid "Made with care, for little ones"
+msgstr "با مهربانی، برای کوچولوها"
+
+msgid "Helanak Kids started as a small family shop and grew into a place parents trust for safe, joyful clothing and toys."
+msgstr "هلنک کیدز از یک فروشگاه کوچک خانوادگی شروع شد و به مکانی تبدیل شد که والدین برای لباس و اسباب‌بازی امن و شادی‌بخش به آن اعتماد دارند."
+
+msgid "6+"
+msgstr "+۶"
+
+msgid "Years in business"
+msgstr "سال سابقه‌ی فعالیت"
+
+msgid "40k"
+msgstr "۴۰هزار"
+
+msgid "Happy families"
+msgstr "خانواده‌ی خوشحال"
+
+msgid "1200+"
+msgstr "+۱۲۰۰"
+
+msgid "Products"
+msgstr "محصول"
+
+msgid "Why families trust us"
+msgstr "چرا خانواده‌ها به ما اعتماد دارند"
+
+msgid "🛡️ Safety first"
+msgstr "🛡️ ایمنی، اول از همه"
+
+msgid "Every product is checked against safety standards before it reaches our shelves."
+msgstr "هر محصول پیش از رسیدن به قفسه‌ها بر اساس استانداردهای ایمنی بررسی می‌شود."
+
+msgid "✨ Honest quality"
+msgstr "✨ کیفیت صادقانه"
+
+msgid "We choose materials that last through play, wash, and grow spurts alike."
+msgstr "موادی را انتخاب می‌کنیم که در برابر بازی، شست‌وشو و رشد سریع کودکان دوام می‌آورند."
+
+msgid "🎈 Everyday joy"
+msgstr "🎈 شادی هر روز"
+
+msgid "From packaging to product, we want every unboxing to feel like a little celebration."
+msgstr "از بسته‌بندی تا محصول، دوست داریم هر بازکردن بسته مثل یک جشن کوچک باشد."
+
+msgid "How long does delivery take?"
+msgstr "ارسال چقدر طول می‌کشد؟"
+
+msgid "Most orders arrive within 2-4 business days within the city, and 4-7 days nationwide."
+msgstr "اغلب سفارش‌ها ظرف ۲ تا ۴ روز کاری در داخل شهر و ۴ تا ۷ روز در سراسر کشور می‌رسند."
+
+msgid "What is your return policy?"
+msgstr "شرایط مرجوعی چیست؟"
+
+msgid "We accept returns within 30 days of delivery, as long as items are unworn with tags attached."
+msgstr "مرجوعی تا ۳۰ روز پس از تحویل پذیرفته می‌شود، به شرطی که کالا استفاده‌نشده و برچسب اصلی آن موجود باشد."
+
+msgid "How do I pick the right size?"
+msgstr "چطور سایز مناسب را انتخاب کنم؟"
+
+msgid "Check the size guide on each product page — it maps age and height to our sizing so you can order with confidence."
+msgstr "راهنمای سایز را در صفحه‌ی هر محصول ببینید — سن و قد را به سایزبندی ما تبدیل می‌کند تا با اطمینان سفارش دهید."
+
+msgid "Can I get an order gift-wrapped?"
+msgstr "آیا می‌توانم سفارش را کادو کنم؟"
+
+msgid "Yes — add a gift wrap note at checkout and we will wrap it with care before shipping."
+msgstr "بله — هنگام تسویه‌حساب یادداشت کادو را اضافه کنید تا با دقت پیش از ارسال کادو شود."
+
+msgid "We'd love to hear from you"
+msgstr "خوشحال می‌شویم از شما بشنویم"
+
+msgid "Questions about an order, sizing, or just want to say hi? Send us a message."
+msgstr "سؤالی درباره‌ی سفارش یا سایز دارید یا فقط می‌خواهید سلام کنید؟ برایمان پیام بفرستید."
+
+msgid "Thanks — your message is on its way to us. We'll reply soon."
+msgstr "ممنون — پیام شما برای ما ارسال شد. به‌زودی پاسخ می‌دهیم."
+
+msgid "Please fill in your name, a valid email, and a message."
+msgstr "لطفاً نام، ایمیل معتبر و پیام خود را وارد کنید."
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "Subject"
+msgstr "موضوع"
+
+msgid "Message"
+msgstr "پیام"
+
+msgid "Send message"
+msgstr "ارسال پیام"
+
+msgid "Contact details"
+msgstr "اطلاعات تماس"
+
+msgid "Phone"
+msgstr "تلفن"
+
+msgid "+98 21 1234 5678"
+msgstr "۹۸+ ۲۱ ۱۲۳۴ ۵۶۷۸"
+
+msgid "Address"
+msgstr "آدرس"
+
+msgid "12 Mehr Alley, Valiasr St, Tehran"
+msgstr "تهران، خیابان ولیعصر، کوچه‌ی مهر، پلاک ۱۲"
+
+msgid "Support hours"
+msgstr "ساعات پاسخ‌گویی"
+
+msgid "Sat–Thu, 9:00–18:00"
+msgstr "شنبه تا پنجشنبه، ۹ تا ۱۸"
+
+msgid "Frequently asked questions"
+msgstr "پرسش‌های پرتکرار"
+
+msgid "FLASH SALE"
+msgstr "فروش ویژه"
+
+msgid "Deals little ones (and you) will love"
+msgstr "تخفیف‌هایی که کوچولوها (و شما) عاشقشان می‌شوید"
+
+msgid "Limited-time prices on favorites across the shop — while stock lasts."
+msgstr "قیمت‌های محدودزمان روی محبوب‌ترین‌های فروشگاه — تا پایان موجودی."
+
+msgid "Deal of the day"
+msgstr "پیشنهاد امروز"
+
+msgid "More on sale"
+msgstr "موارد بیشتر در حراج"
+
+msgid "No active sales right now — check back soon!"
+msgstr "در حال حاضر حراج فعالی نیست — بعداً دوباره سر بزنید!"
+
+msgid "Shop by age"
+msgstr "خرید بر اساس سن"
+
+msgid "Sizes that grow with them"
+msgstr "سایزهایی که با آن‌ها بزرگ می‌شود"
+
+msgid "Activate the Helanak Core plugin to enable age-range browsing."
+msgstr "برای فعال‌سازی مرور بر اساس سن، افزونه‌ی Helanak Core را فعال کنید."
+
+msgid "Shop by world"
+msgstr "خرید بر اساس دنیا"
+
+msgid "See all →"
+msgstr "مشاهده‌ی همه ←"
+
+msgid "Previous"
+msgstr "قبلی"
+
+msgid "Next"
+msgstr "بعدی"
+
+msgid "Categories will appear here once products are added."
+msgstr "دسته‌بندی‌ها پس از افزودن محصولات اینجا نمایش داده می‌شوند."
+
+msgid "Meet our friends"
+msgstr "با دوستان ما آشنا شوید"
+
+msgid "The little companions who play along while you shop"
+msgstr "همراهان کوچکی که در فروشگاه با شما بازی می‌کنند"
+
+msgid "Safe, joyful, made for growing up"
+msgstr "امن، شاد و ساخته‌شده برای بزرگ‌شدن"
+
+msgid "Clothes and toys your kids will actually love"
+msgstr "لباس و اسباب‌بازی‌هایی که بچه‌های شما واقعاً دوست خواهند داشت"
+
+msgid "Thoughtfully made, safety-tested, and sorted by age so you always find the right fit — for every season."
+msgstr "با دقت ساخته‌شده، تست ایمنی‌شده و بر اساس سن دسته‌بندی شده تا همیشه سایز مناسب را پیدا کنید — در هر فصل."
+
+msgid "Shop now"
+msgstr "همین حالا بخرید"
+
+msgid "Explore worlds"
+msgstr "کاوش دنیاها"
+
+msgid "Join the helanak club"
+msgstr "به باشگاه هلنک بپیوندید"
+
+msgid "Seasonal guides, birthday gifts, and 10% off your first order."
+msgstr "راهنمای فصلی، هدایای تولد و ۱۰٪ تخفیف اولین خرید."
+
+msgid "You're subscribed! Thanks for joining us."
+msgstr "عضو شدید! از پیوستن شما متشکریم."
+
+msgid "Please enter a valid email address."
+msgstr "لطفاً یک ایمیل معتبر وارد کنید."
+
+msgid "Email address"
+msgstr "آدرس ایمیل"
+
+msgid "Subscribe"
+msgstr "عضویت"
+
+msgid "Featured picks"
+msgstr "انتخاب‌های ویژه"
+
+msgid "New arrivals"
+msgstr "جدیدترین‌ها"
+
+msgid "Products will appear here once your catalog is set up."
+msgstr "محصولات پس از راه‌اندازی کاتالوگ شما اینجا نمایش داده می‌شوند."
+
+msgid "Free shipping over $50"
+msgstr "ارسال رایگان برای خرید بالای ۵۰$"
+
+msgid "Safety-tested materials"
+msgstr "مواد تست ایمنی‌شده"
+
+msgid "Easy 30-day returns"
+msgstr "مرجوعی آسان تا ۳۰ روز"
+
+msgid "Secure checkout"
+msgstr "تسویه‌حساب امن"
+
+msgid "Filters"
+msgstr "فیلترها"
+
+msgid "Clear"
+msgstr "پاک کردن"
+
+msgid "Age"
+msgstr "سن"
+
+msgid "Price"
+msgstr "قیمت"
+
+msgid "Min"
+msgstr "حداقل"
+
+msgid "Max"
+msgstr "حداکثر"
+
+msgid "Color"
+msgstr "رنگ"
+
+msgid "Apply filters"
+msgstr "اعمال فیلتر"
+
+msgid "No products were found matching your selection."
+msgstr "محصولی مطابق با انتخاب شما یافت نشد."
+
+msgid "Add to wishlist"
+msgstr "افزودن به علاقه‌مندی‌ها"
+
+msgid "Quick view"
+msgstr "مشاهده‌ی سریع"
+
+msgid "Add to compare"
+msgstr "افزودن به مقایسه"
+
+msgid "In stock"
+msgstr "موجود در انبار"
+
+msgid "Available on backorder"
+msgstr "قابل پیش‌سفارش"
+
+msgid "Out of stock"
+msgstr "ناموجود"
+
+msgid "%d min read"
+msgid_plural "%d min read"
+msgstr[0] "%d دقیقه مطالعه"
+
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] "%d مورد"
+
+
+msgid "Flash sale"
+msgstr "فروش ویژه"
+
+msgid "hrs"
+msgstr "ساعت"
+
+msgid "min"
+msgstr "دقیقه"
+
+msgid "sec"
+msgstr "ثانیه"
+
+msgid "Sold %1$s of %2$s"
+msgstr "فروخته‌شده %1$s از %2$s"
+
+msgid "30-day returns"
+msgstr "مرجوعی ۳۰ روزه"
+
+msgid "Hassle-free and free of charge"
+msgstr "بدون دردسر و کاملاً رایگان"
+
+msgid "Safety certified"
+msgstr "دارای گواهی ایمنی"
+
+msgid "Tested, non-toxic materials"
+msgstr "مواد آزمایش‌شده و غیرسمی"
+
+msgid "Fast delivery"
+msgstr "ارسال سریع"
+
+msgid "Ships in 2–4 days"
+msgstr "ارسال طی ۲ تا ۴ روز"
+
+msgid "Encrypted, local gateways"
+msgstr "درگاه‌های داخلی رمزگذاری‌شده"
+
+msgid "Baby"
+msgstr "نوزاد"
+
+msgid "Toddler"
+msgstr "نوپا"
+
+msgid "Preschool"
+msgstr "پیش‌دبستانی"
+
+msgid "Kids"
+msgstr "کودک"
+
+msgid "Big kids"
+msgstr "نوجوان کوچک"
+
+msgid "Teens"
+msgstr "نوجوان"
+
+msgid "Add to cart"
+msgstr "افزودن به سبد خرید"
+
+msgid "Oops — this page wandered off"
+msgstr "اوه — این صفحه گم شده است"
+
+msgid "Even our penguin can't find it. Let's get you back to the fun stuff."
+msgstr "حتی پنگوئن ما هم نمی‌تواند پیدایش کند. بیایید به بخش‌های جذاب برگردیم."
+
+msgid "Back to home"
+msgstr "بازگشت به خانه"
+
+msgid "Browse the shop"
+msgstr "مشاهده فروشگاه"
+
+msgid "Search"
+msgstr "جستجو"
+
+msgid "Search for toys, clothes…"
+msgstr "جستجوی اسباب‌بازی، لباس…"
+
+msgid "Pick at least two products to compare."
+msgstr "برای مقایسه دست‌کم دو محصول انتخاب کنید."
+
+msgid "Compare products"
+msgstr "مقایسه محصولات"
+
+msgid "Compare"
+msgstr "مقایسه"
+
+msgid "Rating"
+msgstr "امتیاز"
+
+msgid "Age range"
+msgstr "رده سنی"
+
+msgid "Safety"
+msgstr "ایمنی"
+
+msgid "Availability"
+msgstr "موجودی"
+
+msgid "Choking hazard"
+msgstr "خطر خفگی"
+
+msgid "Add %s more for free shipping 🚚"
+msgstr "برای ارسال رایگان %s دیگر به سبد اضافه کنید 🚚"
+
+msgid "You've unlocked free shipping! 🎉"
+msgstr "ارسال رایگان برای شما فعال شد! 🎉"
+
+msgid "No products found"
+msgstr "محصولی یافت نشد"
+
+msgid "Recently viewed"
+msgstr "بازدیدهای اخیر"
+
+msgid "Your cart is napping — nothing in it yet."
+msgstr "سبد خرید شما خواب است — هنوز چیزی داخلش نیست."
+
+msgid "Clear filters"
+msgstr "پاک کردن فیلترها"
+
+msgid "Your cart"
+msgstr "سبد خرید شما"
+
+msgid "Start shopping"
+msgstr "شروع خرید"
+
+msgid "Your little treasures are waiting — almost home!"
+msgstr "گنجینه‌های کوچک شما منتظرند — چیزی نمانده!"
+
+msgid "Almost there! Just a few details and the fun is on its way."
+msgstr "چیزی نمانده! فقط چند مورد دیگر تا شادی راهی شود."

@@ -1,0 +1,3357 @@
+/*
+ * WP Helanak Kids Theme — layout CSS.
+ *
+ * Color/radius/width custom properties are NOT defined here — they're
+ * printed inline by Helanak_Season_Engine::print_inline_style() from live
+ * Customizer values, so this file only ever *consumes* var(--primary-color)
+ * etc. and never hardcodes a hex value. That's what makes every color in
+ * the storefront (including the hero illustration below) genuinely editable
+ * from the Customizer rather than just the ones with obvious color pickers.
+ */
+
+/* ---------------------------------------------------------------------
+ * 1. Reset & base
+ * --------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var( --background-color );
+	color: var( --text-color );
+	font-family: 'Poppins', system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
+:root[data-season] { /* eases the color-picker preview transition, per prototype */
+	transition: background-color 0.8s ease;
+}
+
+body.helanak-modal-open {
+	overflow: hidden;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+a {
+	color: var( --secondary-color );
+	text-decoration: none;
+}
+
+a:hover {
+	opacity: 0.8;
+}
+
+button {
+	font-family: inherit;
+}
+
+/* Playful heading voice from the prototype: heavy weight, tight tracking. */
+h1, h2, h3 {
+	font-weight: 800;
+	letter-spacing: -0.01em;
+}
+
+/* Prototype scrollbar: rounded sand-colored thumb. */
+::-webkit-scrollbar {
+	height: 10px;
+	width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #d6c8a6;
+	border-radius: 20px;
+	border: 3px solid #F1E6CE;
+}
+
+html {
+	scrollbar-width: thin;
+	scrollbar-color: #d6c8a6 transparent;
+}
+
+/* Keyboard focus stays visible (the prototype flattens focus entirely — we
+ * keep an accent ring for accessibility instead of removing it). */
+:focus-visible {
+	outline: 2px solid var( --secondary-color );
+	outline-offset: 2px;
+}
+
+:focus:not( :focus-visible ) {
+	outline: none;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: none;
+	border-color: var( --secondary-color );
+}
+
+.helanak-container {
+	width: 100%;
+	max-width: var( --container-width, 1180px );
+	margin-inline: auto;
+	padding-inline: 20px;
+}
+
+.helanak-section {
+	padding-block: 56px;
+	animation: scfadeup 0.75s ease both;
+}
+
+/* Staggered section entrances, per the prototype's per-section delays. */
+.helanak-section:nth-of-type( 2 ) { animation-delay: 0.05s; }
+.helanak-section:nth-of-type( 3 ) { animation-delay: 0.08s; }
+.helanak-section:nth-of-type( 4 ) { animation-delay: 0.1s; }
+.helanak-section:nth-of-type( 5 ) { animation-delay: 0.14s; }
+.helanak-section:nth-of-type( 6 ) { animation-delay: 0.15s; }
+.helanak-section:nth-of-type( n + 7 ) { animation-delay: 0.2s; }
+
+.helanak-section__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.helanak-section__head h2 {
+	font-size: 24px;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	margin: 0;
+}
+
+.helanak-section__see-all {
+	font-weight: 600;
+	font-size: 13.5px;
+	white-space: nowrap;
+}
+
+.helanak-section__head-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.helanak-section__sub {
+	font-size: 0.8rem;
+	color: #8b8b96;
+	white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+ * 2. Keyframes (names preserved from the design prototype's theme.css so
+ *    the same motion language carries through into the real theme)
+ * --------------------------------------------------------------------- */
+@keyframes scfall     { 0% { transform: translateY(-40px) rotate(0); opacity: 0; } 10% { opacity: .9; } 100% { transform: translateY(560px) rotate(320deg); opacity: 0; } }
+@keyframes scfloat     { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes scdrift     { 0% { transform: translateX(-30px); } 100% { transform: translateX(30px); } }
+@keyframes scpop       { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes scfadeup    { 0% { opacity: 0; transform: translateY(26px); } 100% { opacity: 1; transform: none; } }
+@keyframes scbreathe   { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes schop       { 0%, 100% { transform: translateY(0); } 28% { transform: translateY(-16px); } 46% { transform: translateY(0); } 62% { transform: translateY(-8px); } 78% { transform: translateY(0); } }
+@keyframes scwave      { 0%, 100% { transform: rotate(8deg); } 50% { transform: rotate(-42deg); } }
+@keyframes scfly       { 0% { transform: translate(-90px,0); } 30% { transform: translate(30vw,-26px); } 60% { transform: translate(62vw,8px); } 100% { transform: translate(108vw,-16px); } }
+@keyframes sczz        { 0% { opacity: 0; transform: translate(0,0) scale(.7); } 30% { opacity: .85; } 100% { opacity: 0; transform: translate(16px,-38px) scale(1.2); } }
+@keyframes scmarquee   { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes sctwinkle   { 0%, 100% { opacity: .25; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
+@keyframes scbob       { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes scwiggle    { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+@keyframes scfadein    { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes scblink     { 0%, 91%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.08); } }
+@keyframes scwag       { 0%, 100% { transform: rotate(-30deg); } 50% { transform: rotate(-6deg); } }
+@keyframes scear       { 0%, 86%, 100% { transform: rotate(14deg); } 90% { transform: rotate(2deg); } 94% { transform: rotate(18deg); } }
+@keyframes scflap      { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-38deg); } }
+@keyframes scconf      { 0% { transform: translateY(-30px) rotate(0); opacity: 1; } 100% { transform: translateY(76vh) rotate(560deg); opacity: 0; } }
+@keyframes scsway      { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-28px) rotate(3deg); } }
+@keyframes scdriftx    { 0% { transform: translateX(-24px); } 100% { transform: translateX(34px); } }
+@keyframes scflapw     { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.3); } }
+@keyframes scflutter   { 0% { transform: translate(-70px,0) rotate(6deg); } 25% { transform: translate(22vw,-34px) rotate(-6deg); } 50% { transform: translate(46vw,8px) rotate(6deg); } 75% { transform: translate(72vw,-28px) rotate(-6deg); } 100% { transform: translate(106vw,-4px) rotate(6deg); } }
+@keyframes scdrawin    { 0% { opacity: 0; transform: translateX(24px); } 100% { opacity: 1; transform: none; } }
+
+[data-motion="off"] *,
+.helanak-idle-off .helanak-character,
+.helanak-idle-off .helanak-character * {
+	animation: none !important;
+	transition-duration: 0s !important;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	*, *::before, *::after {
+		animation: none !important;
+		transition-duration: 0s !important;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * 3. Announcement ticker + site header
+ * --------------------------------------------------------------------- */
+.helanak-ticker {
+	background: var( --gradient-primary );
+	color: var( --text-color );
+	font-size: 0.85rem;
+	font-weight: 600;
+	overflow: hidden;
+	white-space: nowrap;
+	padding-block: 8px;
+}
+
+.helanak-ticker__track {
+	display: inline-block;
+	animation: scmarquee 22s linear infinite;
+}
+
+.helanak-ticker__track span {
+	padding-inline: 1.5em;
+}
+
+.helanak-header {
+	position: sticky;
+	top: 0;
+	z-index: 40;
+	background: rgba( 250, 241, 222, 0.94 );
+	background: color-mix( in srgb, var( --background-color ) 94%, transparent );
+	backdrop-filter: blur( 10px );
+	-webkit-backdrop-filter: blur( 10px );
+	border-bottom: 1px solid var( --border-color );
+}
+
+.helanak-header__row {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding-block: 12px;
+}
+
+.helanak-logo {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 800;
+	font-size: 1.2rem;
+	flex-shrink: 0;
+}
+
+.helanak-logo__mark {
+	width: 34px;
+	height: 34px;
+	border-radius: 12px;
+	background: var( --gradient-primary );
+	display: grid;
+	place-items: center;
+	color: #2B2B33;
+	font-weight: 800;
+	box-shadow: 0 4px 12px rgba( 0, 0, 0, 0.08 );
+}
+
+.helanak-nav {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.helanak-nav a {
+	color: var( --text-color );
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.helanak-header__search {
+	flex: 1 1 220px;
+	max-width: 340px;
+	border: 1px solid var( --border-color );
+	background: var( --surface-color );
+	border-radius: 999px;
+	padding: 8px 16px;
+	color: var( --text-color );
+}
+
+.helanak-header__search input[type="search"],
+#helanak-search-input {
+	width: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	font: inherit;
+	font-size: 13px;
+	color: var( --text-color );
+}
+
+.helanak-header__search input[type="search"]::placeholder {
+	color: #8b8b96;
+}
+
+.helanak-header__icons {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-inline-start: auto;
+}
+
+.helanak-header__icon {
+	position: relative;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-header__icon:hover {
+	transform: scale( 1.08 );
+}
+
+.helanak-header__icon .helanak-count {
+	position: absolute;
+	top: -4px;
+	inset-inline-end: -4px;
+	background: var( --secondary-color );
+	color: var( --text-color );
+	font-size: 0.65rem;
+	font-weight: 700;
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+	display: grid;
+	place-items: center;
+}
+
+.helanak-lang-switch {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	padding-inline-end: 6px;
+	border-inline-end: 1px solid var( --border-color );
+}
+
+.helanak-lang-switch__item {
+	opacity: 0.55;
+	text-decoration: none;
+	color: inherit;
+}
+
+.helanak-lang-switch__item:hover {
+	opacity: 0.8;
+}
+
+.helanak-lang-switch__item.is-active {
+	opacity: 1;
+	color: var( --primary-color );
+}
+
+.helanak-nav-toggle {
+	display: none;
+	border: none;
+	background: none;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+
+.helanak-nav--mobile {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------
+ * 4. Hero
+ * --------------------------------------------------------------------- */
+.helanak-hero {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	background: var( --sky );
+	transition: background 2.5s ease;
+}
+
+.helanak-hero__scene {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+	z-index: 0;
+}
+
+.helanak-hero__sun {
+	position: absolute;
+	top: 38px;
+	inset-inline-end: 70px;
+	width: 78px;
+	height: 78px;
+	border-radius: 50%;
+	background: var( --sun );
+	box-shadow: 0 0 60px 22px color-mix( in srgb, var( --sun ) 55%, transparent );
+	transition: background 2.5s ease;
+	animation: scbreathe 6s ease-in-out infinite;
+}
+
+.helanak-hero__twinkle {
+	position: absolute;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 0 8px 2px rgba( 255, 255, 255, .8 );
+	animation-name: sctwinkle;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.helanak-hero__cloud {
+	position: absolute;
+}
+
+.helanak-hero__cloud-puff {
+	position: absolute;
+	background: rgba( 255, 255, 255, .95 );
+	border-radius: 999px;
+}
+
+.helanak-hero__balloon {
+	position: absolute;
+}
+
+.helanak-hero__balloon-body {
+	display: block;
+	border-radius: 50% 50% 48% 48%;
+	box-shadow: inset -6px -8px 0 rgba( 0, 0, 0, .06 );
+	transition: background 2.5s ease;
+}
+
+.helanak-hero__balloon-string {
+	display: block;
+	width: 2px;
+	background: rgba( 43, 43, 51, .25 );
+	margin: 0 auto;
+}
+
+.helanak-hero__hill {
+	position: absolute;
+	border-radius: 50%;
+	transition: background 2.5s ease;
+}
+
+.helanak-hero__butterfly {
+	position: absolute;
+	top: 110px;
+	inset-inline-start: 0;
+	z-index: 5;
+	pointer-events: none;
+	animation: scflutter 17s linear 1.5s infinite;
+}
+
+.helanak-hero__grid {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	padding-block: 64px;
+	flex-wrap: wrap;
+}
+
+.helanak-hero__copy {
+	flex: 1 1 380px;
+}
+
+.helanak-hero__kicker {
+	display: inline-block;
+	background: rgba( 255, 255, 255, 0.85 );
+	backdrop-filter: blur( 4px );
+	-webkit-backdrop-filter: blur( 4px );
+	border: 1px solid rgba( 255, 255, 255, 0.9 );
+	border-radius: 999px;
+	padding: 7px 15px;
+	font-size: 12.5px;
+	font-weight: 600;
+	margin-bottom: 14px;
+}
+
+.helanak-hero__copy h1 {
+	font-size: clamp( 36px, 4.6vw, 60px );
+	line-height: 1.04;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+	margin: 0 0 16px;
+}
+
+.helanak-hero__copy p {
+	font-size: 17px;
+	line-height: 1.6;
+	color: #4a4a55;
+	max-width: 46ch;
+	margin: 0 0 24px;
+}
+
+.helanak-hero__actions {
+	display: flex;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.helanak-hero__stage {
+	position: relative;
+	flex: 1 1 260px;
+	min-height: 260px;
+	display: grid;
+	place-items: center;
+}
+
+/* ---------------------------------------------------------------------
+ * 5. Buttons & badge pill
+ * --------------------------------------------------------------------- */
+.helanak-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	border: none;
+	border-radius: 999px;
+	padding: 12px 24px;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.helanak-btn:hover {
+	transform: translateY( -3px );
+}
+
+/* Prototype rule: gradient buttons carry dark text, dark buttons carry white. */
+.helanak-btn--primary {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.1 );
+}
+
+.helanak-btn--dark {
+	background: var( --text-color );
+	color: #fff;
+	padding: 15px 28px;
+	box-shadow: 0 10px 26px rgba( 43, 43, 51, 0.25 );
+}
+
+.helanak-btn--secondary {
+	background: var( --surface-color );
+	color: var( --text-color );
+	border: 1px solid var( --border-color );
+}
+
+.helanak-btn--outline {
+	background: rgba( 255, 255, 255, 0.8 );
+	backdrop-filter: blur( 4px );
+	-webkit-backdrop-filter: blur( 4px );
+	color: var( --text-color );
+	border: 1px solid rgba( 43, 43, 51, 0.2 );
+	font-weight: 600;
+	padding: 15px 24px;
+}
+
+.helanak-btn--block {
+	width: 100%;
+}
+
+.helanak-badge {
+	display: inline-flex;
+	align-items: center;
+	background: var( --badge-bg, var( --secondary-color ) );
+	color: var( --badge-fg, #fff );
+	font-size: 11px;
+	font-weight: 700;
+	border-radius: 999px;
+	padding: 4px 10px;
+	line-height: 1.4;
+}
+
+/* ---------------------------------------------------------------------
+ * 6. Ambient seasonal particles (hero-scoped, matching the prototype's
+ *    ambient() — it's only ever placed inside the hero scene, never
+ *    site-wide).
+ * --------------------------------------------------------------------- */
+.helanak-hero__ambient {
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	pointer-events: none;
+}
+
+.helanak-ambient-off .helanak-hero__ambient {
+	display: none;
+}
+
+.helanak-hero__ambient-item {
+	position: absolute;
+	top: -30px;
+	opacity: .7;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.helanak-hero__ambient,
+	.helanak-hero__butterfly {
+		display: none;
+	}
+}
+
+/* ---------------------------------------------------------------------
+ * 7. Mascot characters
+ * --------------------------------------------------------------------- */
+.helanak-characters-off .helanak-character {
+	display: none;
+}
+
+.helanak-character {
+	display: inline-block;
+	line-height: 0;
+}
+
+.helanak-character.is-hopping { animation: schop 0.9s ease-in-out; }
+.helanak-character.is-waving { animation: scwave 1.2s ease-in-out; transform-origin: top center; }
+
+/* Footer cat pair: the awake art shows by default; after 30s of inactivity
+ * theme.js adds .is-sleeping to both variants and the asleep art takes over.
+ * Any interaction removes the class and the awake cat returns. */
+.helanak-footer-cat--asleep {
+	display: none;
+}
+
+.helanak-footer-cat--asleep.is-sleeping {
+	display: inline-block;
+}
+
+.helanak-footer-cat--awake.is-sleeping {
+	display: none;
+}
+
+/* Only the dedicated flyby bird (behavior="fly") is fixed/hidden until it
+ * flies — parade/static birds render inline like any other mascot. */
+.helanak-character[data-character="bird"][data-behavior="fly"] {
+	position: fixed;
+	top: 18%;
+	inset-inline-start: 0;
+	z-index: 3;
+	animation: none;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.helanak-character[data-character="bird"][data-behavior="fly"].is-flying {
+	opacity: 1;
+	animation: scfly 9s linear forwards;
+}
+
+/* Sits on the footer's top border like the prototype (top:-59px matches the
+ * cat's rendered height at scale .55, so its feet rest on the line). The
+ * footer spans the full viewport, so the inline inset is computed against
+ * the centered content column: (footer width − container)/2 puts us at the
+ * container's edge, +64px matches the prototype's offset within it; the
+ * 24px floor keeps it on-screen once the viewport is narrower than the
+ * container. pointer-events off so the peeking art never blocks clicks on
+ * the content above the border. */
+.helanak-character--footer-peek {
+	position: absolute;
+	top: -59px;
+	inset-inline-end: max( 24px, calc( ( 100% - var( --container-width, 1180px ) ) / 2 + 64px ) );
+	pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+ * 8. Category ("worlds") slider
+ * --------------------------------------------------------------------- */
+.helanak-worlds__track {
+	display: flex;
+	gap: 18px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	padding-bottom: 8px;
+	scrollbar-width: thin;
+}
+
+.helanak-world-card {
+	scroll-snap-align: start;
+	flex: 0 0 150px;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 0 0 11px;
+	overflow: hidden;
+	text-align: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.helanak-world-card:hover {
+	transform: translateY( -4px );
+	box-shadow: 0 14px 30px rgba( 0, 0, 0, 0.08 );
+}
+
+.helanak-world-card__icon {
+	width: 100%;
+	height: 96px;
+	margin: 0 0 10px;
+	border-radius: 0;
+	background: var( --world-bg, var( --gradient-secondary ) );
+	display: grid;
+	place-items: center;
+	font-size: 2rem;
+}
+
+.helanak-ambient-off .helanak-world-card__icon span {
+	animation: none !important;
+}
+
+.helanak-world-card__name {
+	display: block;
+	font-weight: 700;
+	font-size: 13.5px;
+	padding-inline: 12px;
+	margin-bottom: 4px;
+}
+
+.helanak-world-card__count {
+	color: #8b8b96;
+	font-size: 11.5px;
+	padding-inline: 12px;
+}
+
+.helanak-worlds__nav {
+	display: flex;
+	gap: 8px;
+}
+
+.helanak-worlds__nav button {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: 1px solid var( --border-color );
+	background: #fff;
+	font-size: 18px;
+	color: var( --text-color );
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-worlds__nav button:hover {
+	transform: scale( 1.08 );
+}
+
+/* ---------------------------------------------------------------------
+ * 9. Product card (shared across rail / archive grid / related products —
+ *    variants gated purely by [data-helanak-card-part] visibility, see
+ *    inc/template-tags.php helanak_card_shows())
+ * --------------------------------------------------------------------- */
+.helanak-products {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 210px, 1fr ) );
+	gap: 22px;
+}
+
+.helanak-card {
+	position: relative;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.helanak-card:hover {
+	transform: translateY( -5px );
+	box-shadow: 0 16px 34px rgba( 0, 0, 0, 0.09 );
+}
+
+.helanak-card__media {
+	position: relative;
+	height: 210px;
+	overflow: hidden;
+}
+
+.helanak-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: opacity 0.2s ease;
+}
+
+.helanak-card__media img.helanak-card__hover-image {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+}
+
+.helanak-card:hover .helanak-card__hover-image {
+	opacity: 1;
+}
+
+.helanak-card__badge {
+	position: absolute;
+	top: 10px;
+	inset-inline-start: 10px;
+}
+
+.helanak-card__wishlist,
+.helanak-card__quick-view {
+	position: absolute;
+	top: 10px;
+	inset-inline-end: 10px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: rgba( 255, 255, 255, 0.9 );
+	box-shadow: 0 2px 6px rgba( 0, 0, 0, 0.08 );
+	border: none;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-card__wishlist:hover,
+.helanak-card__quick-view:hover,
+.helanak-card__compare:hover {
+	transform: scale( 1.1 );
+}
+
+.helanak-card__wishlist.is-active {
+	color: var( --primary-color );
+}
+
+.helanak-card__quick-view {
+	top: auto;
+	bottom: 10px;
+	inset-inline-end: 10px;
+	width: auto;
+	border-radius: 999px;
+	padding: 6px 14px;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.helanak-card__age {
+	position: absolute;
+	bottom: 10px;
+	inset-inline-start: 10px;
+	background: rgba( 255, 255, 255, 0.9 );
+	border-radius: 999px;
+	padding: 3px 10px;
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.helanak-card__body {
+	padding: 13px 14px 15px;
+}
+
+.helanak-card__rating {
+	color: #f0a500;
+	font-size: 12px;
+	margin-bottom: 6px;
+}
+
+.helanak-card__rating span {
+	color: #8b8b96;
+	margin-inline-start: 4px;
+}
+
+.helanak-card__title {
+	font-weight: 600;
+	font-size: 14.5px;
+	line-height: 1.3;
+	margin: 0 0 8px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.helanak-card__price-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.helanak-card__price {
+	font-weight: 800;
+	font-size: 16px;
+}
+
+/* WooCommerce price HTML (<del>/<ins>) styled to the prototype's price row. */
+.helanak-card__price del {
+	color: #b3b3bd;
+	font-size: 12.5px;
+	font-weight: 600;
+}
+
+.helanak-card__price ins {
+	text-decoration: none;
+	font-weight: 800;
+}
+
+.helanak-card__price-row .button {
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	border-radius: 12px;
+	border: none;
+	background: var( --gradient-primary );
+	font-weight: 700;
+	cursor: pointer;
+	flex-shrink: 0;
+	position: relative;
+	font-size: 0;
+	color: transparent;
+	transition: transform 0.2s ease;
+}
+
+.helanak-card__price-row .button:hover {
+	transform: scale( 1.08 );
+}
+
+.helanak-card__price-row .button::after {
+	content: '+';
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	font-size: 19px;
+	color: #2B2B33;
+}
+
+.helanak-card__stock {
+	font-size: 0.75rem;
+	margin-top: 6px;
+	opacity: 0.7;
+}
+
+.helanak-card__compare {
+	position: absolute;
+	top: 48px;
+	inset-inline-end: 10px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background: rgba( 255, 255, 255, 0.9 );
+	box-shadow: 0 2px 6px rgba( 0, 0, 0, 0.08 );
+	border: none;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+/* ---------------------------------------------------------------------
+ * 10. Age selector
+ * --------------------------------------------------------------------- */
+.helanak-ages {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.helanak-age {
+	text-align: center;
+	width: 100px;
+}
+
+.helanak-age__bubble {
+	width: 86px;
+	height: 86px;
+	border-radius: 50%;
+	background: var( --age-bg, var( --gradient-secondary ) );
+	display: grid;
+	place-items: center;
+	font-weight: 800;
+	font-size: 17px;
+	color: #3a3a44;
+	margin: 0 auto 8px;
+	box-shadow: inset 0 -6px 0 rgba( 0, 0, 0, 0.05 ), 0 6px 16px rgba( 0, 0, 0, 0.06 );
+	transition: transform 0.3s ease;
+}
+
+.helanak-age:hover .helanak-age__bubble {
+	transform: translateY( -6px );
+}
+
+.helanak-age__label {
+	font-size: 12.5px;
+	font-weight: 600;
+	color: #8b8b96;
+}
+
+/* ---------------------------------------------------------------------
+ * 11. Flash sale banner
+ * --------------------------------------------------------------------- */
+/* The warm sale gradient is a fixed brand constant in the prototype (not a
+ * seasonal token), so its literal stops are allowed here. */
+.helanak-flash-sale {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient( 135deg, #FF7E55, #FF9F3D 55%, #FFC53D );
+	border-radius: var( --radius-lg );
+	padding: 36px;
+}
+
+.helanak-flash-sale::before,
+.helanak-flash-sale::after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.helanak-flash-sale::before {
+	top: -46px;
+	inset-inline-end: -46px;
+	width: 180px;
+	height: 180px;
+	background: rgba( 255, 255, 255, 0.25 );
+}
+
+.helanak-flash-sale::after {
+	bottom: -60px;
+	inset-inline-start: -40px;
+	width: 150px;
+	height: 150px;
+	background: rgba( 255, 255, 255, 0.18 );
+}
+
+.helanak-flash-sale > * {
+	position: relative;
+	z-index: 1;
+}
+
+.helanak-flash-sale h2,
+.helanak-flash-sale h3 {
+	color: #fff;
+	text-shadow: 0 2px 8px rgba( 160, 60, 0, 0.25 );
+}
+
+.helanak-flash-sale__kicker {
+	font-size: 12.5px;
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.helanak-flash-sale__timer {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-block: 16px;
+}
+
+.helanak-countdown__chip {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	background: var( --text-color );
+	color: #fff;
+	border-radius: 12px;
+	padding: 10px 12px;
+	min-width: 56px;
+	text-align: center;
+}
+
+.helanak-countdown__chip b {
+	font-size: 20px;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+	line-height: 1.2;
+}
+
+.helanak-countdown__chip i {
+	font-style: normal;
+	font-size: 9.5px;
+	opacity: 0.7;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.helanak-flash-sale__deals {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 200px, 1fr ) );
+	gap: 14px;
+	margin-top: 20px;
+}
+
+.helanak-flash-sale__deal {
+	display: block;
+	background: #fff;
+	border-radius: var( --radius-md );
+	padding: 12px;
+	color: var( --text-color );
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.helanak-flash-sale__deal:hover {
+	opacity: 1;
+	transform: translateY( -4px );
+	box-shadow: 0 14px 30px rgba( 120, 50, 0, 0.18 );
+}
+
+.helanak-flash-sale__deal-media {
+	height: 110px;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	background: var( --surface-color );
+}
+
+.helanak-flash-sale__deal-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.helanak-flash-sale__deal-name {
+	display: block;
+	font-size: 13.5px;
+	font-weight: 700;
+	margin-bottom: 4px;
+}
+
+.helanak-flash-sale__deal-price {
+	display: block;
+	font-size: 14px;
+	font-weight: 800;
+	margin-bottom: 8px;
+}
+
+.helanak-flash-sale__deal-price del {
+	color: #b3b3bd;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.helanak-flash-sale__deal-price ins {
+	text-decoration: none;
+}
+
+.helanak-flash-sale__deal-progress {
+	display: block;
+	height: 7px;
+	border-radius: 999px;
+	background: rgba( 43, 43, 51, 0.08 );
+	overflow: hidden;
+}
+
+.helanak-flash-sale__deal-progress span {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var( --text-color );
+	transition: width 1s ease;
+}
+
+.helanak-flash-sale__deal-sold {
+	display: block;
+	font-size: 11px;
+	color: #8b8b96;
+	margin-top: 5px;
+}
+
+.helanak-flash-sale__deal .button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 10px;
+	border: none;
+	border-radius: 11px;
+	background: var( --text-color );
+	color: #fff;
+	font-size: 12.5px;
+	font-weight: 700;
+	padding: 8px 14px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-flash-sale__deal .button:hover {
+	transform: translateY( -2px );
+}
+
+/* ---------------------------------------------------------------------
+ * 12. Trust badges strip
+ * --------------------------------------------------------------------- */
+.helanak-trust {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 210px, 1fr ) );
+	gap: 22px;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	padding: 30px;
+}
+
+.helanak-trust__item {
+	display: flex;
+	align-items: flex-start;
+	gap: 13px;
+	text-align: start;
+}
+
+.helanak-trust__icon {
+	flex-shrink: 0;
+	width: 44px;
+	height: 44px;
+	border-radius: 14px;
+	background: var( --gradient-secondary );
+	display: grid;
+	place-items: center;
+	font-size: 21px;
+}
+
+.helanak-trust__title {
+	display: block;
+	font-size: 14.5px;
+	font-weight: 700;
+}
+
+.helanak-trust__desc {
+	display: block;
+	font-size: 12.5px;
+	color: #8b8b96;
+	line-height: 1.45;
+	margin-top: 3px;
+}
+
+/* ---------------------------------------------------------------------
+ * 13. Friends parade + newsletter + footer
+ * --------------------------------------------------------------------- */
+.helanak-friends-card {
+	position: relative;
+	overflow: hidden;
+	border-radius: var( --radius-lg );
+	background: linear-gradient( 180deg, color-mix( in srgb, var( --accent-color ) 30%, #fff ), #fff );
+	border: 1px solid var( --border-color );
+	padding: 28px 30px;
+	text-align: center;
+}
+
+.helanak-friends-card__sub {
+	font-size: 0.85rem;
+	opacity: 0.65;
+	margin: 0 0 22px;
+}
+
+.helanak-parade {
+	display: flex;
+	gap: 28px;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-end;
+}
+
+.helanak-parade__item {
+	text-align: center;
+}
+
+.helanak-parade__name {
+	display: block;
+	margin-top: 8px;
+	font-weight: 700;
+	font-size: 0.85rem;
+}
+
+.helanak-newsletter {
+	background: var( --gradient-primary );
+	border-radius: var( --radius-lg );
+	padding: 44px 40px;
+	text-align: center;
+}
+
+.helanak-newsletter h2 {
+	font-size: 26px;
+	font-weight: 800;
+	color: #2B2B33;
+	margin: 0 0 8px;
+}
+
+.helanak-newsletter p {
+	color: #3a3a44;
+	font-size: 15px;
+	margin: 0;
+}
+
+.helanak-newsletter__form {
+	display: flex;
+	gap: 10px;
+	max-width: 460px;
+	margin: 20px auto 0;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.helanak-newsletter__form input[type="email"] {
+	flex: 1 1 200px;
+	border: none;
+	border-radius: 999px;
+	padding: 14px 20px;
+	font: inherit;
+	font-size: 14px;
+}
+
+/* Prototype's subscribe button is the dark pill, not the gradient. */
+.helanak-newsletter__form .helanak-btn {
+	background: #2B2B33;
+	color: #fff;
+	font-size: 14px;
+	padding: 14px 26px;
+	box-shadow: none;
+}
+
+.helanak-site-footer {
+	position: relative;
+	border-top: 1px solid var( --border-color );
+	padding-block: 32px;
+	text-align: center;
+	opacity: 0.75;
+	font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------
+ * 14. Floating mini-cart + toast
+ * --------------------------------------------------------------------- */
+.helanak-mini-cart-button {
+	position: fixed;
+	bottom: 24px;
+	inset-inline-end: 24px;
+	z-index: 50;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: var( --text-color );
+	color: #fff;
+	border: none;
+	box-shadow: 0 12px 30px rgba( 43, 43, 51, 0.3 );
+	cursor: pointer;
+	font-size: 1.4rem;
+	transition: transform 0.25s ease;
+}
+
+.helanak-mini-cart-button:hover {
+	transform: scale( 1.1 );
+}
+
+/* Prototype FAB badge: secondary-color bubble pinned to the button corner. */
+.helanak-mini-cart-button .helanak-count {
+	position: absolute;
+	top: -4px;
+	inset-inline-end: -4px;
+	background: var( --secondary-color );
+	color: var( --text-color );
+	font-size: 11px;
+	font-weight: 800;
+	min-width: 20px;
+	height: 20px;
+	padding: 0 4px;
+	border-radius: 10px;
+	display: grid;
+	place-items: center;
+}
+
+.helanak-mini-cart-drawer {
+	position: fixed;
+	top: 0;
+	inset-inline-end: 0;
+	bottom: 0;
+	width: min( 360px, 92vw );
+	background: #fff;
+	box-shadow: 0 0 60px rgba( 0, 0, 0, 0.2 );
+	z-index: 60;
+	padding: 0;
+	overflow-y: auto;
+	animation: scdrawin 0.3s ease both;
+}
+
+.helanak-mini-cart-drawer__head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 16px 22px;
+	border-bottom: 1px solid var( --border-color );
+}
+
+.helanak-mini-cart-drawer__title {
+	flex: 1;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+.helanak-mini-cart-drawer__close {
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 1px solid var( --border-color );
+	background: var( --surface-color );
+	color: var( --text-color );
+	font-size: 18px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-mini-cart-drawer__close:hover {
+	transform: scale( 1.08 );
+}
+
+.helanak-mini-cart-drawer .widget_shopping_cart_content {
+	display: block;
+	padding: 6px 22px 22px;
+}
+
+/* WooCommerce's mini-cart widget list, skinned to the design language —
+ * scoped to the drawer so it renders identically on every page (the
+ * .woocommerce/.woocommerce-page body classes vary across product, cart,
+ * and checkout pages, so page-scoped selectors must not be relied on here). */
+.helanak-mini-cart-drawer ul.woocommerce-mini-cart {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.helanak-mini-cart-drawer li.woocommerce-mini-cart-item {
+	position: relative;
+	margin: 0;
+	padding: 14px 0;
+	padding-inline-end: 30px;
+	border-bottom: 1px dashed var( --border-color );
+}
+
+.helanak-mini-cart-drawer li.woocommerce-mini-cart-item > a:not( .remove ) {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 13.5px;
+	font-weight: 700;
+	color: var( --text-color );
+}
+
+.helanak-mini-cart-drawer ul.product_list_widget li img {
+	float: none;
+	width: 56px;
+	height: 56px;
+	object-fit: cover;
+	border: 1px solid var( --border-color );
+	border-radius: 12px;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+.helanak-mini-cart-drawer li.woocommerce-mini-cart-item .quantity {
+	display: block;
+	margin-inline-start: 68px;
+	margin-top: 4px;
+	font-size: 12.5px;
+	color: #8b8b96;
+}
+
+.helanak-mini-cart-drawer li.woocommerce-mini-cart-item a.remove {
+	position: absolute;
+	top: 14px;
+	inset-inline-end: 0;
+	width: 24px;
+	height: 24px;
+	border: 1px solid var( --border-color );
+	border-radius: 50%;
+	background: #fff;
+	color: #8b8b96 !important;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+	text-align: center;
+	transition: background 0.2s ease, color 0.2s ease;
+}
+
+.helanak-mini-cart-drawer li.woocommerce-mini-cart-item a.remove:hover {
+	background: #C4432B;
+	border-color: #C4432B;
+	color: #fff !important;
+	opacity: 1;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__total {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin: 0;
+	padding: 14px 0 4px;
+	font-size: 14px;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__total .amount {
+	font-size: 17px;
+	font-weight: 800;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__buttons {
+	display: grid;
+	gap: 10px;
+	margin: 14px 0 0;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__buttons a.button {
+	display: block;
+	text-align: center;
+	background: var( --surface-color );
+	color: var( --text-color );
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 12px 20px;
+	font-weight: 700;
+	font-size: 14px;
+	transition: transform 0.3s ease;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__buttons a.button:hover {
+	transform: translateY( -2px );
+	opacity: 1;
+}
+
+.helanak-mini-cart-drawer .woocommerce-mini-cart__buttons a.button.checkout {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	border: none;
+	box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.1 );
+}
+
+.helanak-toast {
+	position: fixed;
+	bottom: 90px;
+	inset-inline-end: 24px;
+	z-index: 55;
+	background: #1C1D24;
+	color: #fff;
+	border-radius: 14px;
+	padding: 13px 22px;
+	font-size: 14px;
+	font-weight: 600;
+	box-shadow: 0 12px 34px rgba( 0, 0, 0, 0.28 );
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	animation: scpop 0.3s ease;
+}
+
+.helanak-toast__check {
+	flex-shrink: 0;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var( --primary-color );
+	color: #2B2B33;
+	font-size: 13px;
+	display: grid;
+	place-items: center;
+}
+
+.helanak-toast__dog {
+	line-height: 0;
+	margin-inline-start: 4px;
+}
+
+/* ---------------------------------------------------------------------
+ * 15. Quick View modal
+ * --------------------------------------------------------------------- */
+.helanak-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: grid;
+	place-items: center;
+	padding: 20px;
+}
+
+.helanak-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba( 0, 0, 0, 0.5 );
+}
+
+.helanak-modal__panel {
+	position: relative;
+	background: var( --background-color );
+	border-radius: var( --radius-lg );
+	max-width: 780px;
+	width: 100%;
+	max-height: 88vh;
+	overflow-y: auto;
+	padding: 28px;
+	animation: scpop 0.2s ease;
+}
+
+.helanak-modal__close {
+	position: absolute;
+	top: 14px;
+	inset-inline-end: 14px;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: none;
+	background: var( --surface-color );
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+
+.helanak-quick-view {
+	display: flex;
+	gap: 28px;
+	flex-wrap: wrap;
+}
+
+.helanak-quick-view__media {
+	position: relative;
+	flex: 1 1 280px;
+}
+
+.helanak-quick-view__details {
+	flex: 1 1 300px;
+}
+
+.helanak-quick-view__badges {
+	position: absolute;
+	top: 10px;
+	inset-inline-start: 10px;
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.helanak-quick-view__price {
+	font-size: 1.3rem;
+	font-weight: 800;
+	margin: 8px 0;
+}
+
+.helanak-quick-view__safety {
+	background: var( --surface-color );
+	border-radius: var( --radius-sm );
+	padding: 10px 14px;
+	font-size: 0.85rem;
+	margin: 14px 0;
+}
+
+.helanak-quick-view__link {
+	display: inline-block;
+	margin-top: 14px;
+	font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------
+ * 16. Archive: category hero, breadcrumb, filters, grid toolbar
+ * --------------------------------------------------------------------- */
+.helanak-breadcrumb {
+	font-size: 0.85rem;
+	opacity: 0.7;
+	margin-bottom: 12px;
+}
+
+.helanak-category-hero {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	background: var( --gradient-secondary );
+	border-radius: var( --radius-lg );
+	padding: 32px;
+	margin-bottom: 32px;
+}
+
+.helanak-category-hero .helanak-breadcrumb {
+	margin-bottom: 8px;
+	opacity: 0.8;
+}
+
+.helanak-category-hero__icon {
+	width: 66px;
+	height: 66px;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow: 0 6px 16px rgba( 0, 0, 0, 0.08 );
+	display: grid;
+	place-items: center;
+	font-size: 30px;
+	flex-shrink: 0;
+}
+
+.helanak-category-hero h1 {
+	margin: 0 0 6px;
+}
+
+.helanak-archive__layout {
+	display: flex;
+	gap: 32px;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.helanak-filters {
+	flex: 0 0 246px;
+	min-width: 220px;
+	position: sticky;
+	top: 110px;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 20px;
+}
+
+.helanak-filters__head {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 16px;
+	font-weight: 700;
+}
+
+.helanak-filters fieldset {
+	border: none;
+	padding: 0;
+	margin: 0 0 20px;
+}
+
+.helanak-filters legend {
+	font-weight: 700;
+	margin-bottom: 8px;
+	padding: 0;
+}
+
+.helanak-filters__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.helanak-filters__chips label {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.helanak-filters__chips label:hover {
+	transform: translateY( -1px );
+	border-color: var( --secondary-color );
+}
+
+.helanak-filters__chips label:has( input:checked ) {
+	background: var( --text-color );
+	border-color: var( --text-color );
+	color: #fff;
+}
+
+.helanak-filters input[type="number"] {
+	width: 100%;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 10px;
+	padding: 10px 12px;
+	font: inherit;
+	font-size: 13.5px;
+	color: var( --text-color );
+}
+
+.helanak-filters__swatches {
+	display: flex;
+	gap: 10px;
+}
+
+.helanak-filters__swatches input {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.helanak-filters__swatches input:hover {
+	transform: scale( 1.12 );
+}
+
+.helanak-filters__swatches input:checked {
+	border-color: var( --text-color );
+	box-shadow: 0 0 0 2px #fff inset;
+}
+
+.helanak-archive__grid {
+	flex: 1 1 480px;
+}
+
+.helanak-archive__toolbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	font-size: 0.9rem;
+	opacity: 0.8;
+}
+
+/* ---------------------------------------------------------------------
+ * 17. Single product: gallery, buy box, safety/age panels
+ * --------------------------------------------------------------------- */
+.helanak-product {
+	display: flex;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+
+.helanak-product__gallery {
+	flex: 1 1 380px;
+}
+
+.helanak-product__main-image {
+	position: relative;
+	aspect-ratio: 1 / 1;
+	border-radius: var( --radius-md );
+	overflow: hidden;
+	background: var( --surface-color );
+}
+
+.helanak-product__thumbs {
+	display: flex;
+	gap: 10px;
+	margin-top: 12px;
+}
+
+.helanak-product__thumbs img {
+	width: 72px;
+	height: 72px;
+	border-radius: var( --radius-sm );
+	object-fit: cover;
+	border: 1px solid var( --border-color );
+	cursor: pointer;
+}
+
+.helanak-buy-box {
+	flex: 1 1 340px;
+	position: relative;
+}
+
+.helanak-character--buybox-peek {
+	position: absolute;
+	top: -20px;
+	inset-inline-end: 0;
+}
+
+.helanak-buy-box__rating {
+	color: #f5a623;
+	margin-bottom: 8px;
+}
+
+.helanak-buy-box__price {
+	font-size: 1.6rem;
+	font-weight: 800;
+	margin: 10px 0;
+}
+
+.helanak-buy-box__stock {
+	color: #2e9e5b;
+	font-weight: 700;
+	font-size: 0.85rem;
+}
+
+.helanak-buy-box__chips {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 10px 0 20px;
+}
+
+.helanak-buy-box__chips label {
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 6px 14px;
+	cursor: pointer;
+}
+
+.helanak-buy-box__actions {
+	display: flex;
+	gap: 10px;
+	margin: 20px 0;
+}
+
+.helanak-buy-box__delivery {
+	font-size: 0.85rem;
+	opacity: 0.75;
+}
+
+.helanak-trust-panels {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 280px, 1fr ) );
+	gap: 20px;
+	margin-block: 40px;
+}
+
+.helanak-trust-panel {
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 24px;
+}
+
+.helanak-trust-panel ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.helanak-trust-panel li {
+	padding-block: 6px;
+	display: flex;
+	gap: 8px;
+}
+
+.helanak-age-pills {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.helanak-age-pills span {
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 0.8rem;
+}
+
+.helanak-safety-panel h3 {
+	margin-top: 0;
+}
+
+.helanak-safety-panel .helanak-age-pills {
+	margin-bottom: 12px;
+}
+
+.helanak-safety-panel p {
+	margin: 8px 0 0;
+	font-size: 0.9rem;
+}
+
+.helanak-choking-hazard {
+	color: #c0392b;
+	font-weight: 700;
+}
+
+.helanak-certification {
+	color: #2e9e5b;
+	font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------
+ * 18. Generic static-page building blocks (about / contact / sale)
+ * --------------------------------------------------------------------- */
+.helanak-page-hero {
+	text-align: center;
+	padding-block: 48px;
+}
+
+.helanak-values {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 220px, 1fr ) );
+	gap: 20px;
+}
+
+.helanak-value-card {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 24px;
+	text-align: center;
+}
+
+/* Gradient-clipped stat numerals (about-page stat cards), per prototype. */
+.helanak-stat-number {
+	display: block;
+	font-size: 32px;
+	font-weight: 800;
+	background: var( --gradient-primary );
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.helanak-team {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 180px, 1fr ) );
+	gap: 24px;
+}
+
+.helanak-team-card {
+	text-align: center;
+}
+
+.helanak-team-card img {
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	margin: 0 auto 12px;
+}
+
+.helanak-contact-layout {
+	display: flex;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+
+.helanak-contact-form {
+	flex: 1 1 420px;
+	display: grid;
+	gap: 14px;
+}
+
+.helanak-contact-form label {
+	font-weight: 600;
+	font-size: 0.9rem;
+	display: block;
+	margin-bottom: 6px;
+}
+
+.helanak-contact-form input,
+.helanak-contact-form select,
+.helanak-contact-form textarea {
+	width: 100%;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 10px;
+	padding: 12px 14px;
+	font-family: inherit;
+	font-size: 13.5px;
+	color: var( --text-color );
+}
+
+.helanak-contact-info {
+	flex: 1 1 280px;
+	display: grid;
+	gap: 12px;
+	align-content: start;
+}
+
+/* Prototype contact info: one card per channel with a gradient icon tile. */
+.helanak-contact-card {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 16px 18px;
+}
+
+.helanak-contact-card__icon {
+	flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 12px;
+	background: var( --gradient-secondary );
+	display: grid;
+	place-items: center;
+	font-size: 18px;
+}
+
+.helanak-contact-card__label {
+	display: block;
+	font-size: 11.5px;
+	font-weight: 600;
+	color: #8b8b96;
+}
+
+.helanak-contact-card__value {
+	display: block;
+	font-size: 13.5px;
+	font-weight: 700;
+	overflow-wrap: anywhere;
+}
+
+.helanak-faq {
+	max-width: 760px;
+	margin-inline: auto;
+}
+
+.helanak-faq__item {
+	border-bottom: 1px solid var( --border-color );
+	padding-block: 16px;
+}
+
+.helanak-faq__item summary {
+	cursor: pointer;
+	font-weight: 700;
+}
+
+/* Same fixed warm brand gradient as the flash-sale banner. */
+.helanak-sale-hero {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient( 135deg, #FF7E55, #FF9F3D 55%, #FFC53D );
+	border-radius: var( --radius-lg );
+	padding: 38px;
+}
+
+.helanak-sale-hero::before,
+.helanak-sale-hero::after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.helanak-sale-hero::before {
+	top: -46px;
+	inset-inline-end: -46px;
+	width: 180px;
+	height: 180px;
+	background: rgba( 255, 255, 255, 0.25 );
+}
+
+.helanak-sale-hero::after {
+	bottom: -60px;
+	inset-inline-start: -40px;
+	width: 150px;
+	height: 150px;
+	background: rgba( 255, 255, 255, 0.18 );
+}
+
+.helanak-sale-hero__grid {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 30px;
+	flex-wrap: wrap;
+	text-align: start;
+}
+
+.helanak-sale-hero__copy {
+	flex: 1 1 320px;
+}
+
+.helanak-sale-hero__aside {
+	flex: 0 1 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 14px;
+}
+
+.helanak-sale-hero h1 {
+	color: #fff;
+	text-shadow: 0 2px 8px rgba( 160, 60, 0, 0.25 );
+	margin: 8px 0 10px;
+}
+
+.helanak-sale-hero p {
+	color: rgba( 255, 255, 255, 0.92 );
+	margin: 0;
+}
+
+/* Bespoke horizontal "Deal of the day" card. */
+.helanak-deal-day {
+	display: flex;
+	flex-wrap: wrap;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	overflow: hidden;
+	margin-bottom: 12px;
+}
+
+.helanak-deal-day__media {
+	position: relative;
+	flex: 1 1 300px;
+	min-height: 240px;
+	background: var( --surface-color );
+}
+
+.helanak-deal-day__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.helanak-deal-day__pct {
+	position: absolute;
+	top: 12px;
+	inset-inline-start: 12px;
+	background: #C4432B;
+	color: #fff;
+	font-size: 11.5px;
+	font-weight: 800;
+	padding: 4px 10px;
+	border-radius: 999px;
+}
+
+.helanak-deal-day__body {
+	flex: 1 1 320px;
+	padding: 28px 30px;
+}
+
+.helanak-deal-day__chip {
+	display: inline-block;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 11px;
+	font-weight: 700;
+	margin-bottom: 12px;
+}
+
+.helanak-deal-day__body h3 {
+	font-size: 21px;
+	margin: 0 0 6px;
+}
+
+.helanak-deal-day__body h3 a {
+	color: inherit;
+}
+
+.helanak-deal-day__rating {
+	color: #f0a500;
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+
+.helanak-deal-day__rating span {
+	color: #8b8b96;
+	margin-inline-start: 4px;
+}
+
+.helanak-deal-day__price {
+	font-size: 24px;
+	font-weight: 800;
+	margin-bottom: 14px;
+}
+
+.helanak-deal-day__price del {
+	color: #b3b3bd;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.helanak-deal-day__price ins {
+	text-decoration: none;
+}
+
+.helanak-deal-day__progress {
+	display: block;
+	height: 8px;
+	border-radius: 999px;
+	background: rgba( 43, 43, 51, 0.08 );
+	overflow: hidden;
+	margin-bottom: 6px;
+}
+
+.helanak-deal-day__progress span {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var( --text-color );
+	transition: width 1s ease;
+}
+
+.helanak-deal-day__sold {
+	display: block;
+	font-size: 12px;
+	color: #8b8b96;
+	margin-bottom: 16px;
+}
+
+.helanak-deal-of-day {
+	margin-bottom: 12px;
+}
+
+/* ---------------------------------------------------------------------
+ * 19. Blog (index.php / home.php / single.php)
+ * --------------------------------------------------------------------- */
+.helanak-blog-featured {
+	display: flex;
+	flex-wrap: wrap;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	overflow: hidden;
+	background: #fff;
+	margin-bottom: 24px;
+	text-decoration: none;
+	color: inherit;
+	transition: box-shadow 0.3s ease;
+}
+
+.helanak-blog-featured:hover {
+	box-shadow: 0 18px 40px rgba( 0, 0, 0, 0.08 );
+}
+
+.helanak-blog-featured__media {
+	flex: 1 1 340px;
+	min-width: 280px;
+	min-height: 250px;
+	display: block;
+	background: var( --surface-color );
+}
+
+.helanak-blog-featured__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.helanak-blog-featured__body {
+	flex: 1 1 320px;
+	min-width: 280px;
+	padding: 32px;
+	display: block;
+}
+
+.helanak-blog-featured__tags {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 14px;
+}
+
+.helanak-blog-featured__cat {
+	display: inline-block;
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 5px 12px;
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.helanak-blog-featured__body h2 {
+	font-size: 25px;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	line-height: 1.25;
+	margin: 0 0 10px;
+}
+
+.helanak-blog-featured__meta,
+.helanak-blog-card__meta {
+	font-size: 12.5px;
+	opacity: 0.65;
+}
+
+.helanak-blog-grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 250px, 1fr ) );
+	gap: 20px;
+}
+
+.helanak-blog-card {
+	display: block;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	overflow: hidden;
+	background: #fff;
+	text-decoration: none;
+	color: inherit;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.helanak-blog-card__cat {
+	display: inline-block;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 4px 11px;
+	font-size: 10.5px;
+	font-weight: 700;
+	color: #5b5b66;
+	margin-bottom: 8px;
+}
+
+.helanak-blog-card:hover {
+	transform: translateY( -5px );
+	box-shadow: 0 16px 34px rgba( 0, 0, 0, 0.08 );
+}
+
+.helanak-blog-card__media {
+	display: block;
+	height: 150px;
+}
+
+.helanak-blog-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.helanak-blog-card__body {
+	display: block;
+	padding: 16px 17px 18px;
+}
+
+.helanak-blog-card__body h3 {
+	font-size: 15.5px;
+	line-height: 1.35;
+	margin: 0 0 8px;
+}
+
+.helanak-single-post {
+	max-width: 760px;
+}
+
+.helanak-single-post__media img {
+	width: 100%;
+	border-radius: var( --radius-lg );
+	margin-bottom: 24px;
+}
+
+.helanak-single-post__content {
+	line-height: 1.7;
+}
+
+.helanak-single-post__content p {
+	margin: 0 0 1.2em;
+}
+
+/* ---------------------------------------------------------------------
+ * 20. Feature add-ons: 404, celebration, empty states, shipping goal,
+ *     compare, search suggestions, recently viewed
+ * --------------------------------------------------------------------- */
+.helanak-404 {
+	text-align: center;
+	padding-block: 48px 72px;
+}
+
+.helanak-404__mascot {
+	display: inline-block;
+	animation: scfloat 3.5s ease-in-out infinite;
+}
+
+.helanak-404__code {
+	font-size: clamp( 56px, 9vw, 96px );
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	line-height: 1;
+	margin: 8px 0 0;
+	background: var( --gradient-primary );
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.helanak-404 h1 {
+	margin: 8px 0 10px;
+}
+
+.helanak-404__sub {
+	color: #4a4a55;
+	margin: 0 0 24px;
+}
+
+.helanak-404__actions {
+	display: flex;
+	gap: 14px;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-bottom: 28px;
+}
+
+.helanak-404__search {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	flex-wrap: wrap;
+	max-width: 460px;
+	margin-inline: auto;
+}
+
+.helanak-404__search input[type="search"] {
+	flex: 1 1 220px;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 12px 20px;
+	font: inherit;
+	font-size: 13.5px;
+}
+
+/* Order-received celebration (inc/class-celebration.php). */
+.helanak-confetti {
+	position: fixed;
+	inset: 0 0 auto;
+	height: 0;
+	z-index: 90;
+	pointer-events: none;
+}
+
+.helanak-confetti span {
+	position: absolute;
+	top: -30px;
+}
+
+.helanak-celebrate-mascot {
+	position: fixed;
+	bottom: 12px;
+	inset-inline-start: 24px;
+	z-index: 55;
+	pointer-events: none;
+	animation: scpop 0.4s ease;
+}
+
+/* Empty mini-cart: visible only while WooCommerce's empty message is in the
+ * drawer, so cart-fragments refreshes keep it honest with zero JS. */
+.helanak-mini-cart-drawer__empty {
+	display: none;
+	text-align: center;
+	padding: 32px 22px 10px;
+	color: #8b8b96;
+	font-size: 13.5px;
+}
+
+.helanak-mini-cart-drawer__empty p {
+	margin: 12px 0 16px;
+}
+
+.helanak-mini-cart-drawer__empty .helanak-btn {
+	font-size: 14px;
+	padding: 12px 24px;
+}
+
+.helanak-mini-cart-drawer:has( .woocommerce-mini-cart__empty-message ) .helanak-mini-cart-drawer__empty {
+	display: block;
+}
+
+.helanak-mini-cart-drawer:has( .woocommerce-mini-cart__empty-message ) .woocommerce-mini-cart__empty-message {
+	display: none;
+}
+
+/* Archive / search no-results. */
+.helanak-empty-state {
+	text-align: center;
+	padding-block: 40px;
+}
+
+.helanak-empty-state p {
+	color: #4a4a55;
+	margin: 14px 0 18px;
+}
+
+/* Free-shipping goal bar (inc/class-shipping-goal.php). */
+.helanak-shipping-goal {
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 12px 14px;
+	margin-bottom: 16px;
+}
+
+.helanak-shipping-goal__label {
+	font-size: 12.5px;
+	font-weight: 600;
+	margin: 0 0 8px;
+}
+
+.helanak-shipping-goal__label--reached {
+	color: #2e9e5b;
+}
+
+.helanak-shipping-goal__bar {
+	display: block;
+	height: 7px;
+	border-radius: 999px;
+	background: rgba( 43, 43, 51, 0.08 );
+	overflow: hidden;
+}
+
+.helanak-shipping-goal__bar span {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var( --gradient-primary );
+	transition: width 1s ease;
+}
+
+/* Compare: card toggle active state, floating pill, modal table. */
+.helanak-card__compare.is-active {
+	background: var( --text-color );
+	color: #fff;
+}
+
+.helanak-compare-pill {
+	position: fixed;
+	bottom: 24px;
+	inset-inline-start: 24px;
+	z-index: 50;
+	border: none;
+	border-radius: 999px;
+	background: var( --text-color );
+	color: #fff;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	padding: 13px 22px;
+	box-shadow: 0 12px 30px rgba( 43, 43, 51, 0.3 );
+	cursor: pointer;
+	transition: transform 0.25s ease;
+	animation: scpop 0.3s ease;
+}
+
+.helanak-compare-pill:hover {
+	transform: translateY( -3px );
+}
+
+.helanak-compare__title {
+	font-size: 21px;
+	margin: 0 0 16px;
+}
+
+.helanak-compare__scroll {
+	overflow-x: auto;
+}
+
+.helanak-compare__table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13.5px;
+}
+
+.helanak-compare__table th,
+.helanak-compare__table td {
+	border: 1px solid var( --border-color );
+	padding: 12px 14px;
+	text-align: start;
+	vertical-align: top;
+	min-width: 140px;
+}
+
+.helanak-compare__table thead a {
+	color: inherit;
+	font-weight: 700;
+}
+
+.helanak-compare__table thead img {
+	width: 96px;
+	height: 96px;
+	object-fit: cover;
+	border-radius: 12px;
+	margin-bottom: 8px;
+}
+
+.helanak-compare__table tbody th {
+	background: var( --surface-color );
+	font-weight: 700;
+	white-space: nowrap;
+}
+
+.helanak-compare__muted {
+	color: #8b8b96;
+}
+
+.helanak-compare__table .helanak-btn {
+	font-size: 12.5px;
+	padding: 9px 16px;
+}
+
+/* Live search dropdown (assets/js/search-suggest.js). */
+.helanak-header__search--suggest {
+	position: relative;
+}
+
+.helanak-search-suggest {
+	position: absolute;
+	top: calc( 100% + 8px );
+	inset-inline: 0;
+	z-index: 45;
+	list-style: none;
+	margin: 0;
+	padding: 6px;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	box-shadow: 0 16px 34px rgba( 0, 0, 0, 0.12 );
+	animation: scpop 0.2s ease;
+}
+
+.helanak-search-suggest__item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px;
+	border-radius: 10px;
+	color: var( --text-color );
+}
+
+.helanak-search-suggest__item:hover,
+.helanak-search-suggest__item:focus {
+	background: var( --surface-color );
+	opacity: 1;
+}
+
+.helanak-search-suggest__item img {
+	width: 40px;
+	height: 40px;
+	object-fit: cover;
+	border-radius: 10px;
+	flex-shrink: 0;
+}
+
+.helanak-search-suggest__text {
+	flex: 1;
+	min-width: 0;
+}
+
+.helanak-search-suggest__name {
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.helanak-search-suggest__price {
+	display: block;
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.helanak-search-suggest__price del {
+	color: #b3b3bd;
+	font-weight: 600;
+}
+
+.helanak-search-suggest__price ins {
+	text-decoration: none;
+}
+
+.helanak-search-suggest__age {
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 3px 9px;
+	font-size: 10.5px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.helanak-search-suggest__empty {
+	padding: 12px;
+	font-size: 13px;
+	color: #8b8b96;
+	text-align: center;
+}
+
+/* Recently viewed (inc/class-recently-viewed.php) — width-capped like the
+ * rest of the single-product layout. */
+.helanak-recently-viewed {
+	max-width: var( --container-width, 1180px );
+	margin-inline: auto;
+	padding: 40px 20px 0;
+}
+
+/* ---------------------------------------------------------------------
+ * 21. Generic page template (page.php)
+ * --------------------------------------------------------------------- */
+.helanak-page-hero--compact {
+	padding-block: 32px 8px;
+}
+
+/* Same staggered entrance the homepage sections use. */
+.helanak-page-hero {
+	animation: scfadeup 0.6s ease both;
+}
+
+.helanak-page-hero__mascot {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 6px;
+}
+
+.helanak-page-hero p {
+	color: #4a4a55;
+	margin: 6px 0 0;
+}
+
+.helanak-page-content {
+	padding-bottom: 56px;
+	animation: scfadeup 0.7s ease 0.08s both;
+}
+
+/* ---------------------------------------------------------------------
+ * 22. WooCommerce single product — skins the stock template markup
+ *     (the theme deliberately has no single-product.php override; see
+ *     inc/class-single-product-hooks.php). Selators mirror WooCommerce's
+ *     own .woocommerce div.product … specificity so these rules win by
+ *     load order (theme.css enqueues after the plugin's stylesheets).
+ * --------------------------------------------------------------------- */
+#primary.content-area {
+	max-width: var( --container-width, 1180px );
+	margin-inline: auto;
+	padding: 24px 20px 64px;
+}
+
+.woocommerce-breadcrumb {
+	font-size: 13px;
+	color: #8b8b96;
+	margin: 0 0 18px;
+}
+
+.woocommerce-breadcrumb a {
+	color: #8b8b96;
+	font-weight: 600;
+}
+
+/* Sale flash → the design's solid red pill. */
+.woocommerce span.onsale {
+	background: #C4432B;
+	color: #fff;
+	border-radius: 999px;
+	font-size: 11.5px;
+	font-weight: 800;
+	line-height: 1.6;
+	min-width: 0;
+	min-height: 0;
+	padding: 4px 12px;
+	top: 12px;
+	inset-inline-start: 12px;
+	margin: 0;
+}
+
+/* Gallery. */
+.woocommerce div.product div.images {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	overflow: hidden;
+}
+
+.woocommerce div.product div.images img {
+	width: 100%;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs {
+	display: flex;
+	gap: 10px;
+	padding: 10px;
+	margin: 0;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li {
+	float: none;
+	width: 72px;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li img {
+	border: 1px solid var( --border-color );
+	border-radius: 12px;
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs li img.flex-active,
+.woocommerce div.product div.images .flex-control-thumbs li img:hover {
+	opacity: 1;
+}
+
+/* Summary column. */
+.woocommerce div.product div.summary {
+	position: relative; /* anchors the peeking monkey (--buybox-peek) */
+}
+
+.woocommerce div.product .product_title {
+	font-size: clamp( 26px, 3vw, 34px );
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	line-height: 1.15;
+	margin-bottom: 10px;
+}
+
+.woocommerce div.product p.price {
+	font-size: 26px;
+	font-weight: 800;
+	color: var( --text-color );
+	margin-bottom: 14px;
+}
+
+.woocommerce div.product p.price del {
+	color: #b3b3bd;
+	font-size: 17px;
+	font-weight: 600;
+	opacity: 1;
+}
+
+.woocommerce div.product p.price ins {
+	text-decoration: none;
+	font-weight: 800;
+}
+
+.woocommerce div.product .woocommerce-product-details__short-description {
+	color: #4a4a55;
+	font-size: 15px;
+	line-height: 1.65;
+}
+
+.woocommerce .star-rating::before,
+.woocommerce .star-rating span::before,
+.woocommerce p.stars a {
+	color: #f0a500;
+}
+
+.woocommerce .woocommerce-review-link {
+	color: #8b8b96;
+	font-size: 13px;
+}
+
+/* Add-to-cart row: pill quantity stepper + gradient button. */
+.woocommerce div.product form.cart {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	border-top: 1px solid var( --border-color );
+	border-bottom: 1px solid var( --border-color );
+	padding: 18px 0;
+	margin: 18px 0;
+}
+
+.woocommerce div.product form.cart div.quantity {
+	float: none;
+	margin: 0;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	padding: 4px 8px;
+}
+
+.woocommerce .quantity .qty {
+	width: 64px;
+	border: none;
+	background: transparent;
+	font: inherit;
+	font-weight: 700;
+	text-align: center;
+}
+
+/* WooCommerce's primary (.alt) buttons — add-to-cart, review submit.
+ * Both body-class variants are needed: single product pages carry
+ * .woocommerce, the Blocks cart/checkout pages only .woocommerce-page —
+ * covering just one made the same markup look different per page. */
+.woocommerce #respond input#submit.alt,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt,
+.woocommerce-page a.button.alt,
+.woocommerce-page button.button.alt,
+.woocommerce-page input.button.alt {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	font-weight: 700;
+	border-radius: 999px;
+	padding: 13px 26px;
+	box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.1 );
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.woocommerce #respond input#submit.alt:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover,
+.woocommerce-page a.button.alt:hover,
+.woocommerce-page button.button.alt:hover,
+.woocommerce-page input.button.alt:hover {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	transform: translateY( -3px );
+}
+
+/* Secondary WooCommerce buttons. */
+.woocommerce #respond input#submit,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce-page a.button,
+.woocommerce-page button.button,
+.woocommerce-page input.button {
+	background: var( --surface-color );
+	color: var( --text-color );
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	font-weight: 700;
+	transition: transform 0.3s ease;
+}
+
+.woocommerce #respond input#submit:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce-page a.button:hover,
+.woocommerce-page button.button:hover,
+.woocommerce-page input.button:hover {
+	background: var( --surface-color );
+	color: var( --text-color );
+	transform: translateY( -2px );
+}
+
+.woocommerce div.product .product_meta {
+	display: grid;
+	gap: 4px;
+	font-size: 12.5px;
+	color: #8b8b96;
+	padding-top: 4px;
+}
+
+.woocommerce div.product .product_meta a {
+	font-weight: 600;
+}
+
+.woocommerce div.product div.summary .helanak-trust-panel {
+	margin-top: 18px;
+}
+
+.helanak-character--buybox-peek {
+	pointer-events: none;
+	z-index: 1;
+}
+
+/* Tabs → pill nav + rounded panel (WC draws its gray chrome with borders
+ * and ::before/::after curls — all removed). */
+.woocommerce div.product .woocommerce-tabs {
+	clear: both;
+	margin-top: 40px;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 0;
+	border: none;
+	overflow: visible;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs::after,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after {
+	display: none;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 999px;
+	margin: 0;
+	padding: 0;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+	padding: 9px 18px;
+	font-weight: 700;
+	font-size: 13.5px;
+	color: var( --text-color );
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+	background: var( --text-color );
+	border-color: var( --text-color );
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+	color: #fff;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	padding: 26px 28px;
+	margin-top: 14px;
+}
+
+/* Related / upsell grids: WC's <ul class="products"> wraps the theme's
+ * div-based cards — turn the list into the same grid as .helanak-products. */
+.woocommerce ul.products {
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 210px, 1fr ) );
+	gap: 22px;
+	padding: 0;
+	margin: 16px 0 0;
+}
+
+.woocommerce ul.products::before,
+.woocommerce ul.products::after {
+	display: none;
+}
+
+.woocommerce .related.products > h2,
+.woocommerce .up-sells.products > h2 {
+	font-size: 24px;
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	margin: 40px 0 4px;
+}
+
+/* Reviews. */
+#reviews .commentlist {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#reviews .commentlist li {
+	margin-bottom: 12px;
+}
+
+#reviews .comment_container {
+	display: flex;
+	gap: 14px;
+	background: var( --surface-color );
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	padding: 16px;
+}
+
+#reviews .comment_container img.avatar {
+	position: static;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border: none;
+	background: #fff;
+	padding: 0;
+}
+
+#reviews .comment-text {
+	margin: 0 !important;
+	border: none !important;
+	padding: 0 !important;
+	flex: 1;
+}
+
+#review_form #respond label {
+	font-weight: 600;
+	font-size: 13px;
+	display: block;
+	margin-bottom: 6px;
+}
+
+#review_form #respond input[type="text"],
+#review_form #respond input[type="email"],
+#review_form #respond textarea {
+	width: 100%;
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: 10px;
+	padding: 12px 14px;
+	font: inherit;
+	font-size: 13.5px;
+}
+
+/* Notices (added-to-cart message, errors). */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-top: 1px solid var( --border-color );
+	border-radius: var( --radius-md );
+	color: var( --text-color );
+}
+
+.woocommerce-message::before { color: #2e9e5b; }
+.woocommerce-info::before { color: var( --secondary-color ); }
+.woocommerce-error::before { color: #C4432B; }
+
+/* ---------------------------------------------------------------------
+ * 23. WooCommerce Blocks cart/checkout skin — targets the stable
+ *     wc-block-components-* classes so the React-rendered UI matches the
+ *     theme (white rounded cards, pill buttons with dark-on-gradient text,
+ *     rounded inputs).
+ * --------------------------------------------------------------------- */
+/* The whole flow eases in like the homepage sections. */
+.wp-block-woocommerce-cart,
+.wp-block-woocommerce-checkout {
+	animation: scfadeup 0.7s ease 0.12s both;
+}
+
+/* Playful accent on every native check/radio control site-wide (archive
+ * filters, checkout options, comment forms). */
+input[type="checkbox"],
+input[type="radio"] {
+	accent-color: var( --secondary-color );
+}
+
+.wc-block-components-button:not( .is-link ) {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	border-radius: 999px;
+	font-weight: 700;
+	box-shadow: 0 8px 20px rgba( 0, 0, 0, 0.1 );
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wc-block-components-button:not( .is-link ):hover,
+.wc-block-components-button:not( .is-link ):focus {
+	background: var( --gradient-primary );
+	color: #2B2B33;
+	transform: translateY( -2px );
+}
+
+.wc-block-cart .wc-block-cart-items {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	padding: 6px 22px;
+}
+
+.wc-block-cart-item__image img {
+	border: 1px solid var( --border-color );
+	border-radius: 12px;
+}
+
+.wc-block-components-product-name {
+	font-weight: 700;
+	color: var( --text-color ) !important;
+}
+
+.wc-block-components-product-price .wc-block-components-product-price__value {
+	font-weight: 800;
+}
+
+.wc-block-components-quantity-selector {
+	border-radius: 999px;
+	background: #fff;
+}
+
+.wc-block-components-quantity-selector::after {
+	border-radius: 999px;
+	border-color: var( --border-color );
+}
+
+.wp-block-woocommerce-cart-order-summary-block,
+.wp-block-woocommerce-checkout-order-summary-block {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	padding: 6px 20px 14px;
+}
+
+.wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.wc-block-components-text-input input,
+.wc-block-components-combobox .wc-block-components-combobox-control input,
+.wc-block-components-textarea,
+.wc-block-components-form .wc-block-components-select .components-custom-select-control__button {
+	background: #fff;
+	border-color: var( --border-color );
+	border-radius: 10px;
+	font-family: inherit;
+}
+
+/* Checkout: the form column becomes one white rounded card, matching the
+ * order-summary card beside it. */
+.wc-block-checkout__main {
+	background: #fff;
+	border: 1px solid var( --border-color );
+	border-radius: var( --radius-lg );
+	padding: 10px 26px 26px;
+}
+
+.wc-block-components-checkout-step__title,
+.wc-block-components-title {
+	font-weight: 800;
+}
+
+.wc-block-components-checkout-step__description {
+	color: #8b8b96;
+}
+
+/* Payment / shipping option rows. */
+.wc-block-components-radio-control__option {
+	border-radius: 12px;
+}
+
+.wc-block-components-radio-control__input:checked {
+	border-color: var( --text-color );
+}
+
+.wc-block-components-radio-control__input:checked::before {
+	background: var( --text-color );
+}
+
+/* Coupon panel input + apply button inherit the input DSL. */
+.wc-block-components-totals-coupon__input input {
+	border-radius: 10px;
+}
+
+/* Empty-cart state gets the same voice as the rest of the theme. */
+.wc-block-cart__empty-cart__title {
+	font-weight: 800;
+	letter-spacing: -0.01em;
+}
+
+/* ---------------------------------------------------------------------
+ * 24. Responsive
+ * --------------------------------------------------------------------- */
+@media ( max-width: 782px ) {
+	.helanak-nav,
+	.helanak-header__search {
+		display: none;
+	}
+
+	.helanak-nav-toggle {
+		display: inline-flex;
+	}
+
+	.helanak-nav--mobile:not( [hidden] ) {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 0 20px 16px;
+	}
+
+	.helanak-nav--mobile a {
+		display: block;
+		padding: 10px 0;
+		color: var( --text-color );
+		font-weight: 600;
+		border-block-end: 1px solid var( --border-color );
+	}
+
+	.helanak-hero__grid {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.helanak-hero__actions {
+		justify-content: center;
+	}
+
+	.helanak-filters {
+		position: static;
+		flex-basis: 100%;
+	}
+
+	.helanak-hero__ambient,
+	.helanak-hero__butterfly {
+		display: none;
+	}
+}

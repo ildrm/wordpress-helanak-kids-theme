@@ -1,0 +1,58 @@
+/*
+ * RTL overrides. theme.css already uses logical CSS properties
+ * (inset-inline-start/end, margin-inline, padding-inline) almost
+ * everywhere, so most layout mirrors automatically once <html dir="rtl">
+ * is set — this file only covers the handful of physical-direction values
+ * (animation transforms, box-shadow offsets) that logical properties can't
+ * express.
+ */
+
+/* Persian type: Vazirmatn is enqueued for the fa locale (inc/class-assets.php)
+ * and applied here — rtl.css only ever loads when is_rtl() is true. */
+[dir="rtl"] body,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] select,
+[dir="rtl"] textarea {
+	font-family: 'Vazirmatn', sans-serif;
+}
+
+[dir="rtl"] .helanak-ticker__track {
+	animation-name: scmarquee-rtl;
+}
+
+@keyframes scmarquee-rtl {
+	0% { transform: translateX( 0 ); }
+	100% { transform: translateX( 50% ); }
+}
+
+[dir="rtl"] .helanak-character[data-character="bird"][data-behavior="fly"].is-flying {
+	animation-name: scfly-rtl;
+}
+
+@keyframes scfly-rtl {
+	0% { transform: translate( 90px, 0 ) scaleX( -1 ); }
+	30% { transform: translate( -30vw, -26px ) scaleX( -1 ); }
+	60% { transform: translate( -62vw, 8px ) scaleX( -1 ); }
+	100% { transform: translate( -108vw, -16px ) scaleX( -1 ); }
+}
+
+/* Drawer slide-in comes from the right in LTR; mirror the entrance. */
+[dir="rtl"] .helanak-mini-cart-drawer {
+	animation-name: scdrawin-rtl;
+}
+
+@keyframes scdrawin-rtl {
+	0% { opacity: 0; transform: translateX( -24px ); }
+	100% { opacity: 1; transform: none; }
+}
+
+[dir="rtl"] .helanak-hero__cloud {
+	animation-direction: alternate-reverse;
+}
+
+[dir="rtl"] .helanak-card__title,
+[dir="rtl"] .helanak-buy-box,
+[dir="rtl"] .helanak-hero__copy {
+	text-align: right;
+}
