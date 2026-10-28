@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$helanak_sale_ids = wc_get_product_ids_on_sale();
+$helanak_sale_ids = function_exists( 'wc_get_product_ids_on_sale' ) ? wc_get_product_ids_on_sale() : array();
 
 $helanak_sale_query = new WP_Query(
 	array(

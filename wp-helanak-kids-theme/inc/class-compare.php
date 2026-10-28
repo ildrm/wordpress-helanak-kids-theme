@@ -27,13 +27,16 @@ class Helanak_Compare {
 	public static function handle_request(): void {
 		check_ajax_referer( 'helanak_compare', 'nonce' );
 
-		$raw_ids = isset( $_POST['product_ids'] ) ? sanitize_text_field( wp_unslash( $_POST['product_ids'] ) ) : '';
-		$ids     = array_slice( array_filter( array_map( 'absint', explode( ',', $raw_ids ) ) ), 0, self::MAX_PRODUCTS );
+		if ( ! function_exists( 'wc_get_product' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Product not found.', 'wp-helanak-kids-theme' ) ), 404 );
+		}
+		$raw_ids = isset( $_POST['product_ids'] ) && is_string( $_POST['product_ids'] ) ? sanitize_text_field( wp_unslash( $_POST['product_ids'] ) ) : '';
+		$ids     = array_slice( array_unique( array_filter( array_map( 'absint', explode( ',', $raw_ids ) ) ) ), 0, self::MAX_PRODUCTS );
 
 		$products = array();
 		foreach ( $ids as $id ) {
 			$product = wc_get_product( $id );
-			if ( $product instanceof WC_Product && 'publish' === $product->get_status() ) {
+			if ( $product instanceof WC_Product && 'publish' === $product->get_status() && ! post_password_required( $id ) && $product->is_visible() ) {
 				$products[] = $product;
 			}
 		}
@@ -143,13 +146,15 @@ class Helanak_Compare {
 				break;
 
 			case 'cart':
+				$ajax = $product->is_type( 'simple' ) && $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock();
 				// The compare table lives in a modal; a plain add-to-cart link
 				// with the AJAX classes behaves like the card button.
 				printf(
-					'<a href="%1$s" data-product_id="%2$d" class="helanak-btn helanak-btn--primary add_to_cart_button ajax_add_to_cart" rel="nofollow">%3$s</a>',
+					'<a href="%1$s" data-product_id="%2$d" data-quantity="1" class="helanak-btn helanak-btn--primary%4$s" rel="nofollow">%3$s</a>',
 					esc_url( $product->add_to_cart_url() ),
 					absint( $product->get_id() ),
-					esc_html__( 'Add to cart', 'wp-helanak-kids-theme' )
+					esc_html( $product->add_to_cart_text() ),
+					$ajax ? ' add_to_cart_button ajax_add_to_cart' : ''
 				);
 				break;
 		}

@@ -1,0 +1,20 @@
+<svg class="helanak-character__svg" viewBox="0 0 160 130" width="160" height="130" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <ellipse cx="81" cy="122" rx="66" ry="6" fill="#53684C" opacity=".14"/>
+  <path class="char-tail" d="m20 92-15 8 19 6" fill="#BFD8A5" stroke="#53684C" stroke-width="3" stroke-linejoin="round"/>
+  <g class="char-foot char-foot--left"><path d="M35 97c-14 4-19 20-11 24 8 4 20-8 25-16" fill="#BFD8A5" stroke="#53684C" stroke-width="3"/><path d="m27 116 3 3m3-8 4 4" stroke="#8DA77C" stroke-width="2" stroke-linecap="round"/></g>
+  <g class="char-foot char-foot--right"><path d="M85 100c-4 15 2 23 13 20 10-2 12-11 10-18" fill="#BFD8A5" stroke="#53684C" stroke-width="3"/><path d="M96 116v3m6-5 1 3" stroke="#8DA77C" stroke-width="2" stroke-linecap="round"/></g>
+  <path d="M100 83c2-14 9-22 19-22l15 23-30 16" fill="#BFD8A5" stroke="#53684C" stroke-width="3"/>
+  <g class="char-body"><path d="M14 87c0-35 21-55 52-55s53 20 53 55c0 20-21 28-53 28S14 107 14 87Z" fill="#91B376" stroke="#53684C" stroke-width="3"/>
+    <path d="m43 48 27-8 25 17-2 28-26 14-27-13Z" fill="#AAC78B" stroke="#718E59" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="m43 48-20 5m17 33-22 8m49 5v15m26-29 22 9m-20-37 14-7m-39-10 2-7" fill="none" stroke="#718E59" stroke-width="2.5"/>
+    <path d="M17 94c22 15 73 17 99-1" fill="none" stroke="#D9E7B7" stroke-width="6" stroke-linecap="round"/>
+    <path d="M31 49c8-9 17-13 29-14" fill="none" stroke="#D3E4AE" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+  </g>
+  <g class="char-head"><path d="M101 61c-1-22 10-36 26-36 17 0 28 14 28 34 0 18-12 29-28 29s-26-9-26-27Z" fill="#BFD8A5" stroke="#53684C" stroke-width="3"/>
+    <g class="char-eye char-eye--left"><ellipse cx="117" cy="51" rx="5" ry="6" fill="#392E2B"/><circle cx="115.5" cy="49" r="1.7" fill="#FFF"/></g>
+    <g class="char-eye char-eye--right"><ellipse cx="138" cy="51" rx="5" ry="6" fill="#392E2B"/><circle cx="136.5" cy="49" r="1.7" fill="#FFF"/></g>
+    <path class="char-mouth" d="M121 65q7 7 14 0" fill="none" stroke="#53684C" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="109" cy="62" rx="6" ry="4" fill="#DDAA95" opacity=".55"/><ellipse cx="147" cy="62" rx="6" ry="4" fill="#DDAA95" opacity=".55"/>
+    <path d="M114 35q10-6 19-3" fill="none" stroke="#E1ECCB" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

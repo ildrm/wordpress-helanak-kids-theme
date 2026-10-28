@@ -17,7 +17,7 @@
 		try {
 			var raw = window.localStorage.getItem( STORAGE_KEY );
 			var list = raw ? JSON.parse( raw ) : [];
-			return Array.isArray( list ) ? list.map( String ) : [];
+			return Array.isArray( list ) ? list.map( String ).filter( function ( id, index, all ) { return /^[1-9][0-9]*$/.test( id ) && all.indexOf( id ) === index; } ) : [];
 		} catch ( e ) {
 			return [];
 		}
@@ -36,7 +36,7 @@
 			var active = list.indexOf( btn.getAttribute( 'data-product-id' ) ) !== -1;
 			btn.setAttribute( 'aria-pressed', active ? 'true' : 'false' );
 			btn.classList.toggle( 'is-active', active );
-			btn.textContent = active ? '♥' : '♡';
+			btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 5.5a5 5 0 0 0-8 1 5 5 0 0 0-8-1C.5 9.5 5 15 12 20c7-5 11.5-10.5 8-14.5Z" fill="' + ( active ? 'currentColor' : 'none' ) + '" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
 		} );
 	}
 
@@ -53,6 +53,8 @@
 	}
 
 	sync( readList() );
+	document.addEventListener( 'helanak:contentupdated', function () { sync( readList() ); } );
+	window.addEventListener( 'storage', function ( event ) { if ( event.key === STORAGE_KEY ) { sync( readList() ); } } );
 
 	document.addEventListener( 'click', function ( event ) {
 		if ( ! event.target.closest ) {
@@ -74,18 +76,22 @@
 			}
 			writeList( list );
 			sync( list );
+			var current = new window.URL( window.location.href );
+			if ( current.searchParams.has( 'helanak_wishlist' ) ) {
+				current.searchParams.set( 'helanak_wishlist', list.length ? list.join( ',' ) : '0' );
+				current.searchParams.delete( 'paged' );
+				current.pathname = current.pathname.replace( /\/page\/[0-9]+\/?$/, '/' );
+				window.location.replace( current.toString() );
+			}
 			return;
 		}
 
 		var navLink = event.target.closest( '[data-helanak-wishlist-nav]' );
 		if ( navLink ) {
 			var ids = readList();
-			if ( ! ids.length ) {
-				return;
-			}
 			event.preventDefault();
 			var url = new URL( navLink.href, window.location.origin );
-			url.searchParams.set( 'helanak_wishlist', ids.join( ',' ) );
+			url.searchParams.set( 'helanak_wishlist', ids.length ? ids.join( ',' ) : '0' );
 			window.location.href = url.toString();
 		}
 	} );

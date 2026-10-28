@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Helanak Core
  * Plugin URI: https://helanak.com
- * Description: Business logic for the Helanak Kids commerce platform: age-range taxonomy, product safety/compliance fields, badge engine, category theme (visual skin) assignment, and WooCommerce HPOS compatibility. Presentation lives in the wp-helanak-kids-theme theme; this plugin never renders markup directly, only exposes data/helpers.
- * Version: 0.1.0
+ * Description: Store data and rules for Helanak Kids: age ranges, product safety, badges, languages, shipping eligibility, store forms, image optimization, and WooCommerce HPOS compatibility. Storefront presentation belongs to the Helanak theme.
+ * Version: 0.3.0
  * Requires at least: 6.5
  * Requires PHP: 8.1
  * Author: Helanak
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HELANAK_CORE_VERSION', '0.1.0' );
+define( 'HELANAK_CORE_VERSION', '0.3.0' );
 define( 'HELANAK_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HELANAK_CORE_URL', plugin_dir_url( __FILE__ ) );
 define( 'HELANAK_CORE_FILE', __FILE__ );
@@ -30,6 +30,10 @@ require_once HELANAK_CORE_DIR . 'includes/class-age-taxonomy.php';
 require_once HELANAK_CORE_DIR . 'includes/class-category-theme.php';
 require_once HELANAK_CORE_DIR . 'includes/class-product-safety-fields.php';
 require_once HELANAK_CORE_DIR . 'includes/class-badge-engine.php';
+require_once HELANAK_CORE_DIR . 'includes/class-migrator.php';
+require_once HELANAK_CORE_DIR . 'includes/class-store-forms.php';
+require_once HELANAK_CORE_DIR . 'includes/class-shipping-goal.php';
+require_once HELANAK_CORE_DIR . 'includes/class-media.php';
 
 /**
  * Boot the plugin once all plugins are loaded, so the WooCommerce-active
@@ -37,6 +41,8 @@ require_once HELANAK_CORE_DIR . 'includes/class-badge-engine.php';
  */
 function helanak_core_init(): void {
 	load_plugin_textdomain( 'helanak-core', false, dirname( plugin_basename( HELANAK_CORE_FILE ) ) . '/languages' );
+	Helanak_Core_Store_Forms::init();
+	Helanak_Core_Media::init();
 
 	if ( ! Helanak_Core_WooCommerce_Notice::is_woocommerce_active() ) {
 		Helanak_Core_WooCommerce_Notice::init();
@@ -47,6 +53,7 @@ function helanak_core_init(): void {
 	Helanak_Core_Category_Theme::init();
 	Helanak_Core_Product_Safety_Fields::init();
 	Helanak_Core_Badge_Engine::init();
+	Helanak_Core_Migrator::init();
 }
 add_action( 'plugins_loaded', 'helanak_core_init' );
 
@@ -54,16 +61,11 @@ Helanak_Core_Language_Switcher::init();
 Helanak_Core_HPOS_Compat::init();
 
 /**
- * Seed default taxonomy terms on activation. Requires WooCommerce to already
- * be active so the 'product' post type / 'product_cat' taxonomy exist; if it
- * isn't, the admin notice from Helanak_Core_WooCommerce_Notice explains why
- * nothing was seeded and the seed simply runs again next time the plugin is
- * reactivated with WooCommerce present.
+ * Install or migrate dynamic taxonomy data on activation.
  */
 function helanak_core_activate(): void {
 	if ( Helanak_Core_WooCommerce_Notice::is_woocommerce_active() ) {
-		Helanak_Core_Age_Taxonomy::register();
-		Helanak_Core_Age_Taxonomy::seed_terms();
+		Helanak_Core_Migrator::activate();
 	}
 	flush_rewrite_rules();
 }

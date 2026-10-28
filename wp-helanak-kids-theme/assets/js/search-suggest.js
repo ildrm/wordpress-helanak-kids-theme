@@ -1,122 +1,64 @@
-/**
- * Live search dropdown for the header search pill (#helanak-search-input):
- * debounced fetch to Helanak_Search_Suggest's endpoint, results rendered in
- * a listbox under the pill. Escape/click-outside closes; ArrowDown/ArrowUp
- * move through results. No-ops when the input isn't on the page.
- */
+/** Accessible search combobox with request sequencing and dismissal cancellation. */
 ( function () {
 	'use strict';
-
 	var settings = window.helanakSettings || {};
 	var input = document.getElementById( 'helanak-search-input' );
-	if ( ! input || ! settings.ajaxUrl ) {
-		return;
-	}
-
+	if ( ! input || ! settings.ajaxUrl ) { return; }
 	var wrap = input.closest( '.helanak-header__search' );
-	if ( ! wrap ) {
-		return;
-	}
-
 	var list = document.createElement( 'ul' );
-	list.className = 'helanak-search-suggest';
-	list.setAttribute( 'role', 'listbox' );
-	list.hidden = true;
-	wrap.appendChild( list );
-	wrap.classList.add( 'helanak-header__search--suggest' );
-	input.setAttribute( 'autocomplete', 'off' );
-	input.setAttribute( 'aria-expanded', 'false' );
-
-	var debounceTimer = null;
-	var lastTerm = '';
-
+	list.id = 'helanak-search-results'; list.className = 'helanak-search-suggest'; list.hidden = true;
+	list.setAttribute( 'role', 'listbox' ); list.setAttribute( 'aria-label', settings.suggestionsLabel || 'Search suggestions' );
+	wrap.appendChild( list ); wrap.classList.add( 'helanak-header__search--suggest' );
+	var status = document.createElement( 'span' ); status.className = 'screen-reader-text'; status.setAttribute( 'role', 'status' ); wrap.appendChild( status );
+	input.setAttribute( 'role', 'combobox' ); input.setAttribute( 'autocomplete', 'off' ); input.setAttribute( 'aria-autocomplete', 'list' ); input.setAttribute( 'aria-controls', list.id ); input.setAttribute( 'aria-expanded', 'false' );
+	var sequence = 0;
+	var timer = null;
+	var pending = null;
+	var options = [];
+	var selected = -1;
 	function close() {
-		list.hidden = true;
-		list.innerHTML = '';
-		input.setAttribute( 'aria-expanded', 'false' );
+		sequence++; window.clearTimeout( timer ); if ( pending ) { pending.abort(); pending = null; }
+		list.hidden = true; list.innerHTML = ''; status.textContent = ''; options = []; selected = -1;
+		input.setAttribute( 'aria-expanded', 'false' ); input.removeAttribute( 'aria-activedescendant' ); wrap.removeAttribute( 'aria-busy' );
 	}
-
-	function open( html ) {
-		if ( ! html ) {
-			close();
-			return;
-		}
-		list.innerHTML = html;
-		list.hidden = false;
-		input.setAttribute( 'aria-expanded', 'true' );
+	function select( index ) {
+		selected = index;
+		options.forEach( function ( option, i ) { option.setAttribute( 'aria-selected', i === index ? 'true' : 'false' ); } );
+		if ( options[ index ] ) { input.setAttribute( 'aria-activedescendant', options[ index ].id ); options[ index ].scrollIntoView( { block: 'nearest' } ); }
+		else { input.removeAttribute( 'aria-activedescendant' ); }
 	}
-
-	function fetchSuggestions( term ) {
-		var body = new window.URLSearchParams();
-		body.set( 'action', 'helanak_search_suggest' );
-		body.set( 'nonce', settings.searchSuggestNonce || '' );
-		body.set( 'term', term );
-
-		window
-			.fetch( settings.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body } )
-			.then( function ( response ) {
-				return response.json();
-			} )
-			.then( function ( json ) {
-				// A stale response for an older term must not clobber the
-				// dropdown for what's currently typed.
-				if ( term !== lastTerm ) {
-					return;
+	function search() {
+		var term = input.value.trim(); close(); if ( term.length < 2 ) { return; }
+		var current = sequence;
+		timer = window.setTimeout( function () {
+			var body = new window.URLSearchParams(); body.set( 'action', 'helanak_search_suggest' ); body.set( 'nonce', settings.searchSuggestNonce || '' ); body.set( 'term', term );
+			pending = window.AbortController ? new window.AbortController() : null; wrap.setAttribute( 'aria-busy', 'true' );
+			window.fetch( settings.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body, signal: pending ? pending.signal : undefined } ).then( function ( response ) { return response.json(); } ).then( function ( json ) {
+				if ( current !== sequence || input.value.trim() !== term ) { return; }
+				wrap.removeAttribute( 'aria-busy' ); pending = null;
+				if ( ! json || ! json.success || ! json.data || ! json.data.html ) { close(); return; }
+				list.innerHTML = json.data.html;
+				options = Array.prototype.slice.call( list.querySelectorAll( 'a' ) );
+				options.forEach( function ( option, index ) {
+					option.parentNode.setAttribute( 'role', 'presentation' ); option.id = 'helanak-search-option-' + index; option.setAttribute( 'role', 'option' ); option.setAttribute( 'aria-selected', 'false' ); option.tabIndex = -1;
+				} );
+				if ( ! options.length ) {
+					Array.prototype.forEach.call( list.children, function ( item ) { item.setAttribute( 'role', 'option' ); item.setAttribute( 'aria-disabled', 'true' ); item.setAttribute( 'aria-selected', 'false' ); } );
+					status.textContent = list.textContent;
 				}
-				open( json && json.success && json.data ? json.data.html : '' );
-			} )
-			.catch( close );
-	}
-
-	input.addEventListener( 'input', function () {
-		var term = input.value.trim();
-		lastTerm = term;
-		window.clearTimeout( debounceTimer );
-		if ( term.length < 2 ) {
-			close();
-			return;
-		}
-		debounceTimer = window.setTimeout( function () {
-			fetchSuggestions( term );
+				list.hidden = false; input.setAttribute( 'aria-expanded', 'true' );
+			} ).catch( function ( error ) { if ( current === sequence && ( ! error || error.name !== 'AbortError' ) ) { close(); } } );
 		}, 250 );
-	} );
-
+	}
+	input.addEventListener( 'input', search );
 	input.addEventListener( 'keydown', function ( event ) {
-		if ( 'Escape' === event.key ) {
-			close();
-			return;
-		}
-		if ( 'ArrowDown' === event.key && ! list.hidden ) {
-			event.preventDefault();
-			var first = list.querySelector( 'a' );
-			if ( first ) {
-				first.focus();
-			}
-		}
+		if ( event.key === 'Escape' ) { close(); return; }
+		if ( list.hidden || ! options.length ) { return; }
+		if ( event.key === 'ArrowDown' || event.key === 'ArrowUp' ) {
+			event.preventDefault(); select( event.key === 'ArrowDown' ? ( selected + 1 ) % options.length : ( selected <= 0 ? options.length - 1 : selected - 1 ) );
+		} else if ( event.key === 'Enter' && selected >= 0 && ! event.ctrlKey && ! event.metaKey ) { event.preventDefault(); options[ selected ].click(); }
 	} );
-
-	list.addEventListener( 'keydown', function ( event ) {
-		var links = Array.prototype.slice.call( list.querySelectorAll( 'a' ) );
-		var index = links.indexOf( document.activeElement );
-		if ( 'ArrowDown' === event.key && index > -1 && index < links.length - 1 ) {
-			event.preventDefault();
-			links[ index + 1 ].focus();
-		} else if ( 'ArrowUp' === event.key ) {
-			event.preventDefault();
-			if ( index > 0 ) {
-				links[ index - 1 ].focus();
-			} else {
-				input.focus();
-			}
-		} else if ( 'Escape' === event.key ) {
-			close();
-			input.focus();
-		}
-	} );
-
-	document.addEventListener( 'click', function ( event ) {
-		if ( ! wrap.contains( event.target ) ) {
-			close();
-		}
-	} );
+	wrap.addEventListener( 'focusout', function () { window.setTimeout( function () { if ( ! wrap.contains( document.activeElement ) ) { close(); } }, 0 ); } );
+	wrap.addEventListener( 'submit', close );
+	document.addEventListener( 'click', function ( event ) { if ( ! wrap.contains( event.target ) ) { close(); } } );
 } )();

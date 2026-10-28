@@ -10,12 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HELANAK_THEME_VERSION', '0.5.1' );
+define( 'HELANAK_THEME_VERSION', '0.7.0' );
 define( 'HELANAK_THEME_DIR', get_template_directory() );
 define( 'HELANAK_THEME_URI', get_template_directory_uri() );
 
 require_once HELANAK_THEME_DIR . '/inc/class-theme-setup.php';
 require_once HELANAK_THEME_DIR . '/inc/class-assets.php';
+require_once HELANAK_THEME_DIR . '/inc/class-blog-query.php';
 require_once HELANAK_THEME_DIR . '/inc/class-customizer.php';
 require_once HELANAK_THEME_DIR . '/inc/class-season-engine.php';
 require_once HELANAK_THEME_DIR . '/inc/class-character-engine.php';
@@ -34,6 +35,7 @@ require_once HELANAK_THEME_DIR . '/inc/template-tags.php';
 
 Helanak_Theme_Setup::init();
 Helanak_Theme_Assets::init();
+Helanak_Theme_Blog_Query::init();
 Helanak_Theme_Customizer::init();
 Helanak_Season_Engine::init();
 Helanak_Character_Engine::init();
@@ -48,30 +50,6 @@ Helanak_Recently_Viewed::init();
 Helanak_Shipping_Goal::init();
 Helanak_Celebration::init();
 Helanak_Locale_Digits::init();
-
-/**
- * Badge colors: the prototype's soft-pastel-background / saturated-dark-
- * foreground pairs (frontend/*.dc.html BADGES getter), overriding the
- * plugin's more saturated defaults via its own helanak_badge_colors filter —
- * presentation stays theme-side, no plugin edit needed.
- */
-function helanak_theme_badge_colors( array $colors ): array {
-	return array_merge( $colors, array(
-		'sale'          => array( '#FDE7E2', '#C4432B' ),
-		'new'           => array( '#E5F8E2', '#2F7D28' ),
-		'best_seller'   => array( '#FFF4CC', '#8A6D00' ),
-		'trending'      => array( '#FFE8F1', '#B03A6E' ),
-		'organic'       => array( '#E2F3EE', '#1E7A63' ),
-		'educational'   => array( '#E9EEFF', '#3A4FB0' ),
-		'safe_material' => array( '#EAF6FF', '#2A6B9A' ),
-		'gift'          => array( '#F3E9FF', '#7A3FB0' ),
-		'limited'       => array( '#FBE9D8', '#A85A1E' ),
-		'hot'           => array( '#FDE3E3', '#C0392B' ),
-		'recommended'   => array( '#EAF7EC', '#2E7D46' ),
-		'age_specific'  => array( '#EFEFF4', '#4A4A55' ),
-	) );
-}
-add_filter( 'helanak_badge_colors', 'helanak_theme_badge_colors' );
 
 /**
  * Keeps every cart-count badge (header icon + floating mini-cart button) in
@@ -91,7 +69,7 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'helanak_theme_cart_count_fragm
  * go unnoticed.
  */
 function helanak_theme_missing_plugin_notice(): void {
-	if ( class_exists( 'Helanak_Core_Age_Taxonomy' ) || ! current_user_can( 'activate_plugins' ) ) {
+	if ( ! current_user_can( 'activate_plugins' ) || ( class_exists( 'Helanak_Core_Age_Taxonomy' ) && class_exists( 'Helanak_Core_Store_Forms' ) ) ) {
 		return;
 	}
 	?>
@@ -99,7 +77,7 @@ function helanak_theme_missing_plugin_notice(): void {
 		<p>
 			<?php
 			esc_html_e(
-				'WP Helanak Kids Theme works best with the "Helanak Core" plugin active (age-range filtering, product safety fields, and merchandising badges depend on it). The theme will still function without it, using generic fallbacks.',
+				'Activate Helanak Core 0.3.0 or later for store forms, shipping progress, product safety, badges, and age filters. Storefront pages remain available when the companion plugin is missing.',
 				'wp-helanak-kids-theme'
 			);
 			?>

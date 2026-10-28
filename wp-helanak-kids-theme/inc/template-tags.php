@@ -52,18 +52,15 @@ function helanak_character( string $key, array $args = array() ): void {
 
 /** True when the current request should render right-to-left (Persian) chrome. */
 function helanak_is_rtl_request(): bool {
-	if ( class_exists( 'Helanak_Core_Language_Switcher' ) ) {
-		return Helanak_Core_Language_Switcher::is_rtl();
-	}
 	return is_rtl();
 }
 
-/** Current storefront language ('en'|'fa'), falling back to 'en' if Helanak Core isn't active. */
+/** Current storefront language ('en'|'fa'), derived from WordPress when Core is inactive. */
 function helanak_current_lang(): string {
 	if ( class_exists( 'Helanak_Core_Language_Switcher' ) ) {
 		return Helanak_Core_Language_Switcher::current_lang();
 	}
-	return 'en';
+	return 'fa' === substr( get_locale(), 0, 2 ) ? 'fa' : 'en';
 }
 
 /** URL that switches the storefront to $lang, falling back to a plain ?lang= link if Helanak Core isn't active. */
@@ -77,7 +74,7 @@ function helanak_lang_switch_url( string $lang ): string {
 /** Localized age-range term label, falling back to the term's own name if Helanak Core isn't active. */
 function helanak_age_label( WP_Term $term ): string {
 	if ( class_exists( 'Helanak_Core_Age_Taxonomy' ) ) {
-		return Helanak_Core_Age_Taxonomy::localized_label( $term, helanak_is_rtl_request() );
+		return Helanak_Core_Age_Taxonomy::get_display_data( $term, helanak_current_lang() )['label'];
 	}
 	return $term->name;
 }
@@ -109,3 +106,22 @@ function helanak_reading_time( $post ): string {
 		$minutes
 	);
 }
+
+/** Useful navigation before a merchant assigns a custom menu. */
+function helanak_primary_menu_fallback( array $args = array() ): void {
+	$links = array( home_url( '/' ) => __( 'Home', 'wp-helanak-kids-theme' ) );
+	if ( function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ) {
+		$links[ wc_get_page_permalink( 'shop' ) ] = __( 'Shop', 'wp-helanak-kids-theme' );
+	}
+	echo '<ul class="helanak-menu">';
+	foreach ( $links as $url => $label ) {
+		echo '<li><a href="' . esc_url( add_query_arg( 'lang', helanak_current_lang(), $url ) ) . '">' . esc_html( $label ) . '</a></li>';
+	}
+	echo '</ul>';
+}
+
+/** Desktop, mobile and footer instances of one menu need distinct item IDs. */
+function helanak_nav_item_id( string $id, $item, $args ): string {
+	return ! empty( $args->menu_id ) && 0 === strpos( $args->menu_id, 'helanak-' ) ? $id . '-' . sanitize_html_class( $args->menu_id ) : $id;
+}
+add_filter( 'nav_menu_item_id', 'helanak_nav_item_id', 10, 3 );

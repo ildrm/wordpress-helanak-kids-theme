@@ -22,7 +22,11 @@ class Helanak_Search_Suggest {
 	public static function handle_request(): void {
 		check_ajax_referer( 'helanak_search_suggest', 'nonce' );
 
-		$term = isset( $_POST['term'] ) ? sanitize_text_field( wp_unslash( $_POST['term'] ) ) : '';
+		if ( ! function_exists( 'wc_get_products' ) ) {
+			wp_send_json_success( array( 'html' => '' ) );
+		}
+		$term = isset( $_POST['term'] ) && is_string( $_POST['term'] ) ? sanitize_text_field( wp_unslash( $_POST['term'] ) ) : '';
+		$term = mb_substr( $term, 0, 100 );
 		if ( mb_strlen( $term ) < 2 ) {
 			wp_send_json_success( array( 'html' => '' ) );
 		}
@@ -36,10 +40,13 @@ class Helanak_Search_Suggest {
 			)
 		);
 
+		$products = array_filter( $products, function ( $product ) {
+			return ! post_password_required( $product->get_id() );
+		} );
 		if ( ! $products ) {
 			wp_send_json_success(
 				array(
-					'html' => '<li class="helanak-search-suggest__empty" role="option" aria-disabled="true">'
+					'html' => '<li class="helanak-search-suggest__empty">'
 						. esc_html__( 'No products found', 'wp-helanak-kids-theme' )
 						. '</li>',
 				)
@@ -57,7 +64,7 @@ class Helanak_Search_Suggest {
 		$age_terms = get_the_terms( $product->get_id(), 'age_range' );
 		$age_term  = ( is_array( $age_terms ) && $age_terms ) ? $age_terms[0] : null;
 		?>
-		<li role="option">
+		<li>
 			<a class="helanak-search-suggest__item" href="<?php echo esc_url( $product->get_permalink() ); ?>">
 				<?php echo $product->get_image( 'thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput -- core-generated <img>. ?>
 				<span class="helanak-search-suggest__text">

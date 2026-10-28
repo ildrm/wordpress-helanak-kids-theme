@@ -23,10 +23,13 @@ class Helanak_Quick_View {
 	public static function handle_request(): void {
 		check_ajax_referer( 'helanak_quick_view', 'nonce' );
 
-		$product_id = isset( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+		$product_id = isset( $_POST['product_id'] ) && is_scalar( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : 0;
+		if ( ! function_exists( 'wc_get_product' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Product not found.', 'wp-helanak-kids-theme' ) ), 404 );
+		}
 		$product    = $product_id ? wc_get_product( $product_id ) : false;
 
-		if ( ! $product instanceof WC_Product || 'publish' !== $product->get_status() ) {
+		if ( ! $product instanceof WC_Product || 'publish' !== $product->get_status() || post_password_required( $product_id ) || ! $product->is_visible() ) {
 			wp_send_json_error( array( 'message' => __( 'Product not found.', 'wp-helanak-kids-theme' ) ), 404 );
 		}
 
@@ -42,14 +45,12 @@ class Helanak_Quick_View {
 		// partials read the product from $GLOBALS['product'], not a param.
 		$GLOBALS['product'] = $product; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
 
-		$image_id  = $product->get_image_id();
-		$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'helanak-card' ) : wc_placeholder_img_src( 'helanak-card' );
 		$badges    = class_exists( 'Helanak_Core_Badge_Engine' ) ? Helanak_Core_Badge_Engine::get_badges( $product ) : array();
 		$safety    = class_exists( 'Helanak_Core_Product_Safety_Fields' ) ? Helanak_Core_Product_Safety_Fields::get_safety_data( $product->get_id() ) : null;
 		?>
 		<div class="helanak-quick-view">
 			<div class="helanak-quick-view__media">
-				<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" />
+				<?php echo $product->get_image( 'helanak-card', array( 'alt' => $product->get_name() ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- WooCommerce generates escaped responsive image markup. ?>
 				<?php if ( $badges ) : ?>
 					<div class="helanak-quick-view__badges">
 						<?php foreach ( $badges as $badge ) : ?>

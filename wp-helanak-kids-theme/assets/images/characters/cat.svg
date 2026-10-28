@@ -1,0 +1,18 @@
+<svg class="helanak-character__svg" viewBox="0 0 150 106" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <ellipse cx="73" cy="100" rx="54" ry="5" fill="#3C4354" opacity=".12"/>
+  <path class="char-tail" d="M110 77c38-28 44 18 16 19" fill="none" stroke="#7F899D" stroke-width="13" stroke-linecap="round"/>
+  <path class="char-body" d="M42 62c18-14 60-9 73 10 11 17-4 29-42 29-37 0-50-15-31-39Z" fill="#9CA6B8" stroke="#606A7E" stroke-width="3"/>
+  <path d="M55 73c10 8 33 10 46 1" fill="none" stroke="#BCC4D0" stroke-width="7" stroke-linecap="round"/>
+  <g class="char-ear char-ear--left"><path d="M37 31 42 5 62 25Z" fill="#9CA6B8" stroke="#606A7E" stroke-width="3"/><path d="m43 25 2-12 9 10Z" fill="#E8AEBE"/></g>
+  <g class="char-ear char-ear--right"><path d="m81 25 20-20 4 29Z" fill="#9CA6B8" stroke="#606A7E" stroke-width="3"/><path d="m89 23 9-10 2 13Z" fill="#E8AEBE"/></g>
+  <path class="char-head" d="M31 47c0-24 16-37 38-37s40 13 40 37-16 40-40 40-38-16-38-40Z" fill="#AAB3C2" stroke="#606A7E" stroke-width="3"/>
+  <path d="M43 28c9-9 21-12 33-11" fill="none" stroke="#C5CBD5" stroke-width="5" stroke-linecap="round"/>
+  <g class="char-eye char-eye--left"><path d="M46 46q9-9 18 0-2 13-9 13t-9-13Z" fill="#596E55"/><ellipse cx="55" cy="47" rx="2.2" ry="8" fill="#1F2933"/><circle cx="51" cy="42" r="2" fill="#FFF"/></g>
+  <g class="char-eye char-eye--right"><path d="M76 46q9-9 18 0-2 13-9 13t-9-13Z" fill="#596E55"/><ellipse cx="85" cy="47" rx="2.2" ry="8" fill="#1F2933"/><circle cx="81" cy="42" r="2" fill="#FFF"/></g>
+  <path class="char-sleep-eye char-sleep-eye--left" d="M45 49q10 8 20 0" fill="none" stroke="#3C4354" stroke-width="3" stroke-linecap="round"/>
+  <path class="char-sleep-eye char-sleep-eye--right" d="M75 49q10 8 20 0" fill="none" stroke="#3C4354" stroke-width="3" stroke-linecap="round"/>
+  <path d="M64 61q6-5 12 0-1 7-6 7t-6-7Z" fill="#D47F98"/>
+  <path class="char-mouth" d="M70 68c-2 5-8 6-11 3m11-3c2 5 8 6 11 3" fill="none" stroke="#4E5667" stroke-width="2" stroke-linecap="round"/>
+  <path d="M44 65 17 60m27 10-29 2m81-7 27-6m-27 11 29 2" stroke="#606A7E" stroke-width="1.5" stroke-linecap="round"/>
+  <g class="char-sleep-z"><text x="109" y="31" fill="#6D7482" font-family="sans-serif" font-size="15" font-weight="700">z</text><text x="124" y="18" fill="#6D7482" font-family="sans-serif" font-size="19" font-weight="700">z</text></g>
+</svg>

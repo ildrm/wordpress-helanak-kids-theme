@@ -15,34 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$helanak_paged = max( 1, (int) get_query_var( 'paged' ) );
-
-$helanak_sticky      = get_option( 'sticky_posts' );
-$helanak_featured_id = ! empty( $helanak_sticky ) ? (int) $helanak_sticky[0] : 0;
-
-if ( ! $helanak_featured_id ) {
-	$helanak_latest       = get_posts(
-		array(
-			'posts_per_page' => 1,
-			'post_status'    => 'publish',
-			'fields'         => 'ids',
-		)
-	);
-	$helanak_featured_id = ! empty( $helanak_latest ) ? (int) $helanak_latest[0] : 0;
-}
-
+$helanak_paged         = max( 1, (int) get_query_var( 'paged' ) );
+$helanak_featured_id   = absint( get_query_var( 'helanak_featured_post_id' ) );
 $helanak_featured_post = ( 1 === $helanak_paged && $helanak_featured_id ) ? get_post( $helanak_featured_id ) : null;
-
-$helanak_blog_query = new WP_Query(
-	array(
-		'post_type'           => 'post',
-		'post_status'         => 'publish',
-		'posts_per_page'      => 9,
-		'paged'               => $helanak_paged,
-		'post__not_in'        => $helanak_featured_post ? array( $helanak_featured_post->ID ) : array(),
-		'ignore_sticky_posts' => true,
-	)
-);
 ?>
 
 <main id="helanak-main" class="helanak-main">
@@ -58,11 +33,16 @@ $helanak_blog_query = new WP_Query(
 		</div>
 
 		<?php if ( $helanak_featured_post ) : ?>
-			<?php $helanak_featured_cats = get_the_category( $helanak_featured_post ); ?>
-			<a class="helanak-blog-featured" href="<?php echo esc_url( get_permalink( $helanak_featured_post ) ); ?>">
-				<span class="helanak-blog-featured__media">
-					<?php echo get_the_post_thumbnail( $helanak_featured_post, 'large' ); // phpcs:ignore WordPress.Security.EscapeOutput -- pre-escaped markup. ?>
-				</span>
+			<?php
+			$helanak_featured_cats  = get_the_category( $helanak_featured_post );
+			$helanak_featured_image = get_the_post_thumbnail( $helanak_featured_post, 'large' );
+			?>
+			<a class="helanak-blog-featured<?php echo $helanak_featured_image ? '' : ' helanak-blog-featured--text-only'; ?>" href="<?php echo esc_url( get_permalink( $helanak_featured_post ) ); ?>">
+				<?php if ( $helanak_featured_image ) : ?>
+					<span class="helanak-blog-featured__media">
+						<?php echo $helanak_featured_image; // phpcs:ignore WordPress.Security.EscapeOutput -- pre-escaped markup. ?>
+					</span>
+				<?php endif; ?>
 				<span class="helanak-blog-featured__body">
 					<span class="helanak-blog-featured__tags">
 						<span class="helanak-badge"><?php esc_html_e( '★ Featured', 'wp-helanak-kids-theme' ); ?></span>
@@ -87,11 +67,11 @@ $helanak_blog_query = new WP_Query(
 			</a>
 		<?php endif; ?>
 
-		<?php if ( $helanak_blog_query->have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 			<div class="helanak-blog-grid">
 				<?php
-				while ( $helanak_blog_query->have_posts() ) :
-					$helanak_blog_query->the_post();
+				while ( have_posts() ) :
+					the_post();
 					?>
 					<?php $helanak_card_cats = get_the_category(); ?>
 					<a class="helanak-blog-card" href="<?php the_permalink(); ?>">
@@ -120,11 +100,7 @@ $helanak_blog_query = new WP_Query(
 				<?php endwhile; ?>
 			</div>
 			<?php
-			$helanak_original_query = $GLOBALS['wp_query'];
-			$GLOBALS['wp_query']    = $helanak_blog_query;
 			the_posts_pagination();
-			$GLOBALS['wp_query']    = $helanak_original_query;
-			wp_reset_postdata();
 			?>
 		<?php elseif ( ! $helanak_featured_post ) : ?>
 			<p><?php esc_html_e( 'No posts yet — check back soon!', 'wp-helanak-kids-theme' ); ?></p>

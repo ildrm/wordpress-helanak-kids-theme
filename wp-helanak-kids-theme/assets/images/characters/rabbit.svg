@@ -1,0 +1,23 @@
+<svg class="helanak-character__svg" viewBox="0 0 150 196" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <ellipse cx="75" cy="189" rx="43" ry="6" fill="#5B4660" opacity=".12"/>
+  <g class="char-ear char-ear--left">
+    <path d="M53 71C44 51 32 8 46 3c17-6 20 42 18 66Z" fill="#FFF9F8" stroke="#D7C5D5" stroke-width="3"/>
+    <path d="M51 56C47 42 41 16 47 13c7-2 9 27 10 43Z" fill="#F7B8D0"/>
+  </g>
+  <g class="char-ear char-ear--right">
+    <path d="M88 69C87 42 92-3 107 3c15 6 1 50-8 70Z" fill="#FFF9F8" stroke="#D7C5D5" stroke-width="3"/>
+    <path d="M96 57c1-17 4-44 10-42 7 3-1 31-5 45Z" fill="#F7B8D0"/>
+  </g>
+  <path class="char-body" d="M39 128c5-28 67-30 73 0l7 42c2 14-11 20-44 20s-46-7-43-21Z" fill="#F8F3F0" stroke="#D7C5D5" stroke-width="3"/>
+  <ellipse cx="75" cy="151" rx="25" ry="29" fill="#FFFDFC"/>
+  <g class="char-arm char-arm--left"><path d="M43 132c-16 11-18 32-7 36 9 3 16-17 18-29Z" fill="#F8F3F0" stroke="#D7C5D5" stroke-width="3"/></g>
+  <g class="char-arm char-arm--right"><path d="M107 132c16 10 18 31 8 36-10 3-17-17-19-29Z" fill="#F8F3F0" stroke="#D7C5D5" stroke-width="3"/></g>
+  <path d="M45 183c4-14 26-12 28 4M77 187c3-16 25-17 30-4" fill="#F1E7E6" stroke="#D7C5D5" stroke-width="3" stroke-linecap="round"/>
+  <path class="char-head" d="M28 91c0-31 20-47 47-47s48 16 48 47c0 30-20 47-48 47S28 121 28 91Z" fill="#FFF9F8" stroke="#D7C5D5" stroke-width="3"/>
+  <path d="M38 91c4-24 19-36 39-38" fill="none" stroke="#FFF" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+  <g class="char-eye char-eye--left"><ellipse cx="58" cy="88" rx="8" ry="10" fill="#423649"/><circle cx="55" cy="84" r="3" fill="#FFF"/></g>
+  <g class="char-eye char-eye--right"><ellipse cx="92" cy="88" rx="8" ry="10" fill="#423649"/><circle cx="89" cy="84" r="3" fill="#FFF"/></g>
+  <ellipse cx="44" cy="107" rx="9" ry="6" fill="#F6B5CC" opacity=".65"/><ellipse cx="106" cy="107" rx="9" ry="6" fill="#F6B5CC" opacity=".65"/>
+  <path d="M68 103q7-7 14 0-2 8-7 8t-7-8Z" fill="#E989AD"/>
+  <path class="char-mouth" d="M75 111c-1 7-11 8-13 3m13-3c1 7 11 8 13 3" fill="none" stroke="#59465F" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

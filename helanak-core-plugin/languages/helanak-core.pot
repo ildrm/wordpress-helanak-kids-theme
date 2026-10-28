@@ -1,0 +1,260 @@
+# Copyright (C) 2026 Helanak
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Helanak Core 0.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/helanak-core-plugin\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-27T21:15:53+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: helanak-core\n"
+
+#. Plugin Name of the plugin
+#: helanak-core.php
+msgid "Helanak Core"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: helanak-core.php
+msgid "https://helanak.com"
+msgstr ""
+
+#. Description of the plugin
+#: helanak-core.php
+msgid "Store data and rules for Helanak Kids: age ranges, product safety, badges, languages, shipping eligibility, store forms, image optimization, and WooCommerce HPOS compatibility. Storefront presentation belongs to the Helanak theme."
+msgstr ""
+
+#. Author of the plugin
+#: helanak-core.php
+msgid "Helanak"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:73
+#: includes/class-age-taxonomy.php:76
+msgid "Age Range"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:75
+#: includes/class-age-taxonomy.php:77
+msgid "Age Ranges"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:212
+#: includes/class-badge-engine.php:231
+msgid "English label"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:213
+#: includes/class-badge-engine.php:232
+#: includes/class-badge-engine.php:284
+msgid "Persian label"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:214
+msgid "English subtitle"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:215
+msgid "Persian subtitle"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:216
+#: includes/class-category-theme.php:118
+msgid "Icon or emoji"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:217
+#: includes/class-category-theme.php:119
+msgid "Gradient start color"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:218
+#: includes/class-category-theme.php:120
+msgid "Gradient end color"
+msgstr ""
+
+#: includes/class-age-taxonomy.php:219
+msgid "Display order"
+msgstr ""
+
+#: includes/class-badge-engine.php:43
+msgid "Product Badges"
+msgstr ""
+
+#: includes/class-badge-engine.php:44
+msgid "Product Badge"
+msgstr ""
+
+#: includes/class-badge-engine.php:45
+#: includes/class-badge-engine.php:347
+msgid "Badges"
+msgstr ""
+
+#: includes/class-badge-engine.php:46
+msgid "Add New Badge"
+msgstr ""
+
+#: includes/class-badge-engine.php:47
+msgid "Edit Badge"
+msgstr ""
+
+#: includes/class-badge-engine.php:204
+#: includes/class-badge-engine.php:219
+msgid "Helanak Badge Settings"
+msgstr ""
+
+#: includes/class-badge-engine.php:205
+msgid "Helanak Badges"
+msgstr ""
+
+#: includes/class-badge-engine.php:222
+msgid "Manage manual badge definitions"
+msgstr ""
+
+#: includes/class-badge-engine.php:229
+msgid "Automatic badge"
+msgstr ""
+
+#: includes/class-badge-engine.php:230
+#: includes/class-badge-engine.php:308
+#: includes/class-badge-engine.php:310
+msgid "Enabled"
+msgstr ""
+
+#: includes/class-badge-engine.php:233
+msgid "Background"
+msgstr ""
+
+#: includes/class-badge-engine.php:234
+msgid "Text"
+msgstr ""
+
+#: includes/class-badge-engine.php:235
+msgid "Priority"
+msgstr ""
+
+#: includes/class-badge-engine.php:236
+msgid "New days"
+msgstr ""
+
+#: includes/class-badge-engine.php:285
+msgid "Background color"
+msgstr ""
+
+#: includes/class-badge-engine.php:286
+msgid "Text color"
+msgstr ""
+
+#: includes/class-badge-engine.php:287
+msgid "Priority (higher appears first)"
+msgstr ""
+
+#: includes/class-badge-engine.php:312
+msgid "Available for products and storefront display"
+msgstr ""
+
+#: includes/class-badge-engine.php:363
+msgid "Sale, New, and age-specific badges are automatic. Assign any enabled manual badges below."
+msgstr ""
+
+#: includes/class-badge-engine.php:379
+msgid "Manage badge definitions"
+msgstr ""
+
+#: includes/class-category-theme.php:75
+msgid "Use the WooCommerce thumbnail above as optional category hero artwork."
+msgstr ""
+
+#: includes/class-category-theme.php:84
+msgid "Hero artwork"
+msgstr ""
+
+#: includes/class-category-theme.php:85
+msgid "The standard WooCommerce category thumbnail is used as optional hero artwork."
+msgstr ""
+
+#: includes/class-category-theme.php:116
+msgid "English display title"
+msgstr ""
+
+#: includes/class-category-theme.php:117
+msgid "Persian display title"
+msgstr ""
+
+#: includes/class-language-switcher.php:54
+msgid "English navigation label"
+msgstr ""
+
+#: includes/class-language-switcher.php:54
+msgid "Persian navigation label"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:30
+msgid "Safety & Age"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:47
+msgid "Age suitability note"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:49
+msgid "Free-text guidance shown on the product page in addition to the Age Range taxonomy, e.g. \"Not suitable for children under 3 due to small parts.\""
+msgstr ""
+
+#: includes/class-product-safety-fields.php:56
+msgid "Choking hazard warning"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:57
+msgid "Show a choking-hazard warning on the product page."
+msgstr ""
+
+#: includes/class-product-safety-fields.php:64
+msgid "Choking hazard text"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:66
+msgid "Defaults to a standard small-parts warning if left blank."
+msgstr ""
+
+#: includes/class-product-safety-fields.php:73
+msgid "Material / safety certification"
+msgstr ""
+
+#: includes/class-product-safety-fields.php:75
+msgid "e.g. \"OEKO-TEX Standard 100\" or \"EN 71-3 tested\". Shown as a trust line on the product page."
+msgstr ""
+
+#: includes/class-product-safety-fields.php:111
+msgid "WARNING: Choking hazard — small parts. Not suitable for children under 3 years."
+msgstr ""
+
+#: includes/class-store-forms.php:64
+msgid "Enter your name using no more than 120 characters."
+msgstr ""
+
+#: includes/class-store-forms.php:67
+msgid "Enter a valid email address."
+msgstr ""
+
+#: includes/class-store-forms.php:70
+msgid "Keep the subject within 200 characters."
+msgstr ""
+
+#: includes/class-store-forms.php:73
+msgid "Enter a message using no more than 10,000 characters."
+msgstr ""
+
+#: includes/class-store-forms.php:86
+msgid "New contact form message"
+msgstr ""
+
+#: includes/class-woocommerce-notice.php:31
+msgid "Helanak Core requires WooCommerce to be installed and active. Its taxonomy, product-field, and badge features are disabled until then."
+msgstr ""

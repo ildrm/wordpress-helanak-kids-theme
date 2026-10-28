@@ -1,10 +1,7 @@
 <?php
 /**
- * Minimal newsletter capture: no ESP integration in this phase (Mailchimp /
- * Klaviyo / etc. is a per-site choice, deliberately left to a future
- * integration rather than hardcoding one vendor here). Subscribers are
- * stored in a single wp_options array — adequate for a Phase 1-3 foundation,
- * not meant to replace a real ESP at scale.
+ * Newsletter request/redirect presentation. Validation, abuse controls and
+ * subscriber persistence belong to Helanak Core; this handler stores no data.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,24 +20,15 @@ class Helanak_Newsletter {
 	public static function handle_subscribe(): void {
 		check_admin_referer( 'helanak_newsletter_subscribe' );
 
-		$email    = isset( $_POST['helanak_email'] ) ? sanitize_email( wp_unslash( $_POST['helanak_email'] ) ) : '';
-		$redirect = wp_get_referer() ?: home_url( '/' );
-
-		if ( ! is_email( $email ) ) {
-			wp_safe_redirect( esc_url_raw( add_query_arg( 'helanak_newsletter', 'invalid', $redirect ) . '#helanak-newsletter' ) );
-			exit;
+		$email    = isset( $_POST['helanak_email'] ) && is_string( $_POST['helanak_email'] ) ? sanitize_text_field( wp_unslash( $_POST['helanak_email'] ) ) : '';
+		$redirect = remove_query_arg( 'helanak_newsletter', wp_get_referer() ?: home_url( '/' ) );
+		$status   = 'unavailable';
+		if ( class_exists( 'Helanak_Core_Store_Forms' ) ) {
+			$honeypot = isset( $_POST['helanak_website'] ) && is_string( $_POST['helanak_website'] ) ? wp_unslash( $_POST['helanak_website'] ) : '';
+			$guard = Helanak_Core_Store_Forms::submission_guard( 'newsletter', $honeypot );
+			$status = 'spam' === $guard ? 'success' : ( $guard ?: Helanak_Core_Store_Forms::subscribe( $email ) );
 		}
-
-		$subscribers = get_option( self::OPTION_KEY, array() );
-		if ( ! is_array( $subscribers ) ) {
-			$subscribers = array();
-		}
-		if ( ! isset( $subscribers[ $email ] ) ) {
-			$subscribers[ $email ] = time();
-			update_option( self::OPTION_KEY, $subscribers, false );
-		}
-
-		wp_safe_redirect( esc_url_raw( add_query_arg( 'helanak_newsletter', 'success', $redirect ) . '#helanak-newsletter' ) );
+		wp_safe_redirect( add_query_arg( 'helanak_newsletter', $status, $redirect ) . '#helanak-newsletter' );
 		exit;
 	}
 }

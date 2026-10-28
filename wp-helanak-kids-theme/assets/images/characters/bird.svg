@@ -1,0 +1,9 @@
+<svg class="helanak-character__svg" viewBox="0 0 44 38" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <path class="char-tail" d="m8 24-8 6 12 1Z" fill="#377FAD"/>
+  <path class="char-body" d="M5 21C5 10 13 5 23 5c11 0 18 6 18 16 0 9-8 14-18 14S5 30 5 21Z" fill="#72C7ED" stroke="#367DA5" stroke-width="1.8"/>
+  <path d="M9 18C13 8 24 6 33 12" fill="none" stroke="#A9E3F7" stroke-width="4" stroke-linecap="round"/>
+  <g class="char-wing char-wing--left"><path d="M20 19C8 2 3 7 9 21c4 8 10 8 15 4Z" fill="#4EA5D1" stroke="#367DA5" stroke-width="1.5"/></g>
+  <g class="char-eye"><circle cx="30" cy="17" r="3.4" fill="#24313C"/><circle cx="29" cy="16" r="1.2" fill="#FFF"/></g>
+  <path class="char-beak" d="m39 19 5 4-6 3Z" fill="#F3A342" stroke="#B96A24" stroke-width="1"/>
+  <path d="M17 35v3m9-3v3" stroke="#B96A24" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

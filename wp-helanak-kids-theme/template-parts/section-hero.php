@@ -83,9 +83,9 @@ $helanak_show_butterfly = in_array( $helanak_season, array( 'spring', 'summer' )
 
 	<div class="helanak-container helanak-hero__grid">
 		<div class="helanak-hero__copy">
-			<span class="helanak-hero__kicker"><?php esc_html_e( 'Safe, joyful, made for growing up', 'wp-helanak-kids-theme' ); ?></span>
+			<span class="helanak-hero__kicker"><?php esc_html_e( 'A little joy for every day', 'wp-helanak-kids-theme' ); ?></span>
 			<h1><?php esc_html_e( 'Clothes and toys your kids will actually love', 'wp-helanak-kids-theme' ); ?></h1>
-			<p><?php esc_html_e( 'Thoughtfully made, safety-tested, and sorted by age so you always find the right fit — for every season.', 'wp-helanak-kids-theme' ); ?></p>
+			<p><?php esc_html_e( 'Explore clothes and toys by age, category, and the details that matter to your family.', 'wp-helanak-kids-theme' ); ?></p>
 			<div class="helanak-hero__actions">
 				<a class="helanak-btn helanak-btn--dark" href="<?php echo esc_url( $helanak_shop_permalink ); ?>">
 					<?php esc_html_e( 'Shop now', 'wp-helanak-kids-theme' ); ?>
@@ -108,6 +108,12 @@ $helanak_show_butterfly = in_array( $helanak_season, array( 'spring', 'summer' )
 				)
 			);
 			?>
+
+			<?php if ( get_theme_mod( 'helanak_character_surprises', true ) ) : ?>
+				<div class="helanak-hero__visitor" data-helanak-surprise aria-hidden="true">
+					<?php foreach ( array( 'turtle', 'elephant' ) as $helanak_visitor ) : ?><?php if ( Helanak_Character_Engine::is_enabled( $helanak_visitor ) ) : ?><span data-helanak-surprise-choice hidden><?php helanak_character( $helanak_visitor, array( 'scale' => .45 ) ); ?></span><?php endif; ?><?php endforeach; ?>
+				</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'wc_get_template_part' ) ) {
+	return;
+}
 $helanak_featured_ids = function_exists( 'wc_get_featured_product_ids' ) ? wc_get_featured_product_ids() : array();
 
 $helanak_rail_args = array(
@@ -36,14 +39,14 @@ $helanak_shop_permalink = function_exists( 'wc_get_page_id' ) ? get_permalink( w
 			<a class="helanak-section__see-all" href="<?php echo esc_url( $helanak_shop_permalink ); ?>"><?php esc_html_e( 'See all →', 'wp-helanak-kids-theme' ); ?></a>
 		</div>
 		<?php if ( $helanak_rail_query->have_posts() ) : ?>
-			<div class="helanak-products">
+			<ul class="helanak-products">
 				<?php
 				while ( $helanak_rail_query->have_posts() ) :
 					$helanak_rail_query->the_post();
 					wc_get_template_part( 'content', 'product' );
 				endwhile;
 				?>
-			</div>
+			</ul>
 		<?php else : ?>
 			<p><?php esc_html_e( 'Products will appear here once your catalog is set up.', 'wp-helanak-kids-theme' ); ?></p>
 		<?php endif; ?>

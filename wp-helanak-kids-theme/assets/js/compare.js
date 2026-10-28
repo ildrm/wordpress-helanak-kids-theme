@@ -76,29 +76,10 @@
 		syncUi();
 	}
 
-	function openCompare() {
+	function openCompare( trigger ) {
 		var list = read();
-		if ( list.length < 2 ) {
-			return;
-		}
-		var body = new window.URLSearchParams();
-		body.set( 'action', 'helanak_compare' );
-		body.set( 'nonce', settings.compareNonce || '' );
-		body.set( 'product_ids', list.join( ',' ) );
-
-		window
-			.fetch( settings.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body } )
-			.then( function ( response ) {
-				return response.json();
-			} )
-			.then( function ( json ) {
-				if ( json && json.success && json.data && json.data.html && window.helanakOpenModal ) {
-					window.helanakOpenModal( json.data.html );
-				}
-			} )
-			.catch( function () {
-				// Network hiccup — the pill stays, the shopper can retry.
-			} );
+		if ( list.length < 2 || ! window.helanakLoadModal ) { return; }
+		window.helanakLoadModal( 'helanak_compare', { nonce: settings.compareNonce || '', product_ids: list.join( ',' ) }, trigger, settings.compareLabel || 'Compare' );
 	}
 
 	document.addEventListener( 'click', function ( event ) {
@@ -107,7 +88,7 @@
 		}
 		var openTrigger = event.target.closest( '[data-helanak-compare-open]' );
 		if ( openTrigger ) {
-			openCompare();
+			openCompare( openTrigger );
 			return;
 		}
 		var toggleTrigger = event.target.closest( '[data-helanak-compare-toggle]' );
@@ -121,5 +102,7 @@
 		}
 	} );
 
+	document.addEventListener( 'helanak:contentupdated', syncUi );
+	window.addEventListener( 'storage', function ( event ) { if ( event.key === STORAGE_KEY ) { syncUi(); } } );
 	syncUi();
 } )();

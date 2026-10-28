@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$helanak_sale_ids = wc_get_product_ids_on_sale();
+$helanak_sale_ids = function_exists( 'wc_get_product_ids_on_sale' ) ? wc_get_product_ids_on_sale() : array();
 
 $helanak_sale_end = 0;
 $helanak_deal_id  = 0;
@@ -138,7 +138,7 @@ $helanak_sale_query = new WP_Query(
 		<h2><?php esc_html_e( 'More on sale', 'wp-helanak-kids-theme' ); ?></h2>
 
 		<?php if ( $helanak_sale_query->have_posts() ) : ?>
-			<div class="helanak-products">
+			<ul class="helanak-products">
 				<?php
 				// Tells content-product.php to add the solid red %-off pill (real prices only).
 				set_query_var( 'helanak_percent_badge', true );
@@ -148,7 +148,7 @@ $helanak_sale_query = new WP_Query(
 				endwhile;
 				set_query_var( 'helanak_percent_badge', false );
 				?>
-			</div>
+			</ul>
 			<?php
 			$helanak_original_query      = $GLOBALS['wp_query'];
 			$GLOBALS['wp_query']         = $helanak_sale_query;

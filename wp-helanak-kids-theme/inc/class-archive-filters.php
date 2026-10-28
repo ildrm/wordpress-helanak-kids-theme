@@ -31,7 +31,7 @@ class Helanak_Archive_Filters {
 			$tax_query[] = array(
 				'taxonomy' => 'age_range',
 				'field'    => 'slug',
-				'terms'    => array_map( 'sanitize_title', (array) wp_unslash( $_GET['helanak_age'] ) ), // phpcs:ignore WordPress.Security.NonceVerification
+				'terms'    => array_map( 'sanitize_title', array_slice( array_filter( (array) wp_unslash( $_GET['helanak_age'] ), 'is_scalar' ), 0, 100 ) ), // phpcs:ignore WordPress.Security.NonceVerification
 			);
 		}
 
@@ -39,7 +39,7 @@ class Helanak_Archive_Filters {
 			$tax_query[] = array(
 				'taxonomy' => 'pa_color',
 				'field'    => 'slug',
-				'terms'    => array_map( 'sanitize_title', (array) wp_unslash( $_GET['helanak_color'] ) ), // phpcs:ignore WordPress.Security.NonceVerification
+				'terms'    => array_map( 'sanitize_title', array_slice( array_filter( (array) wp_unslash( $_GET['helanak_color'] ), 'is_scalar' ), 0, 100 ) ), // phpcs:ignore WordPress.Security.NonceVerification
 			);
 		}
 
@@ -47,8 +47,9 @@ class Helanak_Archive_Filters {
 			$query->set( 'tax_query', $tax_query );
 		}
 
-		if ( ! empty( $_GET['helanak_wishlist'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-			$ids = array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_GET['helanak_wishlist'] ) ) ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
+		if ( isset( $_GET['helanak_wishlist'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			$raw = is_string( $_GET['helanak_wishlist'] ) ? sanitize_text_field( wp_unslash( $_GET['helanak_wishlist'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+			$ids = array_slice( array_unique( array_filter( array_map( 'absint', explode( ',', $raw ) ) ) ), 0, 100 );
 			$query->set( 'post__in', $ids ? $ids : array( 0 ) );
 		}
 	}

@@ -22,45 +22,22 @@ class Helanak_Shipping_Goal {
 	}
 
 	/**
-	 * Lowest min_amount among enabled free_shipping methods across all zones
-	 * (incl. the "rest of the world" zone 0), or 0.0 when none is configured.
+	 * Current package's applicable monetary threshold, or zero when unavailable.
+	 * Retained as a compatibility helper; all eligibility rules live in Core.
 	 */
 	public static function threshold(): float {
-		if ( ! class_exists( 'WC_Shipping_Zones' ) ) {
-			return 0.0;
-		}
-
-		$zones   = WC_Shipping_Zones::get_zones();
-		$zones[] = array( 'zone_id' => 0 );
-
-		$min = 0.0;
-		foreach ( $zones as $zone_data ) {
-			$zone = WC_Shipping_Zones::get_zone( (int) $zone_data['zone_id'] );
-			if ( ! $zone ) {
-				continue;
-			}
-			foreach ( $zone->get_shipping_methods( true ) as $method ) {
-				if ( 'free_shipping' !== $method->id ) {
-					continue;
-				}
-				$amount = isset( $method->min_amount ) ? (float) $method->min_amount : 0.0;
-				if ( $amount > 0 && ( 0.0 === $min || $amount < $min ) ) {
-					$min = $amount;
-				}
-			}
-		}
-		return $min;
+		$goal = class_exists( 'Helanak_Core_Shipping_Goal' ) ? Helanak_Core_Shipping_Goal::get_goal() : null;
+		return $goal ? (float) $goal['threshold'] : 0.0;
 	}
 
 	public static function render(): void {
-		$threshold = self::threshold();
-		if ( $threshold <= 0 || ! WC()->cart || WC()->cart->is_empty() ) {
+		$goal = class_exists( 'Helanak_Core_Shipping_Goal' ) ? Helanak_Core_Shipping_Goal::get_goal() : null;
+		if ( ! $goal ) {
 			return;
 		}
 
-		$subtotal  = (float) WC()->cart->get_displayed_subtotal();
-		$remaining = $threshold - $subtotal;
-		$pct       = min( 100, (int) round( ( $subtotal / $threshold ) * 100 ) );
+		$remaining = $goal['remaining'];
+		$pct       = $goal['percent'];
 		?>
 		<div class="helanak-shipping-goal">
 			<?php if ( $remaining > 0 ) : ?>
@@ -78,7 +55,7 @@ class Helanak_Shipping_Goal {
 					<?php esc_html_e( "You've unlocked free shipping! 🎉", 'wp-helanak-kids-theme' ); ?>
 				</p>
 			<?php endif; ?>
-			<span class="helanak-shipping-goal__bar"><span style="width:<?php echo esc_attr( $pct ); ?>%"></span></span>
+			<span class="helanak-shipping-goal__bar" role="progressbar" aria-label="<?php esc_attr_e( 'Free shipping progress', 'wp-helanak-kids-theme' ); ?>" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo esc_attr( $pct ); ?>"><span style="width:<?php echo esc_attr( $pct ); ?>%"></span></span>
 		</div>
 		<?php
 	}

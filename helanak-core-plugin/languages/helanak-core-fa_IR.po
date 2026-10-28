@@ -1,98 +1,329 @@
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Helanak Core 0.1.0\n"
+"Project-Id-Version: Helanak Core 0.2.0\n"
 "Report-Msgid-Bugs-To: https://helanak.com\n"
+"Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa_IR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: helanak-core\n"
 
+#: includes/class-age-taxonomy.php:73 includes/class-age-taxonomy.php:76
 msgid "Age Range"
 msgstr "بازه‌ی سنی"
 
+#: includes/class-age-taxonomy.php:75 includes/class-age-taxonomy.php:77
 msgid "Age Ranges"
 msgstr "بازه‌های سنی"
 
-msgid "Limited"
-msgstr "محدود"
-
-msgid "Hot"
-msgstr "داغ"
-
-msgid "Trending"
-msgstr "پرطرفدار"
-
-msgid "Best Seller"
-msgstr "پرفروش"
-
-msgid "Recommended"
-msgstr "پیشنهادی"
-
-msgid "Gift"
-msgstr "هدیه"
-
-msgid "Educational"
-msgstr "آموزشی"
-
-msgid "Organic"
-msgstr "ارگانیک"
-
-msgid "Safe Material"
-msgstr "مواد ایمن"
-
+#: includes/class-badge-engine.php:45 includes/class-badge-engine.php:347
 msgid "Badges"
 msgstr "نشان‌ها"
 
-msgid "\"Sale\" and \"New\" badges are automatic (based on the product's sale price and publish date) and don't need a checkbox here."
-msgstr "نشان‌های «حراج» و «جدید» به‌صورت خودکار (بر اساس قیمت حراج و تاریخ انتشار محصول) تعیین می‌شوند و نیازی به تیک زدن اینجا ندارند."
-
-msgid "Sale"
-msgstr "حراج"
-
-msgid "New"
-msgstr "جدید"
-
-msgid "— None —"
-msgstr "— هیچ‌کدام —"
-
-msgid "Category Theme (visual skin)"
-msgstr "تم دسته‌بندی (پوسته‌ی بصری)"
-
-msgid "Picks the hero art, accent colors, and motif this category uses on the shop archive. Purely a visual skin — never gates or hides products."
-msgstr "تصویر هیرو، رنگ‌های تأکیدی و نقش‌مایه‌ای که این دسته در آرشیو فروشگاه استفاده می‌کند را انتخاب می‌کند. صرفاً یک پوسته‌ی بصری است — هرگز محصولات را محدود یا پنهان نمی‌کند."
-
+#: includes/class-product-safety-fields.php:30
 msgid "Safety & Age"
 msgstr "ایمنی و سن"
 
+#: includes/class-product-safety-fields.php:47
 msgid "Age suitability note"
 msgstr "یادداشت مناسب بودن برای سن"
 
-msgid "Free-text guidance shown on the product page in addition to the Age Range taxonomy, e.g. \"Not suitable for children under 3 due to small parts.\""
-msgstr "راهنمای متنی آزاد که علاوه بر طبقه‌بندی بازه‌ی سنی در صفحه‌ی محصول نمایش داده می‌شود، مثلاً «به دلیل قطعات کوچک برای کودکان زیر ۳ سال مناسب نیست.»"
+#: includes/class-product-safety-fields.php:49
+msgid ""
+"Free-text guidance shown on the product page in addition to the Age Range "
+"taxonomy, e.g. \"Not suitable for children under 3 due to small parts.\""
+msgstr ""
+"راهنمای متنی آزاد که علاوه بر طبقه‌بندی بازه‌ی سنی در صفحه‌ی محصول نمایش "
+"داده می‌شود، مثلاً «به دلیل قطعات کوچک برای کودکان زیر ۳ سال مناسب نیست.»"
 
+#: includes/class-product-safety-fields.php:56
 msgid "Choking hazard warning"
 msgstr "هشدار خطر خفگی"
 
+#: includes/class-product-safety-fields.php:57
 msgid "Show a choking-hazard warning on the product page."
 msgstr "نمایش هشدار خطر خفگی در صفحه‌ی محصول."
 
+#: includes/class-product-safety-fields.php:64
 msgid "Choking hazard text"
 msgstr "متن هشدار خطر خفگی"
 
+#: includes/class-product-safety-fields.php:66
 msgid "Defaults to a standard small-parts warning if left blank."
 msgstr "در صورت خالی گذاشتن، هشدار استاندارد قطعات کوچک نمایش داده می‌شود."
 
+#: includes/class-product-safety-fields.php:73
 msgid "Material / safety certification"
 msgstr "جنس / گواهی ایمنی"
 
-msgid "e.g. \"OEKO-TEX Standard 100\" or \"EN 71-3 tested\". Shown as a trust line on the product page."
-msgstr "مثلاً «OEKO-TEX Standard 100» یا «تست‌شده مطابق EN 71-3». به‌عنوان خط اطمینان در صفحه‌ی محصول نمایش داده می‌شود."
+#: includes/class-product-safety-fields.php:75
+msgid ""
+"e.g. \"OEKO-TEX Standard 100\" or \"EN 71-3 tested\". Shown as a trust line "
+"on the product page."
+msgstr ""
+"مثلاً «OEKO-TEX Standard 100» یا «تست‌شده مطابق EN 71-3». به‌عنوان خط "
+"اطمینان در صفحه‌ی محصول نمایش داده می‌شود."
 
-msgid "WARNING: Choking hazard — small parts. Not suitable for children under 3 years."
+#: includes/class-product-safety-fields.php:111
+msgid ""
+"WARNING: Choking hazard — small parts. Not suitable for children under 3 "
+"years."
 msgstr "هشدار: خطر خفگی — قطعات کوچک. برای کودکان زیر ۳ سال مناسب نیست."
 
-msgid "Helanak Core requires WooCommerce to be installed and active. Its taxonomy, product-field, and badge features are disabled until then."
-msgstr "افزونه‌ی Helanak Core به نصب و فعال بودن ووکامرس نیاز دارد. تا آن زمان، ویژگی‌های طبقه‌بندی، فیلدهای محصول و نشان‌ها غیرفعال هستند."
+#: includes/class-woocommerce-notice.php:31
+msgid ""
+"Helanak Core requires WooCommerce to be installed and active. Its taxonomy, "
+"product-field, and badge features are disabled until then."
+msgstr ""
+"افزونه‌ی Helanak Core به نصب و فعال بودن ووکامرس نیاز دارد. تا آن زمان، "
+"ویژگی‌های طبقه‌بندی، فیلدهای محصول و نشان‌ها غیرفعال هستند."
 
+#: includes/class-age-taxonomy.php:212 includes/class-badge-engine.php:231
+msgid "English label"
+msgstr "برچسب انگلیسی"
+
+#: includes/class-age-taxonomy.php:213 includes/class-badge-engine.php:232
+#: includes/class-badge-engine.php:284
+msgid "Persian label"
+msgstr "برچسب فارسی"
+
+#: includes/class-age-taxonomy.php:214
+msgid "English subtitle"
+msgstr "زیرعنوان انگلیسی"
+
+#: includes/class-age-taxonomy.php:215
+msgid "Persian subtitle"
+msgstr "زیرعنوان فارسی"
+
+#: includes/class-age-taxonomy.php:216 includes/class-category-theme.php:118
+msgid "Icon or emoji"
+msgstr "نماد یا ایموجی"
+
+#: includes/class-age-taxonomy.php:217 includes/class-category-theme.php:119
+msgid "Gradient start color"
+msgstr "رنگ شروع گرادیان"
+
+#: includes/class-age-taxonomy.php:218 includes/class-category-theme.php:120
+msgid "Gradient end color"
+msgstr "رنگ پایان گرادیان"
+
+#: includes/class-age-taxonomy.php:219
+msgid "Display order"
+msgstr "ترتیب نمایش"
+
+#: includes/class-category-theme.php:116
+msgid "English display title"
+msgstr "عنوان نمایشی انگلیسی"
+
+#: includes/class-category-theme.php:117
+msgid "Persian display title"
+msgstr "عنوان نمایشی فارسی"
+
+#: includes/class-category-theme.php:84
+msgid "Hero artwork"
+msgstr "تصویر اصلی"
+
+#: includes/class-category-theme.php:75
+msgid "Use the WooCommerce thumbnail above as optional category hero artwork."
+msgstr "از تصویر بندانگشتی ووکامرس به‌عنوان تصویر اختیاری دسته استفاده کنید."
+
+#: includes/class-category-theme.php:85
+msgid ""
+"The standard WooCommerce category thumbnail is used as optional hero "
+"artwork."
+msgstr ""
+"تصویر بندانگشتی استاندارد دسته ووکامرس به‌عنوان تصویر اصلی اختیاری استفاده "
+"می‌شود."
+
+#: includes/class-badge-engine.php:43
+msgid "Product Badges"
+msgstr "نشان‌های محصول"
+
+#: includes/class-badge-engine.php:44
+msgid "Product Badge"
+msgstr "نشان محصول"
+
+#: includes/class-badge-engine.php:46
+msgid "Add New Badge"
+msgstr "افزودن نشان جدید"
+
+#: includes/class-badge-engine.php:47
+msgid "Edit Badge"
+msgstr "ویرایش نشان"
+
+#: includes/class-badge-engine.php:204 includes/class-badge-engine.php:219
+msgid "Helanak Badge Settings"
+msgstr "تنظیمات نشان‌های هلناک"
+
+#: includes/class-badge-engine.php:205
+msgid "Helanak Badges"
+msgstr "نشان‌های هلناک"
+
+#: includes/class-badge-engine.php:222
+msgid "Manage manual badge definitions"
+msgstr "مدیریت نشان‌های دستی"
+
+#: includes/class-badge-engine.php:229
+msgid "Automatic badge"
+msgstr "نشان خودکار"
+
+#: includes/class-badge-engine.php:230 includes/class-badge-engine.php:308
+#: includes/class-badge-engine.php:310
+msgid "Enabled"
+msgstr "فعال"
+
+#: includes/class-badge-engine.php:233
+msgid "Background"
+msgstr "پس‌زمینه"
+
+#: includes/class-badge-engine.php:234
+msgid "Text"
+msgstr "متن"
+
+#: includes/class-badge-engine.php:235
+msgid "Priority"
+msgstr "اولویت"
+
+#: includes/class-badge-engine.php:236
+msgid "New days"
+msgstr "روزهای جدید بودن"
+
+#: includes/class-badge-engine.php:285
+msgid "Background color"
+msgstr "رنگ پس‌زمینه"
+
+#: includes/class-badge-engine.php:286
+msgid "Text color"
+msgstr "رنگ متن"
+
+#: includes/class-badge-engine.php:287
+msgid "Priority (higher appears first)"
+msgstr "اولویت (عدد بالاتر زودتر نمایش داده می‌شود)"
+
+#: includes/class-badge-engine.php:312
+msgid "Available for products and storefront display"
+msgstr "برای محصولات و نمایش در فروشگاه در دسترس باشد"
+
+#: includes/class-badge-engine.php:363
+msgid ""
+"Sale, New, and age-specific badges are automatic. Assign any enabled manual "
+"badges below."
+msgstr ""
+"نشان‌های فروش ویژه، جدید و رده سنی خودکار هستند. نشان‌های دستی فعال را در "
+"زیر انتخاب کنید."
+
+#: includes/class-badge-engine.php:379
+msgid "Manage badge definitions"
+msgstr "مدیریت تعریف نشان‌ها"
+
+#. Plugin Name of the plugin
+#: helanak-core.php
+msgid "Helanak Core"
+msgstr "هسته هلانک"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: helanak-core.php
+msgid "https://helanak.com"
+msgstr "https://helanak.com"
+
+#. Description of the plugin
+#: helanak-core.php
+msgid ""
+"Store data and rules for Helanak Kids: age ranges, product safety, badges, "
+"languages, shipping eligibility, store forms, image optimization, and "
+"WooCommerce HPOS compatibility. Storefront presentation belongs to the "
+"Helanak theme."
+msgstr ""
+"داده‌ها و قوانین فروشگاه هلانک: رده‌های سنی، ایمنی محصولات، نشان‌ها، "
+"زبان‌ها، شرایط ارسال، فرم‌های فروشگاه، بهینه‌سازی تصاویر و سازگاری با HPOS "
+"ووکامرس. نمایش فروشگاه در پوسته هلانک انجام می‌شود."
+
+#. Author of the plugin
+#: helanak-core.php
+msgid "Helanak"
+msgstr "هلانک"
+
+#: includes/class-language-switcher.php:54
+msgid "English navigation label"
+msgstr "عنوان منو به انگلیسی"
+
+#: includes/class-language-switcher.php:54
+msgid "Persian navigation label"
+msgstr "عنوان منو به فارسی"
+
+#: includes/class-store-forms.php:64
+msgid "Enter your name using no more than 120 characters."
+msgstr "نام خود را با حداکثر ۱۲۰ نویسه وارد کنید."
+
+#: includes/class-store-forms.php:67
+msgid "Enter a valid email address."
+msgstr "یک نشانی ایمیل معتبر وارد کنید."
+
+#: includes/class-store-forms.php:70
+msgid "Keep the subject within 200 characters."
+msgstr "موضوع را در حداکثر ۲۰۰ نویسه بنویسید."
+
+#: includes/class-store-forms.php:73
+msgid "Enter a message using no more than 10,000 characters."
+msgstr "پیام خود را با حداکثر ۱۰٬۰۰۰ نویسه وارد کنید."
+
+#: includes/class-store-forms.php:86
+msgid "New contact form message"
+msgstr "پیام جدید از فرم تماس"
+
+#~ msgid "Limited"
+#~ msgstr "محدود"
+
+#~ msgid "Hot"
+#~ msgstr "داغ"
+
+#~ msgid "Trending"
+#~ msgstr "پرطرفدار"
+
+#~ msgid "Best Seller"
+#~ msgstr "پرفروش"
+
+#~ msgid "Recommended"
+#~ msgstr "پیشنهادی"
+
+#~ msgid "Gift"
+#~ msgstr "هدیه"
+
+#~ msgid "Educational"
+#~ msgstr "آموزشی"
+
+#~ msgid "Organic"
+#~ msgstr "ارگانیک"
+
+#~ msgid "Safe Material"
+#~ msgstr "مواد ایمن"
+
+#~ msgid ""
+#~ "\"Sale\" and \"New\" badges are automatic (based on the product's sale price"
+#~ " and publish date) and don't need a checkbox here."
+#~ msgstr ""
+#~ "نشان‌های «حراج» و «جدید» به‌صورت خودکار (بر اساس قیمت حراج و تاریخ انتشار "
+#~ "محصول) تعیین می‌شوند و نیازی به تیک زدن اینجا ندارند."
+
+#~ msgid "Sale"
+#~ msgstr "حراج"
+
+#~ msgid "New"
+#~ msgstr "جدید"
+
+#~ msgid "— None —"
+#~ msgstr "— هیچ‌کدام —"
+
+#~ msgid "Category Theme (visual skin)"
+#~ msgstr "تم دسته‌بندی (پوسته‌ی بصری)"
+
+#~ msgid ""
+#~ "Picks the hero art, accent colors, and motif this category uses on the shop "
+#~ "archive. Purely a visual skin — never gates or hides products."
+#~ msgstr ""
+#~ "تصویر هیرو، رنگ‌های تأکیدی و نقش‌مایه‌ای که این دسته در آرشیو فروشگاه "
+#~ "استفاده می‌کند را انتخاب می‌کند. صرفاً یک پوسته‌ی بصری است — هرگز محصولات را"
+#~ " محدود یا پنهان نمی‌کند."

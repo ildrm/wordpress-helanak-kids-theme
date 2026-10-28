@@ -7,11 +7,9 @@
  * matching Helanak_Theme_Customizer::card_toggles() keys: hover_image,
  * rating, badge, wishlist, quick_view, compare, age_label, stock.
  *
- * Root element is a <div>, not WooCommerce's default <li> — callers wrap
- * cards in a plain <div class="helanak-products"> grid (see
- * template-parts/section-product-rail.php), not the default
- * woocommerce_product_loop_start() <ul>, so archive-product.php must follow
- * the same convention rather than the stock WC loop wrappers.
+ * Keep WooCommerce's <li> contract so related products and shortcode loops
+ * remain valid lists. Theme-owned grids use <ul class="helanak-products">
+ * with the same card partial.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,18 +39,20 @@ if ( get_query_var( 'helanak_percent_badge' ) && $product->is_on_sale() ) {
 $helanak_age_terms = get_the_terms( $helanak_product_id, 'age_range' );
 $helanak_age_term  = ( is_array( $helanak_age_terms ) && ! empty( $helanak_age_terms ) ) ? $helanak_age_terms[0] : null;
 
+$helanak_card_sizes = '(min-width: 1180px) 280px, (min-width: 600px) 30vw, calc((100vw - 52px) / 2)';
 $helanak_gallery_ids = $product->get_gallery_image_ids();
 $helanak_hover_image = ! empty( $helanak_gallery_ids )
-	? wp_get_attachment_image( $helanak_gallery_ids[0], 'helanak-card', false, array( 'class' => 'helanak-card__hover-image' ) )
+	? wp_get_attachment_image( $helanak_gallery_ids[0], 'helanak-card', false, array( 'class' => 'helanak-card__hover-image', 'sizes' => $helanak_card_sizes, 'loading' => 'lazy', 'fetchpriority' => 'low', 'decoding' => 'async', 'alt' => '' ) )
 	: '';
 
 $helanak_stock_status = $product->get_stock_status();
 $helanak_rating       = $product->get_average_rating();
 ?>
-<div class="helanak-card" data-helanak-product-id="<?php echo esc_attr( $helanak_product_id ); ?>">
+<li class="helanak-card" data-helanak-product-id="<?php echo esc_attr( $helanak_product_id ); ?>">
+	<div class="helanak-card__visual">
 	<a class="helanak-card__media" href="<?php the_permalink(); ?>">
 		<?php
-		echo $product->get_image( 'helanak-card' ); // phpcs:ignore WordPress.Security.EscapeOutput -- get_image() returns pre-escaped markup.
+		echo $product->get_image( 'helanak-card', array( 'sizes' => $helanak_card_sizes, 'decoding' => 'async' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- get_image() returns pre-escaped markup.
 		if ( $helanak_hover_image ) :
 			?>
 			<span data-helanak-card-part="hover_image"<?php helanak_card_hidden_attr( 'hover_image' ); ?>>
@@ -93,8 +93,10 @@ $helanak_rating       = $product->get_average_rating();
 		data-product-id="<?php echo esc_attr( $helanak_product_id ); ?>"
 		aria-pressed="false"
 		aria-label="<?php esc_attr_e( 'Add to wishlist', 'wp-helanak-kids-theme' ); ?>"
-	>♡</button>
+	><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20 5.5a5 5 0 0 0-8 1 5 5 0 0 0-8-1C.5 9.5 5 15 12 20c7-5 11.5-10.5 8-14.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
 
+	</div>
+	<div class="helanak-card__tools">
 	<?php if ( class_exists( 'Helanak_Quick_View' ) ) : ?>
 		<button
 			type="button"
@@ -115,8 +117,9 @@ $helanak_rating       = $product->get_average_rating();
 		data-product-id="<?php echo esc_attr( $helanak_product_id ); ?>"
 		aria-pressed="false"
 		aria-label="<?php esc_attr_e( 'Add to compare', 'wp-helanak-kids-theme' ); ?>"
-	>⇄</button>
+	><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
 
+	</div>
 	<div class="helanak-card__body">
 		<div class="helanak-card__rating" data-helanak-card-part="rating"<?php helanak_card_hidden_attr( 'rating' ); ?>>
 			<?php if ( $helanak_rating > 0 ) : ?>
@@ -152,4 +155,4 @@ $helanak_rating       = $product->get_average_rating();
 			?>
 		</p>
 	</div>
-</div>
+</li>

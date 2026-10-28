@@ -31,7 +31,7 @@ class Helanak_Recently_Viewed {
 	}
 
 	public static function track(): void {
-		if ( ! is_product() || headers_sent() ) {
+		if ( ! function_exists( 'is_product' ) || ! is_product() || headers_sent() ) {
 			return;
 		}
 
@@ -44,14 +44,19 @@ class Helanak_Recently_Viewed {
 		setcookie(
 			self::COOKIE_NAME,
 			implode( '|', $ids ),
-			time() + MONTH_IN_SECONDS,
-			COOKIEPATH ? COOKIEPATH : '/',
-			COOKIE_DOMAIN
+			array(
+				'expires'  => time() + MONTH_IN_SECONDS,
+				'path'     => COOKIEPATH ? COOKIEPATH : '/',
+				'domain'   => COOKIE_DOMAIN ?: '',
+				'secure'   => is_ssl(),
+				'httponly' => true,
+				'samesite' => 'Lax',
+			)
 		);
 	}
 
 	public static function render_rail(): void {
-		if ( ! is_product() ) {
+		if ( ! function_exists( 'is_product' ) || ! is_product() ) {
 			return;
 		}
 
@@ -65,6 +70,7 @@ class Helanak_Recently_Viewed {
 			array(
 				'post_type'      => 'product',
 				'post_status'    => 'publish',
+				'has_password'   => false,
 				'posts_per_page' => self::RAIL_ITEMS,
 				'post__in'       => $ids,
 				'orderby'        => 'post__in',
@@ -78,7 +84,7 @@ class Helanak_Recently_Viewed {
 			<div class="helanak-section__head">
 				<h2><?php esc_html_e( 'Recently viewed', 'wp-helanak-kids-theme' ); ?></h2>
 			</div>
-			<div class="helanak-products">
+			<ul class="helanak-products">
 				<?php
 				while ( $rail_query->have_posts() ) :
 					$rail_query->the_post();
@@ -86,7 +92,7 @@ class Helanak_Recently_Viewed {
 				endwhile;
 				wp_reset_postdata();
 				?>
-			</div>
+			</ul>
 		</section>
 		<?php
 	}

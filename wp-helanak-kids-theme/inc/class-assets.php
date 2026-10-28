@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Helanak_Theme_Assets {
 
 	public static function init(): void {
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue' ), 20 );
 		add_filter( 'body_class', array( __CLASS__, 'filter_body_class' ) );
 	}
 
@@ -41,19 +41,28 @@ class Helanak_Theme_Assets {
 		return 'fa' === substr( get_locale(), 0, 2 );
 	}
 
+	/** Local edits should not be masked by the browser's release-version cache. */
+	private static function asset_version( string $relative_file ): string {
+		$file = HELANAK_THEME_DIR . $relative_file;
+		if ( 'local' === wp_get_environment_type() && is_file( $file ) ) {
+			return HELANAK_THEME_VERSION . '.' . (string) filemtime( $file );
+		}
+		return HELANAK_THEME_VERSION;
+	}
+
 	public static function enqueue(): void {
 		wp_enqueue_style(
 			'wp-helanak-kids-theme-style',
 			get_stylesheet_uri(),
 			array(),
-			HELANAK_THEME_VERSION
+			self::asset_version( '/style.css' )
 		);
 
 		wp_enqueue_style(
 			'helanak-theme',
 			HELANAK_THEME_URI . '/assets/css/theme.css',
 			array( 'wp-helanak-kids-theme-style' ),
-			HELANAK_THEME_VERSION
+			self::asset_version( '/assets/css/theme.css' )
 		);
 
 		if ( is_rtl() ) {
@@ -61,31 +70,37 @@ class Helanak_Theme_Assets {
 				'helanak-theme-rtl',
 				HELANAK_THEME_URI . '/assets/css/rtl.css',
 				array( 'helanak-theme' ),
-				HELANAK_THEME_VERSION
+				self::asset_version( '/assets/css/rtl.css' )
 			);
 		}
 
 		if ( self::is_fa_locale() ) {
 			wp_enqueue_style(
 				'helanak-font-vazirmatn',
-				'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap',
+				HELANAK_THEME_URI . '/assets/css/font-vazirmatn.css',
 				array(),
-				null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URL is itself versioned/cached.
+				self::asset_version( '/assets/css/font-vazirmatn.css' )
 			);
 		} else {
 			wp_enqueue_style(
 				'helanak-font-poppins',
-				'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap',
+				HELANAK_THEME_URI . '/assets/css/font-poppins.css',
 				array(),
-				null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+				self::asset_version( '/assets/css/font-poppins.css' )
 			);
 		}
 
+		$helanak_script_dependencies = array();
+		if ( function_exists( 'WC' ) ) {
+			wp_enqueue_script( 'wc-cart-fragments' );
+			$helanak_script_dependencies[] = 'jquery';
+			$helanak_script_dependencies[] = 'wc-cart-fragments';
+		}
 		wp_enqueue_script(
 			'helanak-theme',
 			HELANAK_THEME_URI . '/assets/js/theme.js',
-			array(),
-			HELANAK_THEME_VERSION,
+			$helanak_script_dependencies,
+			self::asset_version( '/assets/js/theme.js' ),
 			true
 		);
 
@@ -94,6 +109,14 @@ class Helanak_Theme_Assets {
 			'quickViewNonce'     => wp_create_nonce( 'helanak_quick_view' ),
 			'compareNonce'       => wp_create_nonce( 'helanak_compare' ),
 			'compareLabel'       => __( 'Compare', 'wp-helanak-kids-theme' ),
+			'quickViewLabel'     => __( 'Quick view', 'wp-helanak-kids-theme' ),
+			'loadingLabel'       => __( 'Loading…', 'wp-helanak-kids-theme' ),
+			'loadErrorLabel'     => __( 'Unable to load this product. Please try again.', 'wp-helanak-kids-theme' ),
+			'suggestionsLabel'   => __( 'Search suggestions', 'wp-helanak-kids-theme' ),
+			'pauseMotionLabel'   => __( 'Pause animations', 'wp-helanak-kids-theme' ),
+			'resumeMotionLabel'  => __( 'Resume animations', 'wp-helanak-kids-theme' ),
+			'motionReducedLabel' => __( 'Reduced motion', 'wp-helanak-kids-theme' ),
+			'friendHelloLabel'   => __( '%s says hello!', 'wp-helanak-kids-theme' ),
 			'searchSuggestNonce' => wp_create_nonce( 'helanak_search_suggest' ),
 			'wishlistLabel'    => __( 'Wishlist', 'wp-helanak-kids-theme' ),
 			'closeLabel'       => __( 'Close', 'wp-helanak-kids-theme' ),
@@ -111,11 +134,15 @@ class Helanak_Theme_Assets {
 		// Quick View can be triggered from any product-card grid (shop, home,
 		// related products), not just the single product page, so it's
 		// enqueued globally rather than gated to is_product()/is_shop().
+		$helanak_quick_dependencies = array( 'helanak-theme' );
+		if ( wp_script_is( 'wc-add-to-cart-variation', 'registered' ) ) {
+			$helanak_quick_dependencies[] = 'wc-add-to-cart-variation';
+		}
 		wp_enqueue_script(
 			'helanak-quick-view',
 			HELANAK_THEME_URI . '/assets/js/quick-view.js',
-			array( 'helanak-theme' ),
-			HELANAK_THEME_VERSION,
+			$helanak_quick_dependencies,
+			self::asset_version( '/assets/js/quick-view.js' ),
 			true
 		);
 
@@ -125,7 +152,7 @@ class Helanak_Theme_Assets {
 			'helanak-countdown',
 			HELANAK_THEME_URI . '/assets/js/countdown.js',
 			array(),
-			HELANAK_THEME_VERSION,
+			self::asset_version( '/assets/js/countdown.js' ),
 			true
 		);
 
@@ -135,7 +162,7 @@ class Helanak_Theme_Assets {
 			'helanak-wishlist',
 			HELANAK_THEME_URI . '/assets/js/wishlist.js',
 			array(),
-			HELANAK_THEME_VERSION,
+			self::asset_version( '/assets/js/wishlist.js' ),
 			true
 		);
 
@@ -145,7 +172,7 @@ class Helanak_Theme_Assets {
 			'helanak-compare',
 			HELANAK_THEME_URI . '/assets/js/compare.js',
 			array( 'helanak-quick-view' ),
-			HELANAK_THEME_VERSION,
+			self::asset_version( '/assets/js/compare.js' ),
 			true
 		);
 
@@ -154,7 +181,7 @@ class Helanak_Theme_Assets {
 			'helanak-search-suggest',
 			HELANAK_THEME_URI . '/assets/js/search-suggest.js',
 			array( 'helanak-theme' ),
-			HELANAK_THEME_VERSION,
+			self::asset_version( '/assets/js/search-suggest.js' ),
 			true
 		);
 	}

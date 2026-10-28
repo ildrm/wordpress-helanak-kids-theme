@@ -116,7 +116,9 @@
 	( data.characters || [] ).forEach( function ( key ) {
 		api( 'helanak_character_' + key, function ( value ) {
 			value.bind( function ( newValue ) {
-				document.querySelectorAll( '.helanak-character--' + key ).forEach( function ( el ) {
+				var characters = document.querySelectorAll( '.helanak-character--' + key );
+				if ( newValue && ! characters.length ) { refreshPreview(); return; }
+				characters.forEach( function ( el ) {
 					el.hidden = ! newValue;
 				} );
 			} );

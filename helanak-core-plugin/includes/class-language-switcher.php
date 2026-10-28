@@ -1,16 +1,9 @@
 <?php
 /**
- * Resolves the storefront's active language (English or Persian) from a
- * `?lang=` query var or a persisted cookie, and forces every `get_locale()`
- * call — core, WooCommerce, and the theme alike — to that language. This
- * overrides the site's `WPLANG` option outright: the storefront defaults to
- * English for new visitors and only switches to Persian when a visitor picks
- * it, rather than the whole site being locked to whatever `WPLANG` happens to
- * be set to. Registering the `locale` filter here (top-level plugin load,
- * before `plugins_loaded`) — not in the theme's functions.php — matters
- * because WordPress core reads `get_locale()` for `load_default_textdomain()`
- * and builds `$wp_locale` (which drives `is_rtl()`) before any theme file is
- * ever included.
+ * Storefront English/Persian language selection.
+ *
+ * An explicit query-string or cookie choice may override the storefront
+ * locale. Without one, WordPress's configured site locale is preserved.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,41 +25,94 @@ class Helanak_Core_Language_Switcher {
 
 	public static function init(): void {
 		add_filter( 'locale', array( __CLASS__, 'filter_locale' ) );
+		add_filter( 'wp_nav_menu_objects', array( __CLASS__, 'localize_menu_items' ) );
+		add_action( 'wp_nav_menu_item_custom_fields', array( __CLASS__, 'menu_label_fields' ), 10, 2 );
+		add_action( 'wp_update_nav_menu_item', array( __CLASS__, 'save_menu_labels' ), 10, 2 );
 		self::persist_cookie();
 	}
 
-	/** The visitor's chosen language ('en' or 'fa'), resolved from ?lang= then the cookie, defaulting to 'en'. */
+	/** Optional explicit labels keep custom navigation editable in both languages. */
+	public static function localize_menu_items( array $items ): array {
+		if ( is_admin() ) {
+			return $items;
+		}
+		foreach ( $items as $item ) {
+			$label = get_post_meta( $item->ID, 'helanak_menu_label_' . self::current_lang(), true );
+			if ( is_string( $label ) && '' !== $label ) {
+				$item->title = $label;
+			}
+		}
+		return $items;
+	}
+
+	public static function menu_label_fields( $item_id, $item ): void {
+		static $nonce_printed = false;
+		if ( ! $nonce_printed ) {
+			wp_nonce_field( 'helanak_menu_labels', 'helanak_menu_labels_nonce' );
+			$nonce_printed = true;
+		}
+		foreach ( array( 'en' => __( 'English navigation label', 'helanak-core' ), 'fa' => __( 'Persian navigation label', 'helanak-core' ) ) as $language => $label ) {
+			printf(
+				'<p class="description description-wide"><label for="helanak-menu-%1$s-%2$d">%3$s<br><input type="text" class="widefat" id="helanak-menu-%1$s-%2$d" name="helanak_menu_label_%1$s[%2$d]" value="%4$s"></label></p>',
+				esc_attr( $language ),
+				absint( $item_id ),
+				esc_html( $label ),
+				esc_attr( get_post_meta( $item_id, 'helanak_menu_label_' . $language, true ) )
+			);
+		}
+	}
+
+	public static function save_menu_labels( $menu_id, $item_id ): void {
+		$nonce = isset( $_POST['helanak_menu_labels_nonce'] ) && is_string( $_POST['helanak_menu_labels_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['helanak_menu_labels_nonce'] ) ) : '';
+		if ( ! current_user_can( 'edit_theme_options' ) || ! wp_verify_nonce( $nonce, 'helanak_menu_labels' ) ) {
+			return;
+		}
+		foreach ( array( 'en', 'fa' ) as $language ) {
+			$key = 'helanak_menu_label_' . $language;
+			if ( ! isset( $_POST[ $key ][ $item_id ] ) || ! is_string( $_POST[ $key ][ $item_id ] ) ) {
+				continue;
+			}
+			update_post_meta( $item_id, $key, sanitize_text_field( wp_unslash( $_POST[ $key ][ $item_id ] ) ) );
+		}
+	}
+
+	/** The active storefront language ('en' or 'fa'). */
 	public static function current_lang(): string {
 		if ( null !== self::$lang ) {
 			return self::$lang;
 		}
 
-		$requested = self::requested_lang();
-		if ( null !== $requested ) {
-			self::$lang = $requested;
+		$selected = self::selected_lang();
+		if ( null !== $selected ) {
+			self::$lang = $selected;
 			return self::$lang;
 		}
 
-		$cookie = isset( $_COOKIE[ self::COOKIE_NAME ] ) ? sanitize_key( wp_unslash( $_COOKIE[ self::COOKIE_NAME ] ) ) : '';
-		if ( isset( self::LOCALES[ $cookie ] ) ) {
-			self::$lang = $cookie;
-			return self::$lang;
-		}
-
-		self::$lang = 'en';
+		$site_locale = (string) get_option( 'WPLANG', '' );
+		self::$lang  = 'fa' === substr( $site_locale, 0, 2 ) ? 'fa' : 'en';
 		return self::$lang;
 	}
 
-	/** True when the storefront should render right-to-left (Persian) chrome. */
 	public static function is_rtl(): bool {
 		return 'fa' === self::current_lang();
 	}
 
+	/**
+	 * Preserve WordPress's locale unless this storefront request contains a
+	 * valid, explicit visitor selection.
+	 *
+	 * @param string $locale Locale selected by WordPress.
+	 */
 	public static function filter_locale( $locale ) {
-		return self::LOCALES[ self::current_lang() ];
+		if ( ! self::should_override_locale() ) {
+			return $locale;
+		}
+
+		$selected = self::selected_lang();
+		return null === $selected ? $locale : self::LOCALES[ $selected ];
 	}
 
-	/** Builds a link that switches the given path (defaults to the current request) to $lang. */
+	/** Builds a link that switches the current or supplied path to $lang. */
 	public static function switch_url( string $lang, string $path = '' ): string {
 		if ( ! isset( self::LOCALES[ $lang ] ) ) {
 			return home_url( '/' );
@@ -74,30 +120,75 @@ class Helanak_Core_Language_Switcher {
 		if ( '' !== $path ) {
 			return add_query_arg( 'lang', $lang, home_url( $path ) );
 		}
-		// No explicit path: $_SERVER['REQUEST_URI'] already includes the site's own subdirectory
-		// (if any), so running it through home_url() like the branch above would double that
-		// subdirectory. add_query_arg() with no $url argument reads REQUEST_URI itself instead.
 		return add_query_arg( 'lang', $lang );
 	}
 
-	/** ?lang= value from the request, only if it names a supported language. */
 	private static function requested_lang(): ?string {
-		$requested = isset( $_GET['lang'] ) ? sanitize_key( wp_unslash( $_GET['lang'] ) ) : '';
+		$raw       = isset( $_GET['lang'] ) ? wp_unslash( $_GET['lang'] ) : '';
+		$requested = is_scalar( $raw ) ? sanitize_key( (string) $raw ) : '';
 		return isset( self::LOCALES[ $requested ] ) ? $requested : null;
 	}
 
-	/** Persists an explicit ?lang= choice as a cookie so it survives past the current request. */
+	/** Explicit query/cookie selection, or null when WordPress should decide. */
+	private static function selected_lang(): ?string {
+		$requested = self::requested_lang();
+		if ( null !== $requested ) {
+			return $requested;
+		}
+
+		$raw    = isset( $_COOKIE[ self::COOKIE_NAME ] ) ? wp_unslash( $_COOKIE[ self::COOKIE_NAME ] ) : '';
+		$cookie = is_scalar( $raw ) ? sanitize_key( (string) $raw ) : '';
+		return isset( self::LOCALES[ $cookie ] ) ? $cookie : null;
+	}
+
+	/** Storefront requests and storefront AJAX may opt in; system screens may not. */
+	private static function should_override_locale(): bool {
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			return false;
+		}
+		if ( wp_doing_cron() ) {
+			return false;
+		}
+		if ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' === $GLOBALS['pagenow'] ) {
+			return false;
+		}
+		if ( is_admin() ) {
+			$raw_action = isset( $_REQUEST['action'] ) ? wp_unslash( $_REQUEST['action'] ) : '';
+			$action     = is_scalar( $raw_action ) ? sanitize_key( (string) $raw_action ) : '';
+			if ( ! wp_doing_ajax() ) {
+				return isset( $GLOBALS['pagenow'] ) && 'admin-post.php' === $GLOBALS['pagenow'] && in_array( $action, array( 'helanak_contact_submit', 'helanak_newsletter_subscribe' ), true );
+			}
+			if ( ! in_array( $action, array( 'helanak_quick_view', 'helanak_search_suggest', 'helanak_compare' ), true ) ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/** Persist an explicit visitor choice for later storefront requests. */
 	private static function persist_cookie(): void {
 		$requested = self::requested_lang();
 		if ( null === $requested || headers_sent() ) {
 			return;
 		}
 
-		$current_cookie = isset( $_COOKIE[ self::COOKIE_NAME ] ) ? sanitize_key( wp_unslash( $_COOKIE[ self::COOKIE_NAME ] ) ) : '';
+		$raw_cookie     = isset( $_COOKIE[ self::COOKIE_NAME ] ) ? wp_unslash( $_COOKIE[ self::COOKIE_NAME ] ) : '';
+		$current_cookie = is_scalar( $raw_cookie ) ? sanitize_key( (string) $raw_cookie ) : '';
 		if ( $requested === $current_cookie ) {
 			return;
 		}
 
-		setcookie( self::COOKIE_NAME, $requested, time() + YEAR_IN_SECONDS, COOKIEPATH ? COOKIEPATH : '/', COOKIE_DOMAIN );
+		setcookie(
+			self::COOKIE_NAME,
+			$requested,
+			array(
+				'expires'  => time() + YEAR_IN_SECONDS,
+				'path'     => COOKIEPATH ? COOKIEPATH : '/',
+				'domain'   => COOKIE_DOMAIN ?: '',
+				'secure'   => is_ssl(),
+				'httponly' => true,
+				'samesite' => 'Lax',
+			)
+		);
 	}
 }

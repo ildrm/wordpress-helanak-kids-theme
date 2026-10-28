@@ -1,0 +1,18 @@
+<svg class="helanak-character__svg" viewBox="0 0 136 152" xmlns="http://www.w3.org/2000/svg" role="presentation">
+  <ellipse cx="68" cy="146" rx="40" ry="5" fill="#5A3E2C" opacity=".14"/>
+  <g class="char-ear char-ear--left"><path d="M33 35C10 20 6 63 24 76c13 9 20-31 9-41Z" fill="#A96D42" stroke="#75472D" stroke-width="3"/></g>
+  <g class="char-ear char-ear--right"><path d="M103 35c23-15 27 28 9 41-13 9-20-31-9-41Z" fill="#A96D42" stroke="#75472D" stroke-width="3"/></g>
+  <path class="char-tail" d="M105 109c26-20 34 5 16 12" fill="none" stroke="#A96D42" stroke-width="13" stroke-linecap="round"/>
+  <path class="char-body" d="M34 91c5-23 63-23 68 0l8 42c2 12-9 17-42 17s-44-5-42-17Z" fill="#D99A62" stroke="#75472D" stroke-width="3"/>
+  <path d="M47 101c8 8 34 8 42 0l-4 38H51Z" fill="#F4D2AC" opacity=".9"/>
+  <g class="char-foot char-foot--left"><ellipse cx="48" cy="140" rx="17" ry="9" fill="#C18250"/></g><g class="char-foot char-foot--right"><ellipse cx="88" cy="140" rx="17" ry="9" fill="#C18250"/></g>
+  <path class="char-head" d="M22 55c0-29 19-47 46-47s46 18 46 47-18 47-46 47S22 84 22 55Z" fill="#D99A62" stroke="#75472D" stroke-width="3"/>
+  <path d="M32 47c7-20 21-29 36-31" fill="none" stroke="#EDB77E" stroke-width="7" stroke-linecap="round"/>
+  <path d="M42 71c2-17 50-17 52 0 2 18-13 27-26 27S40 89 42 71Z" fill="#F5D7B7"/>
+  <g class="char-eye char-eye--left"><ellipse cx="49" cy="51" rx="7" ry="9" fill="#34292A"/><circle cx="47" cy="48" r="2.5" fill="#FFF"/></g>
+  <g class="char-eye char-eye--right"><ellipse cx="87" cy="51" rx="7" ry="9" fill="#34292A"/><circle cx="85" cy="48" r="2.5" fill="#FFF"/></g>
+  <path d="M58 68q10-8 20 0-2 10-10 10t-10-10Z" fill="#50352B"/>
+  <path class="char-mouth" d="M68 78c0 7-8 10-13 6m13-6c0 7 8 10 13 6" fill="none" stroke="#654234" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M65 84c3 8 8 8 11 0" fill="#E87F91" stroke="#654234" stroke-width="2"/>
+  <ellipse cx="36" cy="71" rx="8" ry="5" fill="#E99899" opacity=".45"/><ellipse cx="100" cy="71" rx="8" ry="5" fill="#E99899" opacity=".45"/>
+</svg>

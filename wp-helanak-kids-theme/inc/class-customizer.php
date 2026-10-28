@@ -73,6 +73,8 @@ class Helanak_Theme_Customizer {
 			'fox'     => __( 'Fox', 'wp-helanak-kids-theme' ),
 			'penguin' => __( 'Penguin', 'wp-helanak-kids-theme' ),
 			'bird'    => __( 'Bird', 'wp-helanak-kids-theme' ),
+			'turtle'  => __( 'Turtle', 'wp-helanak-kids-theme' ),
+			'elephant' => __( 'Elephant', 'wp-helanak-kids-theme' ),
 		);
 	}
 
@@ -159,6 +161,22 @@ class Helanak_Theme_Customizer {
 			self::card_toggles()
 		);
 		self::register_layout_section( $wp_customize );
+		self::register_contact_section( $wp_customize );
+	}
+
+	private static function register_contact_section( \WP_Customize_Manager $wp_customize ): void {
+		$wp_customize->add_section( 'helanak_contact_details', array( 'title' => __( 'Public contact details', 'wp-helanak-kids-theme' ), 'description' => __( 'Only details entered here are shown publicly. The site administrator email stays private.', 'wp-helanak-kids-theme' ), 'panel' => 'helanak_settings' ) );
+		$fields = array(
+			'email' => array( __( 'Email', 'wp-helanak-kids-theme' ), 'email', 'sanitize_email' ),
+			'phone' => array( __( 'Phone', 'wp-helanak-kids-theme' ), 'text', 'sanitize_text_field' ),
+			'address' => array( __( 'Address', 'wp-helanak-kids-theme' ), 'textarea', 'sanitize_textarea_field' ),
+			'hours' => array( __( 'Support hours', 'wp-helanak-kids-theme' ), 'text', 'sanitize_text_field' ),
+		);
+		foreach ( $fields as $key => $field ) {
+			$id = 'helanak_contact_' . $key;
+			$wp_customize->add_setting( $id, array( 'default' => '', 'sanitize_callback' => $field[2], 'transport' => 'refresh' ) );
+			$wp_customize->add_control( $id, array( 'type' => $field[1], 'section' => 'helanak_contact_details', 'label' => $field[0] ) );
+		}
 	}
 
 	private static function register_season_section( \WP_Customize_Manager $wp_customize ): void {
@@ -308,6 +326,9 @@ class Helanak_Theme_Customizer {
 			'label'       => __( 'Context-aware idle behaviors', 'wp-helanak-kids-theme' ),
 			'description' => __( 'Dog hops on add-to-cart, cat sleeps when idle, a bird flies past on scroll, etc. (spec section 8.4).', 'wp-helanak-kids-theme' ),
 		) );
+
+		$wp_customize->add_setting( 'helanak_character_surprises', array( 'default' => true, 'sanitize_callback' => array( __CLASS__, 'sanitize_checkbox' ), 'transport' => 'refresh' ) );
+		$wp_customize->add_control( 'helanak_character_surprises', array( 'type' => 'checkbox', 'section' => 'helanak_characters', 'label' => __( 'Surprise animal visitors', 'wp-helanak-kids-theme' ), 'description' => __( 'A matching animal friend joins the seasonal hero. It never covers shopping controls.', 'wp-helanak-kids-theme' ) ) );
 
 		foreach ( self::character_labels() as $key => $label ) {
 			$id = "helanak_character_{$key}";

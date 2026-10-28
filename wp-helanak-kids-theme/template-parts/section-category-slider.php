@@ -42,8 +42,11 @@ $helanak_shop_permalink = function_exists( 'wc_get_page_id' ) ? get_permalink( w
 				// Prototype: each icon bobs/wiggles/hops on its own rhythm.
 				$helanak_icon_anims = array( 'scbob', 'scwiggle', 'schop' );
 				foreach ( array_values( $helanak_cats ) as $helanak_cat_index => $helanak_cat ) :
-					$helanak_skin       = class_exists( 'Helanak_Core_Category_Theme' ) ? Helanak_Core_Category_Theme::get_skin_for_term( $helanak_cat ) : null;
-					$helanak_icon       = $helanak_skin[2] ?? '🧸';
+					$helanak_visuals    = class_exists( 'Helanak_Core_Category_Theme' ) ? Helanak_Core_Category_Theme::get_visuals_for_term( $helanak_cat ) : null;
+					$helanak_icon       = $helanak_visuals['icon'] ?? '🧸';
+					$helanak_name       = $helanak_visuals
+						? ( 'fa' === helanak_current_lang() ? $helanak_visuals['label_fa'] : $helanak_visuals['label_en'] )
+						: $helanak_cat->name;
 					// The emoji itself animates (not the gradient header), like the prototype.
 					$helanak_emoji_style = sprintf(
 						'display:inline-block;animation:%1$s %2$ss ease-in-out %3$ss infinite',
@@ -52,13 +55,19 @@ $helanak_shop_permalink = function_exists( 'wc_get_page_id' ) ? get_permalink( w
 						number_format( $helanak_cat_index * 0.25, 2, '.', '' )
 					);
 					// Skin accent pair recolors the tile header per category, like the prototype's per-hue tile gradients.
-					$helanak_icon_style = isset( $helanak_skin[3], $helanak_skin[4] )
-						? sprintf( '--world-bg:linear-gradient(135deg,%1$s,%2$s)', $helanak_skin[3], $helanak_skin[4] )
+					$helanak_icon_style = isset( $helanak_visuals['color_start'], $helanak_visuals['color_end'] )
+						? sprintf( '--world-bg:linear-gradient(135deg,%1$s,%2$s)', $helanak_visuals['color_start'], $helanak_visuals['color_end'] )
 						: '';
 					?>
 					<a class="helanak-world-card" href="<?php echo esc_url( get_term_link( $helanak_cat ) ); ?>">
-						<span class="helanak-world-card__icon" aria-hidden="true"<?php echo $helanak_icon_style ? ' style="' . esc_attr( $helanak_icon_style ) . '"' : ''; ?>><span style="<?php echo esc_attr( $helanak_emoji_style ); ?>"><?php echo esc_html( $helanak_icon ); ?></span></span>
-						<span class="helanak-world-card__name"><?php echo esc_html( $helanak_cat->name ); ?></span>
+						<span class="helanak-world-card__icon" aria-hidden="true"<?php echo $helanak_icon_style ? ' style="' . esc_attr( $helanak_icon_style ) . '"' : ''; ?>>
+							<?php if ( ! empty( $helanak_visuals['image_id'] ) ) : ?>
+								<?php echo wp_get_attachment_image( $helanak_visuals['image_id'], 'thumbnail', false, array( 'class' => 'helanak-world-card__image' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<?php else : ?>
+								<span style="<?php echo esc_attr( $helanak_emoji_style ); ?>"><?php echo esc_html( $helanak_icon ); ?></span>
+							<?php endif; ?>
+						</span>
+						<span class="helanak-world-card__name"><?php echo esc_html( $helanak_name ); ?></span>
 						<span class="helanak-world-card__count">
 							<?php
 							echo esc_html(
