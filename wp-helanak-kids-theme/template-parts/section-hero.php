@@ -91,7 +91,7 @@ $helanak_show_butterfly = in_array( $helanak_season, array( 'spring', 'summer' )
 					<?php esc_html_e( 'Shop now', 'wp-helanak-kids-theme' ); ?>
 				</a>
 				<a class="helanak-btn helanak-btn--outline" href="#helanak-category-slider">
-					<?php esc_html_e( 'Explore worlds', 'wp-helanak-kids-theme' ); ?>
+					<?php esc_html_e( 'Explore categories', 'wp-helanak-kids-theme' ); ?>
 				</a>
 			</div>
 		</div>

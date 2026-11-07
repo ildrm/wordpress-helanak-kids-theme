@@ -274,6 +274,102 @@ msgstr "پیام خود را با حداکثر ۱۰٬۰۰۰ نویسه وارد 
 msgid "New contact form message"
 msgstr "پیام جدید از فرم تماس"
 
+#: includes/class-quick-edit-prices.php:30
+msgid "Loading variation prices…"
+msgstr "در حال بارگذاری قیمت تنوع‌ها…"
+
+#: includes/class-quick-edit-prices.php:31
+msgid "Prices could not be loaded. Try again."
+msgstr "قیمت‌ها بارگذاری نشدند. دوباره تلاش کنید."
+
+#: includes/class-quick-edit-prices.php:32
+msgid ""
+"This product has no variations. Add its sizes or models in the full product "
+"editor first."
+msgstr ""
+"این محصول هنوز تنوعی ندارد. ابتدا سایزها یا مدل‌های آن را در ویرایش کامل "
+"محصول اضافه کنید."
+
+#: includes/class-quick-edit-prices.php:33
+msgid ""
+"Use the full product editor for products with more than 200 variations."
+msgstr ""
+"برای محصولات دارای بیش از ۲۰۰ تنوع، از ویرایش کامل محصول استفاده کنید."
+
+#: includes/class-quick-edit-prices.php:34
+msgid ""
+"Enter valid prices. The sale price must be lower than the regular price."
+msgstr "قیمت‌های معتبر وارد کنید. قیمت فروش ویژه باید کمتر از قیمت عادی باشد."
+
+#: includes/class-quick-edit-prices.php:41
+msgid "Variation prices"
+msgstr "قیمت تنوع‌ها"
+
+#: includes/class-quick-edit-prices.php:42
+msgid ""
+"Edit prices separately for each size or model. Only edited rows are saved. "
+"Clear the sale price to remove a discount; existing sale dates are kept."
+msgstr ""
+"قیمت هر سایز یا مدل را جداگانه ویرایش کنید. فقط ردیف‌های تغییرکرده ذخیره "
+"می‌شوند. برای حذف تخفیف، قیمت فروش ویژه را پاک کنید؛ تاریخ‌های فعلی فروش "
+"ویژه حفظ می‌شوند."
+
+#: includes/class-quick-edit-prices.php:44
+msgid "Retry"
+msgstr "تلاش دوباره"
+
+#: includes/class-quick-edit-prices.php:48
+msgid "Variation"
+msgstr "تنوع"
+
+#: includes/class-quick-edit-prices.php:100
+#: includes/class-quick-edit-prices.php:117
+#: includes/class-quick-edit-prices.php:124
+#: includes/class-quick-edit-prices.php:147
+msgid "Enter a valid non-negative price."
+msgstr "یک قیمت معتبر و غیرمنفی وارد کنید."
+
+#: includes/class-quick-edit-prices.php:133
+#: includes/class-quick-edit-prices.php:139
+msgid "You cannot edit prices for this product."
+msgstr "اجازه ویرایش قیمت‌های این محصول را ندارید."
+
+#: includes/class-quick-edit-prices.php:142
+msgid ""
+"Prices changed since you opened Quick Edit. Reopen it to load the latest "
+"prices."
+msgstr ""
+"قیمت‌ها پس از باز کردن ویرایش سریع تغییر کرده‌اند. ویرایش سریع را دوباره باز"
+" کنید تا آخرین قیمت‌ها بارگذاری شوند."
+
+#: includes/class-quick-edit-prices.php:150
+msgid "The sale price must be lower than the regular price."
+msgstr "قیمت فروش ویژه باید کمتر از قیمت عادی باشد."
+
+#: includes/class-quick-edit-prices.php:165
+msgid "Your session expired. Refresh the page and try again."
+msgstr "نشست شما منقضی شده است. صفحه را تازه کنید و دوباره تلاش کنید."
+
+#: includes/class-quick-edit-prices.php:170
+msgid "Invalid price data. Reopen Quick Edit and try again."
+msgstr "اطلاعات قیمت معتبر نیست. ویرایش سریع را دوباره باز کنید و تلاش کنید."
+
+#: includes/class-catalog-filters.php:25
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: includes/class-catalog-filters.php:26
+msgid "Brand"
+msgstr "برند"
+
+#: includes/class-catalog-filters.php:27
+msgid "Age"
+msgstr "سن"
+
+#: includes/class-catalog-filters.php:28
+msgid "Product highlights"
+msgstr "نشان محصول"
+
 #~ msgid "Limited"
 #~ msgstr "محدود"
 

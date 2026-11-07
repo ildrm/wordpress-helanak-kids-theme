@@ -115,6 +115,7 @@ $helanak_rating       = $product->get_average_rating();
 		data-helanak-card-part="compare"<?php helanak_card_hidden_attr( 'compare' ); ?>
 		data-helanak-compare-toggle
 		data-product-id="<?php echo esc_attr( $helanak_product_id ); ?>"
+		data-product-name="<?php echo esc_attr( $product->get_name() ); ?>"
 		aria-pressed="false"
 		aria-label="<?php esc_attr_e( 'Add to compare', 'wp-helanak-kids-theme' ); ?>"
 	><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></button>

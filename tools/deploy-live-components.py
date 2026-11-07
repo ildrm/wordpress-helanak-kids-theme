@@ -201,7 +201,7 @@ def save(state):
     temporary.replace(target)
 
 
-def prepare(client):
+def prepare(*, client, components):
     release = "helanak-release-" + datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d-%H%M%S") + "-" + secrets.token_hex(3)
     directory = ROOT / ".local/deployments" / release
     directory.mkdir(parents=True)
@@ -228,12 +228,13 @@ def prepare(client):
     state["before"] = inventory(data=database_bytes, prefix=prefix)
     if state["before"]["options"]["home"].strip("'").rstrip("/") != "https://helanak.com":
         raise RuntimeError("Database home URL is not the intended production domain.")
-    if state["before"]["options"]["stylesheet"] != "'wp-helanak-kids-theme'":
+    if "wp-helanak-kids-theme" in components and state["before"]["options"]["stylesheet"] != "'wp-helanak-kids-theme'":
         raise RuntimeError("The intended theme is not the production stylesheet.")
     if "helanak-core-plugin/helanak-core.php" not in state["before"]["options"]["active_plugins"]:
         raise RuntimeError("The intended Core plugin is not active on production.")
     manifest = json.loads((ROOT / ".local/artifacts/manifest.json").read_text())
-    for component, relative in COMPONENTS.items():
+    for component in components:
+        relative = COMPONENTS[component]
         target = DOCUMENT_ROOT + "/" + relative
         backup = client.archive(target)
         (directory / (component + "-before.zip")).write_bytes(backup)
@@ -272,9 +273,10 @@ def load_state(path):
     state = json.loads(path.read_text(encoding="utf-8"))
     if state["remote_directory"] != "/backups/" + state["release"] or not state["release"].startswith("helanak-release-") or "/" in state["release"]:
         raise RuntimeError("Unexpected backup directory.")
-    if set(state["components"]) != set(COMPONENTS):
+    if not state["components"] or not set(state["components"]).issubset(COMPONENTS):
         raise RuntimeError("Unexpected deployment components.")
-    for component, relative in COMPONENTS.items():
+    for component in state["components"]:
+        relative = COMPONENTS[component]
         if state["components"][component]["target"] != DOCUMENT_ROOT + "/" + relative:
             raise RuntimeError("Unexpected production component destination.")
     return state
@@ -368,12 +370,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("prepare", "deploy", "verify"))
     parser.add_argument("--state")
+    parser.add_argument("--component", choices=tuple(COMPONENTS), action="append", help="Stage only the selected component(s); defaults to both.")
     args = parser.parse_args()
     if args.action != "prepare" and not args.state:
         parser.error("--state is required for an existing release.")
     client = DirectAdmin()
     if args.action == "prepare":
-        prepare(client)
+        prepare(client=client, components=list(dict.fromkeys(args.component or COMPONENTS)))
     else:
         state = load_state(args.state)
         if args.action == "deploy":

@@ -10,19 +10,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Domain: wp-helanak-kids-theme\n"
 
-#: footer.php:14
+#: footer.php:16
 msgid "Footer"
 msgstr "پاورقی"
 
-#: footer.php:16
+#: footer.php:18
 msgid "All rights reserved."
 msgstr "تمامی حقوق محفوظ است."
 
-#: footer.php:20
+#: footer.php:22
 msgid "Open cart"
 msgstr "باز کردن سبد خرید"
 
-#: footer.php:27 inc/class-assets.php:122
+#: footer.php:29 inc/class-assets.php:130
 msgid "Close"
 msgstr "بستن"
 
@@ -45,7 +45,7 @@ msgstr "جستجوی اسباب‌بازی، لباس…"
 msgid "Language"
 msgstr "زبان"
 
-#: header.php:45 inc/class-assets.php:121 woocommerce/archive-product.php:89
+#: header.php:45 inc/class-assets.php:129 woocommerce/archive-product.php:97
 msgid "Wishlist"
 msgstr "علاقه‌مندی‌ها"
 
@@ -66,25 +66,25 @@ msgid ""
 "Sizing guides, seasonal picks, and a peek behind the scenes at Helanak Kids."
 msgstr "راهنمای سایز، انتخاب‌های فصلی و نگاهی به پشت‌صحنه‌ی هلنک کیدز."
 
-#: home.php:43
+#: home.php:48
 msgid "★ Featured"
 msgstr "★ ویژه"
 
 #. translators: 1: post date, 2: estimated reading time
-#: home.php:54 home.php:86 single.php:27
+#: home.php:59 home.php:91 single.php:27
 #, php-format
 msgid "%1$s · %2$s"
 msgstr "%1$s · %2$s"
 
-#: home.php:101
+#: home.php:106
 msgid "No posts yet — check back soon!"
 msgstr "هنوز نوشته‌ای نیست — بعداً دوباره سر بزنید!"
 
-#: inc/class-assets.php:123
+#: inc/class-assets.php:131
 msgid "Added to cart"
 msgstr "به سبد اضافه شد"
 
-#: inc/class-assets.php:131
+#: inc/class-assets.php:139
 msgid "Reduced motion is respected automatically via prefers-reduced-motion."
 msgstr ""
 "کاهش انیمیشن به‌صورت خودکار و از طریق prefers-reduced-motion رعایت می‌شود."
@@ -486,10 +486,6 @@ msgstr ""
 "برای فعال‌سازی مرور بر اساس سن، رده‌های سنی را در محصولات ← رده‌های سنی "
 "اضافه کنید."
 
-#: template-parts/section-category-slider.php:28
-msgid "Shop by world"
-msgstr "خرید بر اساس دنیا"
-
 #: template-parts/section-category-slider.php:31
 #: template-parts/section-product-rail.php:39
 msgid "See all →"
@@ -523,10 +519,6 @@ msgstr "لباس و اسباب‌بازی‌هایی که بچه‌های شما
 msgid "Shop now"
 msgstr "همین حالا بخرید"
 
-#: template-parts/section-hero.php:94
-msgid "Explore worlds"
-msgstr "کاوش دنیاها"
-
 #: template-parts/section-newsletter.php:8
 msgid "Join the helanak club"
 msgstr "به باشگاه هلنک بپیوندید"
@@ -559,31 +551,31 @@ msgstr "جدیدترین‌ها"
 msgid "Products will appear here once your catalog is set up."
 msgstr "محصولات پس از راه‌اندازی کاتالوگ شما اینجا نمایش داده می‌شوند."
 
-#: woocommerce/archive-product.php:94 woocommerce/archive-product.php:98
+#: woocommerce/archive-product.php:109 woocommerce/archive-product.php:114
 msgid "Filters"
 msgstr "فیلترها"
 
-#: woocommerce/archive-product.php:99
+#: woocommerce/archive-product.php:115
 msgid "Clear"
 msgstr "پاک کردن"
 
-#: woocommerce/archive-product.php:104
+#: woocommerce/archive-product.php:36
 msgid "Age"
 msgstr "سن"
 
-#: inc/class-compare.php:56 woocommerce/archive-product.php:122
+#: inc/class-compare.php:52 woocommerce/archive-product.php:134
 msgid "Price"
 msgstr "قیمت"
 
-#: woocommerce/archive-product.php:124
+#: woocommerce/archive-product.php:136
 msgid "Min"
 msgstr "حداقل"
 
-#: woocommerce/archive-product.php:125
+#: woocommerce/archive-product.php:137
 msgid "Max"
 msgstr "حداکثر"
 
-#: woocommerce/archive-product.php:131
+#: woocommerce/archive-product.php:36
 msgid "Color"
 msgstr "رنگ"
 
@@ -591,31 +583,31 @@ msgstr "رنگ"
 msgid "Apply filters"
 msgstr "اعمال فیلتر"
 
-#: woocommerce/archive-product.php:173
+#: woocommerce/archive-product.php:172
 msgid "No products were found matching your selection."
 msgstr "محصولی مطابق با انتخاب شما یافت نشد."
 
-#: woocommerce/content-product.php:97
+#: woocommerce/content-product.php:95
 msgid "Add to wishlist"
 msgstr "افزودن به علاقه‌مندی‌ها"
 
-#: inc/class-assets.php:112 woocommerce/content-product.php:110
+#: inc/class-assets.php:120 woocommerce/content-product.php:108
 msgid "Quick view"
 msgstr "مشاهده‌ی سریع"
 
-#: woocommerce/content-product.php:121
+#: inc/class-assets.php:114 woocommerce/content-product.php:120
 msgid "Add to compare"
 msgstr "افزودن به مقایسه"
 
-#: inc/class-compare.php:140 woocommerce/content-product.php:151
+#: inc/class-compare.php:145 woocommerce/content-product.php:150
 msgid "In stock"
 msgstr "موجود در انبار"
 
-#: inc/class-compare.php:142 woocommerce/content-product.php:153
+#: inc/class-compare.php:147 woocommerce/content-product.php:152
 msgid "Available on backorder"
 msgstr "قابل پیش‌سفارش"
 
-#: inc/class-compare.php:144 woocommerce/content-product.php:155
+#: inc/class-compare.php:149 woocommerce/content-product.php:154
 msgid "Out of stock"
 msgstr "ناموجود"
 
@@ -678,7 +670,7 @@ msgstr "بازگشت به خانه"
 msgid "Browse the shop"
 msgstr "مشاهده فروشگاه"
 
-#: 404.php:35 404.php:38
+#: 404.php:35 404.php:38 woocommerce/archive-product.php:104
 msgid "Search"
 msgstr "جستجو"
 
@@ -686,11 +678,7 @@ msgstr "جستجو"
 msgid "Search for toys, clothes…"
 msgstr "جستجوی اسباب‌بازی، لباس…"
 
-#: inc/class-compare.php:45
-msgid "Pick at least two products to compare."
-msgstr "برای مقایسه دست‌کم دو محصول انتخاب کنید."
-
-#: inc/class-compare.php:65
+#: inc/class-compare.php:61
 msgid "Compare products"
 msgstr "مقایسه محصولات"
 
@@ -698,23 +686,23 @@ msgstr "مقایسه محصولات"
 msgid "Compare"
 msgstr "مقایسه"
 
-#: inc/class-compare.php:57
+#: inc/class-compare.php:53
 msgid "Rating"
 msgstr "امتیاز"
 
-#: inc/class-compare.php:58
+#: inc/class-compare.php:54
 msgid "Age range"
 msgstr "رده سنی"
 
-#: inc/class-compare.php:59
+#: inc/class-compare.php:55
 msgid "Safety"
 msgstr "ایمنی"
 
-#: inc/class-compare.php:60
+#: inc/class-compare.php:56
 msgid "Availability"
 msgstr "موجودی"
 
-#: inc/class-compare.php:132
+#: inc/class-compare.php:137
 msgid "Choking hazard"
 msgstr "خطر خفگی"
 
@@ -736,19 +724,19 @@ msgstr "محصولی یافت نشد"
 msgid "Recently viewed"
 msgstr "بازدیدهای اخیر"
 
-#: footer.php:31
+#: footer.php:33
 msgid "Your cart is napping — nothing in it yet."
 msgstr "سبد خرید شما خواب است — هنوز چیزی داخلش نیست."
 
-#: woocommerce/archive-product.php:175
+#: woocommerce/archive-product.php:174
 msgid "Clear filters"
 msgstr "پاک کردن فیلترها"
 
-#: footer.php:25
+#: footer.php:27
 msgid "Your cart"
 msgstr "سبد خرید شما"
 
-#: footer.php:32
+#: footer.php:34
 msgid "Start shopping"
 msgstr "شروع خرید"
 
@@ -787,7 +775,7 @@ msgstr ""
 msgid "Helanak"
 msgstr "هلانک"
 
-#: footer.php:15 header.php:20 inc/class-assets.php:116
+#: footer.php:17 header.php:20 inc/class-assets.php:124
 msgid "Pause animations"
 msgstr "توقف حرکت‌ها"
 
@@ -799,27 +787,27 @@ msgstr "کشف‌های کوچک در هر مرحله از بزرگ‌شدن"
 msgid "Skip to content"
 msgstr "پرش به محتوا"
 
-#: inc/class-assets.php:113
+#: inc/class-assets.php:121
 msgid "Loading…"
 msgstr "در حال بارگذاری…"
 
-#: inc/class-assets.php:114
+#: inc/class-assets.php:122
 msgid "Unable to load this product. Please try again."
 msgstr "این محصول بارگذاری نشد. دوباره تلاش کنید."
 
-#: inc/class-assets.php:115
+#: inc/class-assets.php:123
 msgid "Search suggestions"
 msgstr "پیشنهادهای جستجو"
 
-#: inc/class-assets.php:117
+#: inc/class-assets.php:125
 msgid "Resume animations"
 msgstr "ادامه حرکت‌ها"
 
-#: inc/class-assets.php:118
+#: inc/class-assets.php:126
 msgid "Reduced motion"
 msgstr "حرکت کمتر"
 
-#: inc/class-assets.php:119
+#: inc/class-assets.php:127
 #, php-format
 msgid "%s says hello!"
 msgstr "%s به شما سلام می‌کند!"
@@ -892,7 +880,7 @@ msgstr "دنیایی کوچک برای کشف کردن"
 msgid "Explore clothes, toys, and everyday finds for little ones."
 msgstr "لباس، اسباب‌بازی و وسایل روزمره برای کوچولوها را کشف کنید."
 
-#: page-about.php:15 woocommerce/archive-product.php:175
+#: page-about.php:15 woocommerce/archive-product.php:174
 msgid "Explore the shop"
 msgstr "گشت‌وگذار در فروشگاه"
 
@@ -993,7 +981,7 @@ msgstr "همراه شما"
 msgid "Ask about a product or your order"
 msgstr "درباره محصول یا سفارش‌تان بپرسید"
 
-#: woocommerce/archive-product.php:173
+#: woocommerce/archive-product.php:172
 msgid "Your wishlist is waiting for a little inspiration."
 msgstr "فهرست علاقه‌مندی‌ها منتظر یک کشف دوست‌داشتنی است."
 
@@ -1006,6 +994,103 @@ msgstr ""
 "برای فرم‌های فروشگاه، پیشرفت ارسال رایگان، ایمنی محصولات، نشان‌ها و فیلتر "
 "سن، نسخه ۰٫۳٫۰ یا بالاتر افزونه هسته هلانک را فعال کنید. در نبود این افزونه،"
 " صفحه‌های فروشگاه همچنان نمایش داده می‌شوند."
+
+#: inc/class-assets.php:112
+#, php-format
+msgid "Compare (%d product)"
+msgstr "مقایسه (%d محصول)"
+
+#: inc/class-assets.php:113
+#, php-format
+msgid "Compare (%d products)"
+msgstr "مقایسه (%d محصول)"
+
+#: inc/class-assets.php:115 inc/class-compare.php:80
+msgid "Remove from comparison"
+msgstr "حذف از مقایسه"
+
+#: inc/class-assets.php:116
+msgid "Product added to comparison."
+msgstr "محصول به فهرست مقایسه اضافه شد."
+
+#: inc/class-assets.php:117
+msgid "Product removed from comparison."
+msgstr "محصول از فهرست مقایسه حذف شد."
+
+#: inc/class-assets.php:118
+msgid "You can compare up to 3 products. Remove a product first."
+msgstr ""
+"حداکثر ۳ محصول را می‌توانید مقایسه کنید. ابتدا یکی از محصولات را حذف کنید."
+
+#: inc/class-assets.php:119
+msgid "Hover to zoom · Click to enlarge"
+msgstr "برای زوم، نشانگر را روی عکس ببرید؛ برای نمایش بزرگ‌تر کلیک کنید"
+
+#: inc/class-compare.php:57
+msgid "Shopping options"
+msgstr "گزینه‌های خرید"
+
+#: inc/class-compare.php:63
+msgid "Your comparison list is empty."
+msgstr "فهرست مقایسه شما خالی است."
+
+#: inc/class-compare.php:64
+msgid "Continue shopping"
+msgstr "ادامه خرید"
+
+#: inc/class-compare.php:67
+msgid "Add another product to compare its details."
+msgstr "برای مقایسه جزئیات، محصول دیگری اضافه کنید."
+
+#: inc/class-compare.php:73
+msgid "Details"
+msgstr "جزئیات"
+
+#: inc/class-compare.php:80
+#, php-format
+msgid "Remove %s from comparison"
+msgstr "حذف %s از مقایسه"
+
+#: template-parts/section-category-slider.php:28
+msgid "Shop by category"
+msgstr "خرید بر اساس دسته‌بندی"
+
+#: template-parts/section-hero.php:94
+msgid "Explore categories"
+msgstr "مشاهده دسته‌بندی‌ها"
+
+#: woocommerce/archive-product.php:101
+msgid "Search product names"
+msgstr "جستجوی نام محصول"
+
+#: woocommerce/archive-product.php:103
+msgid "Enter a product name"
+msgstr "نام محصول را وارد کنید"
+
+#: woocommerce/archive-product.php:108
+msgid "Product filters"
+msgstr "فیلتر محصولات"
+
+#: woocommerce/archive-product.php:142
+msgid "Availability and offers"
+msgstr "موجودی و تخفیف"
+
+#: woocommerce/archive-product.php:144
+msgid "Only in-stock products"
+msgstr "فقط کالاهای موجود"
+
+#: woocommerce/archive-product.php:145
+msgid "Discounted products"
+msgstr "محصولات تخفیف‌دار"
+
+#~ msgid "Shop by world"
+#~ msgstr "خرید بر اساس دنیا"
+
+#~ msgid "Explore worlds"
+#~ msgstr "کاوش دنیاها"
+
+#~ msgid "Pick at least two products to compare."
+#~ msgstr "برای مقایسه دست‌کم دو محصول انتخاب کنید."
 
 #~ msgid ""
 #~ "WP Helanak Kids Theme works best with the \"Helanak Core\" plugin active "

@@ -1,7 +1,7 @@
 <?php
 /**
  * Product compare: serves a side-by-side comparison table (image, price,
- * rating, age range, safety fields, stock, add-to-cart) for 2–3 products
+ * rating, age range, safety fields, stock, add-to-cart) for up to 3 products
  * over admin-ajax.php, displayed in the same modal shell as Quick View.
  *
  * The per-card ⇄ trigger buttons already existed in
@@ -41,10 +41,6 @@ class Helanak_Compare {
 			}
 		}
 
-		if ( count( $products ) < 2 ) {
-			wp_send_json_error( array( 'message' => __( 'Pick at least two products to compare.', 'wp-helanak-kids-theme' ) ), 400 );
-		}
-
 		ob_start();
 		self::render_table( $products );
 		wp_send_json_success( array( 'html' => ob_get_clean() ) );
@@ -58,22 +54,30 @@ class Helanak_Compare {
 			'age'       => __( 'Age range', 'wp-helanak-kids-theme' ),
 			'safety'    => __( 'Safety', 'wp-helanak-kids-theme' ),
 			'stock'     => __( 'Availability', 'wp-helanak-kids-theme' ),
-			'cart'      => '',
+			'cart'      => __( 'Shopping options', 'wp-helanak-kids-theme' ),
 		);
 		?>
-		<div class="helanak-compare">
+		<div class="helanak-compare" data-helanak-compare-ids="<?php echo esc_attr( implode( ',', array_map( static function ( $product ) { return $product->get_id(); }, $products ) ) ); ?>">
 			<h2 class="helanak-compare__title"><?php esc_html_e( 'Compare products', 'wp-helanak-kids-theme' ); ?></h2>
+			<?php if ( ! $products ) : ?>
+				<p role="status"><?php esc_html_e( 'Your comparison list is empty.', 'wp-helanak-kids-theme' ); ?></p>
+				<button type="button" class="helanak-btn helanak-btn--primary" data-helanak-compare-close><?php esc_html_e( 'Continue shopping', 'wp-helanak-kids-theme' ); ?></button>
+			<?php else : ?>
+				<?php if ( 1 === count( $products ) ) : ?>
+					<p class="helanak-compare__hint" role="status"><?php esc_html_e( 'Add another product to compare its details.', 'wp-helanak-kids-theme' ); ?></p>
+				<?php endif; ?>
 			<div class="helanak-compare__scroll">
 				<table class="helanak-compare__table">
 					<thead>
 						<tr>
-							<td></td>
+							<th scope="col"><?php esc_html_e( 'Details', 'wp-helanak-kids-theme' ); ?></th>
 							<?php foreach ( $products as $product ) : ?>
 								<th scope="col">
 									<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
 										<?php echo $product->get_image( 'helanak-card' ); // phpcs:ignore WordPress.Security.EscapeOutput -- core-generated <img>. ?>
 										<span><?php echo esc_html( $product->get_name() ); ?></span>
 									</a>
+									<button type="button" class="helanak-compare__remove" data-helanak-compare-remove data-product-id="<?php echo esc_attr( $product->get_id() ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Remove %s from comparison', 'wp-helanak-kids-theme' ), $product->get_name() ) ); ?>"><?php esc_html_e( 'Remove from comparison', 'wp-helanak-kids-theme' ); ?></button>
 								</th>
 							<?php endforeach; ?>
 						</tr>
@@ -90,6 +94,7 @@ class Helanak_Compare {
 					</tbody>
 				</table>
 			</div>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

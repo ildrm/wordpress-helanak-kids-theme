@@ -18,6 +18,10 @@ class Helanak_Archive_Filters {
 	}
 
 	public static function apply_filters( WP_Query $query ): void {
+		// Core owns the catalogue rules; keep this fallback for standalone theme use.
+		if ( class_exists( 'Helanak_Core_Catalog_Filters' ) ) {
+			return;
+		}
 		if ( is_admin() || ! $query->is_main_query() || ! function_exists( 'is_product_taxonomy' ) ) {
 			return;
 		}

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Helanak Core 0.3.0\n"
+"Project-Id-Version: Helanak Core 0.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/helanak-core-plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T21:15:53+01:00\n"
+"POT-Creation-Date: 2026-11-06T20:54:34+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: helanak-core\n"
@@ -167,6 +167,22 @@ msgstr ""
 msgid "Manage badge definitions"
 msgstr ""
 
+#: includes/class-catalog-filters.php:25
+msgid "Category"
+msgstr ""
+
+#: includes/class-catalog-filters.php:26
+msgid "Brand"
+msgstr ""
+
+#: includes/class-catalog-filters.php:27
+msgid "Age"
+msgstr ""
+
+#: includes/class-catalog-filters.php:28
+msgid "Product highlights"
+msgstr ""
+
 #: includes/class-category-theme.php:75
 msgid "Use the WooCommerce thumbnail above as optional category hero artwork."
 msgstr ""
@@ -233,6 +249,70 @@ msgstr ""
 
 #: includes/class-product-safety-fields.php:111
 msgid "WARNING: Choking hazard — small parts. Not suitable for children under 3 years."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:30
+msgid "Loading variation prices…"
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:31
+msgid "Prices could not be loaded. Try again."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:32
+msgid "This product has no variations. Add its sizes or models in the full product editor first."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:33
+msgid "Use the full product editor for products with more than 200 variations."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:34
+msgid "Enter valid prices. The sale price must be lower than the regular price."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:41
+msgid "Variation prices"
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:42
+msgid "Edit prices separately for each size or model. Only edited rows are saved. Clear the sale price to remove a discount; existing sale dates are kept."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:44
+msgid "Retry"
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:48
+msgid "Variation"
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:100
+#: includes/class-quick-edit-prices.php:117
+#: includes/class-quick-edit-prices.php:124
+#: includes/class-quick-edit-prices.php:147
+msgid "Enter a valid non-negative price."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:133
+#: includes/class-quick-edit-prices.php:139
+msgid "You cannot edit prices for this product."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:142
+msgid "Prices changed since you opened Quick Edit. Reopen it to load the latest prices."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:150
+msgid "The sale price must be lower than the regular price."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:165
+msgid "Your session expired. Refresh the page and try again."
+msgstr ""
+
+#: includes/class-quick-edit-prices.php:170
+msgid "Invalid price data. Reopen Quick Edit and try again."
 msgstr ""
 
 #: includes/class-store-forms.php:64

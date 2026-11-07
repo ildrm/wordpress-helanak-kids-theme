@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HELANAK_THEME_VERSION', '0.7.0' );
+define( 'HELANAK_THEME_VERSION', '0.7.3' );
 define( 'HELANAK_THEME_DIR', get_template_directory() );
 define( 'HELANAK_THEME_URI', get_template_directory_uri() );
 

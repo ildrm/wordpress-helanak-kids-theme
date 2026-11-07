@@ -55,7 +55,7 @@
 	document.addEventListener( 'focusin', function ( event ) {
 		if ( active && ! active.contains( event.target ) ) { ( focusables()[ 0 ] || active ).focus(); }
 	} );
-	window.helanakDialog = { open: open, close: close, isOpen: function ( dialog ) { return active === dialog; } };
+	window.helanakDialog = { open: open, close: close, isOpen: function ( dialog ) { return active === dialog; }, setReturnFocus: function ( element ) { if ( active && element ) { returnFocus = element; } } };
 } )();
 
 ( function () {
@@ -167,6 +167,12 @@
 
 	var prevBtn = document.querySelector( '[data-helanak-worlds-prev]' );
 	var nextBtn = document.querySelector( '[data-helanak-worlds-next]' );
+	function updateControls() {
+		var maximum = Math.max( 0, track.scrollWidth - track.clientWidth );
+		var position = Math.min( maximum, Math.abs( track.scrollLeft ) );
+		if ( prevBtn ) { prevBtn.disabled = position <= 1; }
+		if ( nextBtn ) { nextBtn.disabled = maximum <= 1 || position >= maximum - 1; }
+	}
 	if ( prevBtn ) {
 		prevBtn.textContent = window.getComputedStyle( track ).direction === 'rtl' ? '›' : '‹';
 		prevBtn.addEventListener( 'click', function () {
@@ -179,6 +185,10 @@
 			scrollByAmount( 1 );
 		} );
 	}
+	track.addEventListener( 'scroll', updateControls, { passive: true } );
+	window.addEventListener( 'resize', updateControls );
+	window.addEventListener( 'load', updateControls );
+	updateControls();
 } )();
 /** Bounded, event-driven character motion with a persistent pause control. */
 ( function () {
@@ -329,8 +339,46 @@
 	var phone = window.matchMedia( '(max-width: 782px)' );
 	function update() { form.hidden = phone.matches; toggle.setAttribute( 'aria-expanded', phone.matches ? 'false' : 'true' ); }
 	toggle.addEventListener( 'click', function () { form.hidden = ! form.hidden; toggle.setAttribute( 'aria-expanded', form.hidden ? 'false' : 'true' ); } );
+	form.addEventListener( 'invalid', function ( event ) {
+		form.hidden = false;
+		toggle.setAttribute( 'aria-expanded', 'true' );
+		var group = event.target.closest( '.helanak-filter-group' );
+		if ( group ) { group.open = true; }
+	}, true );
 	if ( phone.addEventListener ) { phone.addEventListener( 'change', update ); } else { phone.addListener( update ); }
 	update();
+	var panel = form.closest( '.helanak-filters' );
+	var header = document.querySelector( '.helanak-header' );
+	var pendingOffset = false;
+	var lastOffset;
+	var lastTop;
+	function updateOffset() {
+		pendingOffset = false;
+		if ( panel && header ) {
+			var offset = ( parseFloat( window.getComputedStyle( header ).top ) || 0 ) + header.offsetHeight + 12;
+			var top = Math.ceil( Math.max( offset, panel.getBoundingClientRect().top ) );
+			if ( offset !== lastOffset ) { panel.style.setProperty( '--helanak-filter-offset', offset + 'px' ); lastOffset = offset; }
+			if ( top !== lastTop ) { panel.style.setProperty( '--helanak-filter-space-top', top + 'px' ); lastTop = top; }
+		}
+	}
+	function scheduleOffset() {
+		if ( ! pendingOffset ) { pendingOffset = true; window.requestAnimationFrame( updateOffset ); }
+	}
+	updateOffset();
+	window.addEventListener( 'resize', scheduleOffset );
+	window.addEventListener( 'scroll', scheduleOffset, { passive: true } );
+	if ( header && window.ResizeObserver ) { new window.ResizeObserver( scheduleOffset ).observe( header ); }
+} )();
+
+/** Keep native WooCommerce zoom/lightbox discoverable without adding a viewer. */
+( function () {
+	'use strict';
+	var gallery = document.querySelector( '.woocommerce-product-gallery--with-images' );
+	if ( ! gallery ) { return; }
+	var hint = document.createElement( 'p' );
+	hint.className = 'helanak-gallery-hint';
+	hint.textContent = ( window.helanakSettings || {} ).galleryHint || 'Hover to zoom · Click to enlarge';
+	gallery.appendChild( hint );
 } )();
 
 /** Merchant-authored size tables stay reachable with a keyboard. */

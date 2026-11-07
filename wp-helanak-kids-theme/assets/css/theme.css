@@ -55,7 +55,11 @@ a:hover {
 	opacity: 0.8;
 }
 
-button {
+button,
+input,
+select,
+textarea,
+option {
 	font-family: inherit;
 }
 
@@ -851,7 +855,11 @@ textarea:focus-visible {
 .helanak-worlds__nav {
 	display: flex;
 	gap: 8px;
+	direction: ltr;
 }
+
+[dir="rtl"] .helanak-worlds__nav [data-helanak-worlds-prev] { order: 2; }
+[dir="rtl"] .helanak-worlds__nav [data-helanak-worlds-next] { order: 1; }
 
 .helanak-worlds__nav button {
 	width: 38px;
@@ -868,6 +876,8 @@ textarea:focus-visible {
 .helanak-worlds__nav button:hover {
 	transform: scale( 1.08 );
 }
+
+.helanak-worlds__nav button:disabled { opacity: .45; cursor: default; transform: none; }
 
 /* ---------------------------------------------------------------------
  * 9. Product card (shared across rail / archive grid / related products —
@@ -1836,7 +1846,7 @@ textarea:focus-visible {
 	flex: 0 0 246px;
 	min-width: 220px;
 	position: sticky;
-	top: 110px;
+	top: var( --helanak-filter-offset, 110px );
 	background: var( --surface-color );
 	border: 1px solid var( --border-color );
 	border-radius: var( --radius-md );
@@ -1845,6 +1855,7 @@ textarea:focus-visible {
 
 .helanak-filters__head {
 	display: flex;
+	flex: 0 0 auto;
 	justify-content: space-between;
 	margin-bottom: 16px;
 	font-weight: 700;
@@ -1927,6 +1938,29 @@ textarea:focus-visible {
 .helanak-archive__grid {
 	flex: 1 1 480px;
 }
+
+.helanak-shop-search { margin: 24px 0; max-width: 720px; }
+.helanak-shop-search > label { display: block; margin-bottom: 8px; font-weight: 700; }
+.helanak-shop-search__controls { display: flex; gap: 10px; }
+.helanak-shop-search input { flex: 1; min-width: 0; min-height: 48px; padding: 12px 16px; border: 1px solid var( --border-color ); border-radius: 12px; background: #fff; color: var( --text-color ); font: inherit; }
+.helanak-filter-group { border-top: 1px solid var( --border-color ); }
+.helanak-filter-group summary { min-height: 48px; padding: 12px 0; cursor: pointer; font-size: 14px; font-weight: 700; }
+.helanak-filter-group__count { font-size: 12px; color: var( --helanak-muted ); }
+.helanak-gallery-hint { display: none; }
+.woocommerce-product-gallery .zoomImg { pointer-events: none; }
+@media ( hover: hover ) and ( pointer: fine ) {
+	.helanak-gallery-hint { display: block; margin: 0; padding: 10px 14px; text-align: center; font-size: 12px; color: var( --text-color ); }
+	.woocommerce-product-gallery__image > a { cursor: zoom-in; }
+}
+.helanak-filter-options { display: grid; }
+.helanak-filter-options label { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 5px 2px; font-size: 13px; cursor: pointer; }
+.helanak-filter-options input { flex: 0 0 18px; width: 18px; height: 18px; margin: 0; accent-color: var( --text-color ); }
+.helanak-filter-options label:has( input:checked ) { font-weight: 700; }
+.helanak-filters .helanak-filter-group fieldset { margin-bottom: 12px; min-width: 0; }
+.helanak-filter-price small { font-size: 11px; font-weight: 400; }
+.helanak-filters form { display: flex; flex-direction: column; min-height: 0; max-height: calc( 100vh - var( --helanak-filter-space-top, 110px ) - 60px ); max-height: calc( 100dvh - var( --helanak-filter-space-top, 110px ) - 60px ); }
+.helanak-filters__scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-gutter: stable; scroll-padding-block: 8px; padding: 4px 8px; margin: -4px -8px; }
+.helanak-filters__actions { flex: 0 0 auto; padding: 14px 0 0; background: var( --surface-color ); }
 
 .helanak-archive__toolbar {
 	display: flex;
@@ -2797,6 +2831,13 @@ textarea:focus-visible {
 	padding: 9px 16px;
 }
 
+.helanak-compare__table thead a { display: grid; gap: 8px; }
+.helanak-compare__remove { display: block; margin-top: 12px; min-height: 44px; padding: 8px 12px; border: 1px solid var( --border-color ); border-radius: 10px; background: #fff; color: var( --text-color ); font: inherit; cursor: pointer; }
+.helanak-compare__remove:hover { background: var( --surface-color ); }
+.helanak-compare__hint { color: var( --helanak-muted ); margin-bottom: 16px; }
+.helanak-compare-feedback { position: fixed; inset-inline-start: 24px; bottom: 86px; z-index: 50; max-width: min( 360px, calc( 100vw - 48px ) ); margin: 0; padding: 12px 16px; border: 1px solid var( --border-color ); border-radius: 12px; background: #fff; color: var( --text-color ); box-shadow: 0 8px 24px #2b2b331c; font-size: 14px; }
+.helanak-compare-pill[hidden], .helanak-compare-feedback[hidden] { display: none; }
+
 /* Live search dropdown (assets/js/search-suggest.js). */
 .helanak-header__search--suggest {
 	position: relative;
@@ -2970,15 +3011,24 @@ textarea:focus-visible {
 
 /* Gallery. */
 .woocommerce div.product div.images {
+	position: relative;
+	isolation: isolate;
+	z-index: 0;
 	background: #fff;
 	border: 1px solid var( --border-color );
 	border-radius: var( --radius-lg );
 	overflow: hidden;
 }
 
-.woocommerce div.product div.images img {
+.woocommerce div.product div.images img:not( .zoomImg ) {
 	width: 100%;
 }
+
+.woocommerce div.product div.images .woocommerce-product-gallery__trigger { z-index: 3; }
+.woocommerce div.product div.images .woocommerce-product-gallery__image > a:hover { opacity: 1; }
+.woocommerce div.product form.cart .variations select,
+.helanak-quick-view__cart .variations select { font: inherit; min-height: 44px; line-height: 1.6; }
+.woocommerce .variations select option { font: inherit; }
 
 .woocommerce div.product div.images .flex-control-thumbs {
 	display: flex;
@@ -3760,7 +3810,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 	.helanak-filter-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; font-weight: 700; cursor: pointer; }
 	.helanak-filter-toggle::after { content: '+'; font-size: 23px; }
 	.helanak-filter-toggle[aria-expanded="true"]::after { content: '−'; }
-	.helanak-filters form { padding-top: 16px; }
+	.helanak-filters form { padding-top: 16px; max-height: min( 70vh, 600px, calc( 100vh - var( --helanak-filter-space-top, 110px ) - 90px ) ); max-height: min( 70dvh, 600px, calc( 100dvh - var( --helanak-filter-space-top, 110px ) - 90px ) ); }
 	.helanak-price-fields { grid-template-columns: repeat( 2, minmax( 0, 1fr ) ); }
 	.helanak-filters__head { margin-bottom: 12px; }
 	.helanak-product__gallery, .helanak-buy-box { flex-basis: 100%; width: 100%; }

@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Helanak Kids Theme 0.7.0\n"
+"Project-Id-Version: WP Helanak Kids Theme 0.7.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/wp-helanak-kids-theme\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-28T02:45:44+01:00\n"
+"POT-Creation-Date: 2026-11-06T20:54:33+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-helanak-kids-theme\n"
@@ -53,6 +53,7 @@ msgstr ""
 
 #: 404.php:35
 #: 404.php:38
+#: woocommerce/archive-product.php:104
 msgid "Search"
 msgstr ""
 
@@ -61,38 +62,38 @@ msgstr ""
 msgid "Search for toys, clothes…"
 msgstr ""
 
-#: footer.php:14
+#: footer.php:16
 msgid "Footer"
 msgstr ""
 
-#: footer.php:15
+#: footer.php:17
 #: header.php:20
-#: inc/class-assets.php:116
+#: inc/class-assets.php:124
 msgid "Pause animations"
 msgstr ""
 
-#: footer.php:16
+#: footer.php:18
 msgid "All rights reserved."
 msgstr ""
 
-#: footer.php:20
+#: footer.php:22
 msgid "Open cart"
 msgstr ""
 
-#: footer.php:25
+#: footer.php:27
 msgid "Your cart"
 msgstr ""
 
-#: footer.php:27
-#: inc/class-assets.php:122
+#: footer.php:29
+#: inc/class-assets.php:130
 msgid "Close"
 msgstr ""
 
-#: footer.php:31
+#: footer.php:33
 msgid "Your cart is napping — nothing in it yet."
 msgstr ""
 
-#: footer.php:32
+#: footer.php:34
 msgid "Start shopping"
 msgstr ""
 
@@ -129,8 +130,8 @@ msgid "Language"
 msgstr ""
 
 #: header.php:45
-#: inc/class-assets.php:121
-#: woocommerce/archive-product.php:89
+#: inc/class-assets.php:129
+#: woocommerce/archive-product.php:97
 msgid "Wishlist"
 msgstr ""
 
@@ -150,19 +151,19 @@ msgstr ""
 msgid "Sizing guides, seasonal picks, and a peek behind the scenes at Helanak Kids."
 msgstr ""
 
-#: home.php:43
+#: home.php:48
 msgid "★ Featured"
 msgstr ""
 
 #. translators: 1: post date, 2: estimated reading time
-#: home.php:54
-#: home.php:86
+#: home.php:59
+#: home.php:91
 #: single.php:27
 #, php-format
 msgid "%1$s · %2$s"
 msgstr ""
 
-#: home.php:101
+#: home.php:106
 msgid "No posts yet — check back soon!"
 msgstr ""
 
@@ -171,40 +172,76 @@ msgid "Compare"
 msgstr ""
 
 #: inc/class-assets.php:112
-#: woocommerce/content-product.php:110
-msgid "Quick view"
+#, php-format
+msgid "Compare (%d product)"
 msgstr ""
 
 #: inc/class-assets.php:113
-msgid "Loading…"
+#, php-format
+msgid "Compare (%d products)"
 msgstr ""
 
 #: inc/class-assets.php:114
-msgid "Unable to load this product. Please try again."
+#: woocommerce/content-product.php:120
+msgid "Add to compare"
 msgstr ""
 
 #: inc/class-assets.php:115
-msgid "Search suggestions"
+#: inc/class-compare.php:80
+msgid "Remove from comparison"
+msgstr ""
+
+#: inc/class-assets.php:116
+msgid "Product added to comparison."
 msgstr ""
 
 #: inc/class-assets.php:117
-msgid "Resume animations"
+msgid "Product removed from comparison."
 msgstr ""
 
 #: inc/class-assets.php:118
-msgid "Reduced motion"
+msgid "You can compare up to 3 products. Remove a product first."
 msgstr ""
 
 #: inc/class-assets.php:119
+msgid "Hover to zoom · Click to enlarge"
+msgstr ""
+
+#: inc/class-assets.php:120
+#: woocommerce/content-product.php:108
+msgid "Quick view"
+msgstr ""
+
+#: inc/class-assets.php:121
+msgid "Loading…"
+msgstr ""
+
+#: inc/class-assets.php:122
+msgid "Unable to load this product. Please try again."
+msgstr ""
+
+#: inc/class-assets.php:123
+msgid "Search suggestions"
+msgstr ""
+
+#: inc/class-assets.php:125
+msgid "Resume animations"
+msgstr ""
+
+#: inc/class-assets.php:126
+msgid "Reduced motion"
+msgstr ""
+
+#: inc/class-assets.php:127
 #, php-format
 msgid "%s says hello!"
 msgstr ""
 
-#: inc/class-assets.php:123
+#: inc/class-assets.php:131
 msgid "Added to cart"
 msgstr ""
 
-#: inc/class-assets.php:131
+#: inc/class-assets.php:139
 msgid "Reduced motion is respected automatically via prefers-reduced-motion."
 msgstr ""
 
@@ -214,51 +251,72 @@ msgstr ""
 msgid "Product not found."
 msgstr ""
 
-#: inc/class-compare.php:45
-msgid "Pick at least two products to compare."
-msgstr ""
-
-#: inc/class-compare.php:56
-#: woocommerce/archive-product.php:122
+#: inc/class-compare.php:52
+#: woocommerce/archive-product.php:134
 msgid "Price"
 msgstr ""
 
-#: inc/class-compare.php:57
+#: inc/class-compare.php:53
 msgid "Rating"
 msgstr ""
 
-#: inc/class-compare.php:58
+#: inc/class-compare.php:54
 msgid "Age range"
 msgstr ""
 
-#: inc/class-compare.php:59
+#: inc/class-compare.php:55
 msgid "Safety"
 msgstr ""
 
-#: inc/class-compare.php:60
+#: inc/class-compare.php:56
 msgid "Availability"
 msgstr ""
 
-#: inc/class-compare.php:65
+#: inc/class-compare.php:57
+msgid "Shopping options"
+msgstr ""
+
+#: inc/class-compare.php:61
 msgid "Compare products"
 msgstr ""
 
-#: inc/class-compare.php:132
+#: inc/class-compare.php:63
+msgid "Your comparison list is empty."
+msgstr ""
+
+#: inc/class-compare.php:64
+msgid "Continue shopping"
+msgstr ""
+
+#: inc/class-compare.php:67
+msgid "Add another product to compare its details."
+msgstr ""
+
+#: inc/class-compare.php:73
+msgid "Details"
+msgstr ""
+
+#: inc/class-compare.php:80
+#, php-format
+msgid "Remove %s from comparison"
+msgstr ""
+
+#: inc/class-compare.php:137
 msgid "Choking hazard"
 msgstr ""
 
-#: inc/class-compare.php:140
-#: woocommerce/content-product.php:151
+#: inc/class-compare.php:145
+#: woocommerce/content-product.php:150
 msgid "In stock"
 msgstr ""
 
-#: inc/class-compare.php:142
-#: woocommerce/content-product.php:153
+#: inc/class-compare.php:147
+#: woocommerce/content-product.php:152
 msgid "Available on backorder"
 msgstr ""
 
-#: inc/class-compare.php:144
-#: woocommerce/content-product.php:155
+#: inc/class-compare.php:149
+#: woocommerce/content-product.php:154
 msgid "Out of stock"
 msgstr ""
 
@@ -651,7 +709,7 @@ msgid "Explore clothes, toys, and everyday finds for little ones."
 msgstr ""
 
 #: page-about.php:15
-#: woocommerce/archive-product.php:175
+#: woocommerce/archive-product.php:174
 msgid "Explore the shop"
 msgstr ""
 
@@ -781,7 +839,7 @@ msgid "Add age ranges in Products → Age Ranges to enable age browsing."
 msgstr ""
 
 #: template-parts/section-category-slider.php:28
-msgid "Shop by world"
+msgid "Shop by category"
 msgstr ""
 
 #: template-parts/section-category-slider.php:31
@@ -847,7 +905,7 @@ msgid "Shop now"
 msgstr ""
 
 #: template-parts/section-hero.php:94
-msgid "Explore worlds"
+msgid "Explore categories"
 msgstr ""
 
 #: template-parts/section-newsletter.php:8
@@ -926,51 +984,71 @@ msgstr ""
 msgid "Ask about a product or your order"
 msgstr ""
 
-#: woocommerce/archive-product.php:94
-#: woocommerce/archive-product.php:98
-msgid "Filters"
-msgstr ""
-
-#: woocommerce/archive-product.php:99
-msgid "Clear"
-msgstr ""
-
-#: woocommerce/archive-product.php:104
+#: woocommerce/archive-product.php:36
 msgid "Age"
 msgstr ""
 
-#: woocommerce/archive-product.php:124
+#: woocommerce/archive-product.php:36
+msgid "Color"
+msgstr ""
+
+#: woocommerce/archive-product.php:101
+msgid "Search product names"
+msgstr ""
+
+#: woocommerce/archive-product.php:103
+msgid "Enter a product name"
+msgstr ""
+
+#: woocommerce/archive-product.php:108
+msgid "Product filters"
+msgstr ""
+
+#: woocommerce/archive-product.php:109
+#: woocommerce/archive-product.php:114
+msgid "Filters"
+msgstr ""
+
+#: woocommerce/archive-product.php:115
+msgid "Clear"
+msgstr ""
+
+#: woocommerce/archive-product.php:136
 msgid "Min"
 msgstr ""
 
-#: woocommerce/archive-product.php:125
+#: woocommerce/archive-product.php:137
 msgid "Max"
 msgstr ""
 
-#: woocommerce/archive-product.php:131
-msgid "Color"
+#: woocommerce/archive-product.php:142
+msgid "Availability and offers"
+msgstr ""
+
+#: woocommerce/archive-product.php:144
+msgid "Only in-stock products"
+msgstr ""
+
+#: woocommerce/archive-product.php:145
+msgid "Discounted products"
 msgstr ""
 
 #: woocommerce/archive-product.php:149
 msgid "Apply filters"
 msgstr ""
 
-#: woocommerce/archive-product.php:173
+#: woocommerce/archive-product.php:172
 msgid "Your wishlist is waiting for a little inspiration."
 msgstr ""
 
-#: woocommerce/archive-product.php:173
+#: woocommerce/archive-product.php:172
 msgid "No products were found matching your selection."
 msgstr ""
 
-#: woocommerce/archive-product.php:175
+#: woocommerce/archive-product.php:174
 msgid "Clear filters"
 msgstr ""
 
-#: woocommerce/content-product.php:97
+#: woocommerce/content-product.php:95
 msgid "Add to wishlist"
-msgstr ""
-
-#: woocommerce/content-product.php:121
-msgid "Add to compare"
 msgstr ""

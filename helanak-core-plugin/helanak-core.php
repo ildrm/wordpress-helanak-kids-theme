@@ -3,7 +3,7 @@
  * Plugin Name: Helanak Core
  * Plugin URI: https://helanak.com
  * Description: Store data and rules for Helanak Kids: age ranges, product safety, badges, languages, shipping eligibility, store forms, image optimization, and WooCommerce HPOS compatibility. Storefront presentation belongs to the Helanak theme.
- * Version: 0.3.0
+ * Version: 0.3.4
  * Requires at least: 6.5
  * Requires PHP: 8.1
  * Author: Helanak
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HELANAK_CORE_VERSION', '0.3.0' );
+define( 'HELANAK_CORE_VERSION', '0.3.4' );
 define( 'HELANAK_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HELANAK_CORE_URL', plugin_dir_url( __FILE__ ) );
 define( 'HELANAK_CORE_FILE', __FILE__ );
@@ -34,6 +34,8 @@ require_once HELANAK_CORE_DIR . 'includes/class-migrator.php';
 require_once HELANAK_CORE_DIR . 'includes/class-store-forms.php';
 require_once HELANAK_CORE_DIR . 'includes/class-shipping-goal.php';
 require_once HELANAK_CORE_DIR . 'includes/class-media.php';
+require_once HELANAK_CORE_DIR . 'includes/class-quick-edit-prices.php';
+require_once HELANAK_CORE_DIR . 'includes/class-catalog-filters.php';
 
 /**
  * Boot the plugin once all plugins are loaded, so the WooCommerce-active
@@ -54,6 +56,10 @@ function helanak_core_init(): void {
 	Helanak_Core_Product_Safety_Fields::init();
 	Helanak_Core_Badge_Engine::init();
 	Helanak_Core_Migrator::init();
+	Helanak_Core_Catalog_Filters::init();
+	if ( is_admin() ) {
+		Helanak_Core_Quick_Edit_Prices::init();
+	}
 }
 add_action( 'plugins_loaded', 'helanak_core_init' );
 

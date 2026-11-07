@@ -1,0 +1,30 @@
+.inline-edit-row .helanak-quick-prices {
+	clear: both;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 12px;
+	margin-block: 12px;
+	border: 1px solid #c3c4c7;
+	background: #fff;
+}
+.helanak-quick-prices[hidden], .helanak-quick-prices [hidden] { display: none !important; }
+.inline-edit-row .helanak-quick-prices h4 { margin: 0 0 8px; }
+.inline-edit-row .helanak-quick-prices p { margin: 6px 0; }
+.helanak-quick-prices-scroll { max-height: 360px; overflow: auto; }
+.inline-edit-row .helanak-quick-prices-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.inline-edit-row .helanak-quick-prices-table th:first-child { width: 48%; }
+.inline-edit-row .helanak-quick-prices-table th,
+.inline-edit-row .helanak-quick-prices-table td { padding: 8px; vertical-align: middle; overflow-wrap: anywhere; }
+.inline-edit-row .helanak-quick-prices-table thead th { position: sticky; top: 0; z-index: 1; background: #f0f0f1; }
+.inline-edit-row .helanak-quick-prices-table tbody th { font-weight: 400; }
+.inline-edit-row .helanak-quick-prices-table input { box-sizing: border-box; width: 100%; min-width: 0; margin: 0; }
+.helanak-quick-prices-retry { margin-bottom: 8px !important; }
+@media screen and (max-width: 782px) {
+	.inline-edit-row .helanak-quick-prices-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+	.inline-edit-row .helanak-quick-prices-table tbody,
+	.inline-edit-row .helanak-quick-prices-table tbody tr { display: block; width: 100%; }
+	.inline-edit-row .helanak-quick-prices-table tbody th,
+	.inline-edit-row .helanak-quick-prices-table tbody td { display: block !important; width: auto !important; padding: 8px !important; }
+	.inline-edit-row .helanak-quick-prices-table tbody th { font-weight: 600; }
+	.inline-edit-row .helanak-quick-prices-table tbody td::before { content: attr(data-label); display: block; position: static; margin-bottom: 4px; font-weight: 600; }
+}
