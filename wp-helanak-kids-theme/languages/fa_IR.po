@@ -14,15 +14,15 @@ msgstr ""
 msgid "Footer"
 msgstr "پاورقی"
 
-#: footer.php:18
+#: footer.php:23
 msgid "All rights reserved."
 msgstr "تمامی حقوق محفوظ است."
 
-#: footer.php:22
+#: footer.php:27
 msgid "Open cart"
 msgstr "باز کردن سبد خرید"
 
-#: footer.php:29 inc/class-assets.php:130
+#: footer.php:34 inc/class-assets.php:130
 msgid "Close"
 msgstr "بستن"
 
@@ -64,7 +64,7 @@ msgstr "داستان‌ها، نکات و تازه‌ها"
 #: home.php:28
 msgid ""
 "Sizing guides, seasonal picks, and a peek behind the scenes at Helanak Kids."
-msgstr "راهنمای سایز، انتخاب‌های فصلی و نگاهی به پشت‌صحنه‌ی هلنک کیدز."
+msgstr "راهنمای سایز، انتخاب‌های فصلی و نگاهی به پشت‌صحنه‌ی هلانک کیدز."
 
 #: home.php:48
 msgid "★ Featured"
@@ -80,11 +80,11 @@ msgstr "%1$s · %2$s"
 msgid "No posts yet — check back soon!"
 msgstr "هنوز نوشته‌ای نیست — بعداً دوباره سر بزنید!"
 
-#: inc/class-assets.php:131
+#: inc/class-assets.php:133
 msgid "Added to cart"
 msgstr "به سبد اضافه شد"
 
-#: inc/class-assets.php:139
+#: inc/class-assets.php:141
 msgid "Reduced motion is respected automatically via prefers-reduced-motion."
 msgstr ""
 "کاهش انیمیشن به‌صورت خودکار و از طریق prefers-reduced-motion رعایت می‌شود."
@@ -211,14 +211,14 @@ msgstr "نشانگر موجودی"
 
 #: inc/class-customizer.php:139
 msgid "Helanak Kids Settings"
-msgstr "تنظیمات هلنک کیدز"
+msgstr "تنظیمات هلانک کیدز"
 
 #: inc/class-customizer.php:140
 msgid ""
 "Season colors, character visibility, and per-feature/detail toggles for the "
 "Helanak Kids storefront."
 msgstr ""
-"رنگ‌های فصل، نمایش شخصیت‌ها و کلیدهای روشن/خاموش هر بخش برای فروشگاه هلنک "
+"رنگ‌های فصل، نمایش شخصیت‌ها و کلیدهای روشن/خاموش هر بخش برای فروشگاه هلانک "
 "کیدز."
 
 #: inc/class-customizer.php:150
@@ -486,20 +486,22 @@ msgstr ""
 "برای فعال‌سازی مرور بر اساس سن، رده‌های سنی را در محصولات ← رده‌های سنی "
 "اضافه کنید."
 
-#: template-parts/section-category-slider.php:31
+#: template-parts/section-category-slider.php:32
 #: template-parts/section-product-rail.php:39
 msgid "See all →"
 msgstr "مشاهده‌ی همه ←"
 
-#: template-parts/section-category-slider.php:33
+#: template-parts/archive-subcategories.php:27
+#: template-parts/section-category-slider.php:34
 msgid "Previous"
 msgstr "قبلی"
 
-#: template-parts/section-category-slider.php:34
+#: template-parts/archive-subcategories.php:28
+#: template-parts/section-category-slider.php:35
 msgid "Next"
 msgstr "بعدی"
 
-#: template-parts/section-category-slider.php:86
+#: template-parts/section-category-slider.php:43
 msgid "Categories will appear here once products are added."
 msgstr "دسته‌بندی‌ها پس از افزودن محصولات اینجا نمایش داده می‌شوند."
 
@@ -521,7 +523,7 @@ msgstr "همین حالا بخرید"
 
 #: template-parts/section-newsletter.php:8
 msgid "Join the helanak club"
-msgstr "به باشگاه هلنک بپیوندید"
+msgstr "به باشگاه هلانک بپیوندید"
 
 #: template-parts/section-newsletter.php:9
 msgid "You're subscribed! Thanks for joining us."
@@ -551,11 +553,11 @@ msgstr "جدیدترین‌ها"
 msgid "Products will appear here once your catalog is set up."
 msgstr "محصولات پس از راه‌اندازی کاتالوگ شما اینجا نمایش داده می‌شوند."
 
-#: woocommerce/archive-product.php:109 woocommerce/archive-product.php:114
+#: woocommerce/archive-product.php:111 woocommerce/archive-product.php:116
 msgid "Filters"
 msgstr "فیلترها"
 
-#: woocommerce/archive-product.php:115
+#: woocommerce/archive-product.php:117
 msgid "Clear"
 msgstr "پاک کردن"
 
@@ -563,15 +565,16 @@ msgstr "پاک کردن"
 msgid "Age"
 msgstr "سن"
 
-#: inc/class-compare.php:52 woocommerce/archive-product.php:134
+#: inc/class-compare.php:52 woocommerce/archive-product.php:137
+#: woocommerce/archive-product.php:139
 msgid "Price"
 msgstr "قیمت"
 
-#: woocommerce/archive-product.php:136
+#: woocommerce/archive-product.php:141
 msgid "Min"
 msgstr "حداقل"
 
-#: woocommerce/archive-product.php:137
+#: woocommerce/archive-product.php:142
 msgid "Max"
 msgstr "حداکثر"
 
@@ -579,11 +582,11 @@ msgstr "حداکثر"
 msgid "Color"
 msgstr "رنگ"
 
-#: woocommerce/archive-product.php:149
+#: woocommerce/archive-product.php:159
 msgid "Apply filters"
 msgstr "اعمال فیلتر"
 
-#: woocommerce/archive-product.php:172
+#: woocommerce/archive-product.php:182
 msgid "No products were found matching your selection."
 msgstr "محصولی مطابق با انتخاب شما یافت نشد."
 
@@ -619,8 +622,8 @@ msgid_plural "%d min read"
 msgstr[0] "%d دقیقه مطالعه"
 msgstr[1] "%d دقیقه مطالعه"
 
-#. translators: %d: number of products in this category
-#: template-parts/section-category-slider.php:76
+#. translators: %d: number of products in this category.
+#: template-parts/category-rail.php:53
 #, php-format
 msgid "%d item"
 msgid_plural "%d items"
@@ -670,7 +673,7 @@ msgstr "بازگشت به خانه"
 msgid "Browse the shop"
 msgstr "مشاهده فروشگاه"
 
-#: 404.php:35 404.php:38 woocommerce/archive-product.php:104
+#: 404.php:35 404.php:38 woocommerce/archive-product.php:106
 msgid "Search"
 msgstr "جستجو"
 
@@ -724,19 +727,19 @@ msgstr "محصولی یافت نشد"
 msgid "Recently viewed"
 msgstr "بازدیدهای اخیر"
 
-#: footer.php:33
+#: footer.php:38
 msgid "Your cart is napping — nothing in it yet."
 msgstr "سبد خرید شما خواب است — هنوز چیزی داخلش نیست."
 
-#: woocommerce/archive-product.php:174
+#: woocommerce/archive-product.php:184
 msgid "Clear filters"
 msgstr "پاک کردن فیلترها"
 
-#: footer.php:27
+#: footer.php:32
 msgid "Your cart"
 msgstr "سبد خرید شما"
 
-#: footer.php:34
+#: footer.php:39
 msgid "Start shopping"
 msgstr "شروع خرید"
 
@@ -775,7 +778,7 @@ msgstr ""
 msgid "Helanak"
 msgstr "هلانک"
 
-#: footer.php:17 header.php:20 inc/class-assets.php:124
+#: footer.php:22 header.php:20 inc/class-assets.php:124
 msgid "Pause animations"
 msgstr "توقف حرکت‌ها"
 
@@ -880,7 +883,7 @@ msgstr "دنیایی کوچک برای کشف کردن"
 msgid "Explore clothes, toys, and everyday finds for little ones."
 msgstr "لباس، اسباب‌بازی و وسایل روزمره برای کوچولوها را کشف کنید."
 
-#: page-about.php:15 woocommerce/archive-product.php:174
+#: page-about.php:15 woocommerce/archive-product.php:184
 msgid "Explore the shop"
 msgstr "گشت‌وگذار در فروشگاه"
 
@@ -981,7 +984,7 @@ msgstr "همراه شما"
 msgid "Ask about a product or your order"
 msgstr "درباره محصول یا سفارش‌تان بپرسید"
 
-#: woocommerce/archive-product.php:172
+#: woocommerce/archive-product.php:182
 msgid "Your wishlist is waiting for a little inspiration."
 msgstr "فهرست علاقه‌مندی‌ها منتظر یک کشف دوست‌داشتنی است."
 
@@ -1051,7 +1054,7 @@ msgstr "جزئیات"
 msgid "Remove %s from comparison"
 msgstr "حذف %s از مقایسه"
 
-#: template-parts/section-category-slider.php:28
+#: template-parts/section-category-slider.php:29
 msgid "Shop by category"
 msgstr "خرید بر اساس دسته‌بندی"
 
@@ -1059,29 +1062,43 @@ msgstr "خرید بر اساس دسته‌بندی"
 msgid "Explore categories"
 msgstr "مشاهده دسته‌بندی‌ها"
 
-#: woocommerce/archive-product.php:101
+#: woocommerce/archive-product.php:103
 msgid "Search product names"
 msgstr "جستجوی نام محصول"
 
-#: woocommerce/archive-product.php:103
+#: woocommerce/archive-product.php:105
 msgid "Enter a product name"
 msgstr "نام محصول را وارد کنید"
 
-#: woocommerce/archive-product.php:108
+#: woocommerce/archive-product.php:110 woocommerce/archive-product.php:119
 msgid "Product filters"
 msgstr "فیلتر محصولات"
 
-#: woocommerce/archive-product.php:142
+#: woocommerce/archive-product.php:148 woocommerce/archive-product.php:150
 msgid "Availability and offers"
 msgstr "موجودی و تخفیف"
 
-#: woocommerce/archive-product.php:144
+#: woocommerce/archive-product.php:152
 msgid "Only in-stock products"
 msgstr "فقط کالاهای موجود"
 
-#: woocommerce/archive-product.php:145
+#: woocommerce/archive-product.php:153
 msgid "Discounted products"
 msgstr "محصولات تخفیف‌دار"
+
+#: template-parts/archive-subcategories.php:25
+msgid "Subcategories"
+msgstr "زیردسته‌ها"
+
+#: footer.php:19
+msgid "E-Namad electronic trust seal"
+msgstr "نماد اعتماد الکترونیکی"
+
+#. translators: %s: parent navigation item title.
+#: inc/class-assets.php:132
+#, php-format
+msgid "Toggle submenu for %s"
+msgstr "باز و بسته کردن زیرمنوی %s"
 
 #~ msgid "Shop by world"
 #~ msgstr "خرید بر اساس دنیا"
@@ -1116,8 +1133,8 @@ msgstr "محصولات تخفیف‌دار"
 #~ "Helanak Kids started as a small family shop and grew into a place parents "
 #~ "trust for safe, joyful clothing and toys."
 #~ msgstr ""
-#~ "هلنک کیدز از یک فروشگاه کوچک خانوادگی شروع شد و به مکانی تبدیل شد که والدین "
-#~ "برای لباس و اسباب‌بازی امن و شادی‌بخش به آن اعتماد دارند."
+#~ "هلانک کیدز از یک فروشگاه کوچک خانوادگی شروع شد و به مکانی تبدیل شد که والدین"
+#~ " برای لباس و اسباب‌بازی امن و شادی‌بخش به آن اعتماد دارند."
 
 #~ msgid "6+"
 #~ msgstr "+۶"

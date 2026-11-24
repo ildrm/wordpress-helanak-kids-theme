@@ -18,8 +18,50 @@ class Helanak_Single_Product_Hooks {
 			remove_action( 'woocommerce_product_meta_end', array( 'Helanak_Core_Product_Safety_Fields', 'render_frontend_notice' ) );
 		}
 
-		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'render_mascot' ), 4 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'render_price' ), 10 );
 		add_action( 'woocommerce_single_product_summary', array( __CLASS__, 'render_safety_panel' ), 25 );
+		add_action( 'woocommerce_before_variations_form', array( __CLASS__, 'render_variation_images' ) );
+	}
+
+	/** Image-only data also supports products whose variations load over AJAX. */
+	public static function render_variation_images(): void {
+		global $product;
+		if ( ! is_product() || ! $product instanceof WC_Product_Variable ) {
+			return;
+		}
+
+		$children = $product->get_children();
+		_prime_post_caches( $children );
+		$choices = array();
+		$images  = array();
+		foreach ( $children as $child_id ) {
+			$variation = wc_get_product( $child_id );
+			if ( ! $variation instanceof WC_Product_Variation || ! $variation->variation_is_visible() ) {
+				continue;
+			}
+			$image_id = (int) $variation->get_image_id( 'edit' );
+			if ( ! $image_id ) {
+				$gallery_ids = $variation->get_gallery_image_ids( 'edit' );
+				$image_id    = (int) ( $gallery_ids[0] ?? 0 );
+			}
+			if ( $image_id && ! wp_attachment_is_image( $image_id ) ) {
+				$image_id = 0;
+			}
+			$choices[] = array(
+				'attributes' => $variation->get_variation_attributes(),
+				'image_id'   => $image_id,
+			);
+			if ( $image_id && ! isset( $images[ $image_id ] ) ) {
+				$images[ $image_id ] = wc_get_product_attachment_props( $image_id );
+			}
+		}
+		if ( ! $images ) {
+			return;
+		}
+		echo '<script type="application/json" class="helanak-variation-images">';
+		echo wp_json_encode( array( 'variations' => $choices, 'images' => $images ), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON is encoded for a script text node.
+		echo '</script>';
 	}
 
 	public static function render_safety_panel(): void {
@@ -70,7 +112,10 @@ class Helanak_Single_Product_Hooks {
 		<?php
 	}
 
-	public static function render_mascot(): void {
+	public static function render_price(): void {
+		// Keep WooCommerce's price output and reserve a separate mobile mascot column.
+		echo '<div class="helanak-product-price-row">';
+		woocommerce_template_single_price();
 		helanak_character(
 			'monkey',
 			array(
@@ -79,5 +124,6 @@ class Helanak_Single_Product_Hooks {
 				'class'    => 'helanak-character--buybox-peek',
 			)
 		);
+		echo '</div>';
 	}
 }

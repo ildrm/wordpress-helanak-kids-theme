@@ -121,17 +121,100 @@
 	'use strict';
 	var toggle = document.querySelector( '[data-helanak-nav-toggle]' );
 	var nav = document.getElementById( 'helanak-mobile-nav' );
+	var navSettings = window.helanakSettings || {};
+	var menuLabel = toggle ? toggle.getAttribute( 'aria-label' ) : '';
+	var togglePath = toggle ? toggle.querySelector( 'svg path' ) : null;
+	var closedPath = togglePath ? togglePath.getAttribute( 'd' ) : '';
+	var branches = [];
+	var pendingNavSpace = false;
+	function setBranch( branch, expanded ) {
+		branch.list.hidden = ! expanded;
+		branch.button.setAttribute( 'aria-expanded', expanded ? 'true' : 'false' );
+	}
+	function updateNavSpace() {
+		pendingNavSpace = false;
+		if ( ! nav || nav.hidden ) { return; }
+		var viewport = window.visualViewport;
+		var bottom = viewport ? viewport.height + viewport.offsetTop : window.innerHeight;
+		nav.style.setProperty( '--helanak-mobile-nav-height', Math.max( 0, Math.floor( bottom - nav.getBoundingClientRect().top - 8 ) ) + 'px' );
+	}
+	function scheduleNavSpace() {
+		if ( ! pendingNavSpace ) { pendingNavSpace = true; window.requestAnimationFrame( updateNavSpace ); }
+	}
 	function closeNav( restore ) {
 		if ( ! nav || nav.hidden ) { return; }
 		nav.hidden = true;
+		document.body.classList.remove( 'helanak-nav-open' );
 		toggle.setAttribute( 'aria-expanded', 'false' );
+		toggle.setAttribute( 'aria-label', menuLabel );
+		if ( togglePath ) { togglePath.setAttribute( 'd', closedPath ); }
+		branches.forEach( function ( branch ) { setBranch( branch, false ); } );
 		if ( restore ) { toggle.focus(); }
 	}
 	if ( toggle && nav ) {
-		toggle.addEventListener( 'click', function () { var open = nav.hidden; nav.hidden = ! open; toggle.setAttribute( 'aria-expanded', open ? 'true' : 'false' ); } );
+		Array.prototype.forEach.call( nav.querySelectorAll( '.sub-menu' ), function ( list, index ) {
+			var parent = list.parentElement;
+			var link = null;
+			Array.prototype.forEach.call( parent.children, function ( child ) { if ( child.tagName === 'A' ) { link = child; } } );
+			if ( ! link ) { return; }
+			if ( ! list.id ) { list.id = 'helanak-mobile-submenu-' + index; }
+			var button = document.createElement( 'button' );
+			button.type = 'button';
+			button.className = 'helanak-submenu-toggle';
+			button.setAttribute( 'aria-controls', list.id );
+			button.setAttribute( 'aria-label', ( navSettings.submenuToggleLabel || 'Toggle submenu for %s' ).replace( '%s', link.textContent.trim() ) );
+			button.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+			parent.classList.add( 'helanak-nav-parent' );
+			parent.insertBefore( button, list );
+			var branch = { list: list, button: button };
+			branches.push( branch );
+			setBranch( branch, false );
+			button.addEventListener( 'click', function () { setBranch( branch, list.hidden ); scheduleNavSpace(); } );
+		} );
+		toggle.addEventListener( 'click', function () {
+			if ( ! nav.hidden ) { closeNav( false ); return; }
+			if ( window.innerWidth > 1024 ) { return; }
+			nav.hidden = false;
+			document.body.classList.add( 'helanak-nav-open' );
+			toggle.setAttribute( 'aria-expanded', 'true' );
+			toggle.setAttribute( 'aria-label', navSettings.closeLabel || menuLabel );
+			if ( togglePath ) { togglePath.setAttribute( 'd', 'M6 6l12 12M6 18 18 6' ); }
+			updateNavSpace();
+			var first = nav.querySelector( 'a[href]' );
+			if ( first ) { first.focus(); }
+		} );
+		nav.addEventListener( 'click', function ( event ) {
+			var link = event.target.closest ? event.target.closest( 'a' ) : null;
+			if ( ! link || ! nav.contains( link ) ) { return; }
+			var href = link.getAttribute( 'href' );
+			if ( ! href || href === '#' ) {
+				var button = link.parentElement.querySelector( '.helanak-submenu-toggle' );
+				if ( button ) { event.preventDefault(); button.click(); return; }
+			}
+			closeNav( false );
+		} );
 		document.addEventListener( 'keydown', function ( event ) { if ( event.key === 'Escape' ) { closeNav( true ); } } );
-		document.addEventListener( 'click', function ( event ) { if ( ! nav.contains( event.target ) && ! toggle.contains( event.target ) ) { closeNav( false ); } } );
-		window.addEventListener( 'resize', function () { if ( window.innerWidth > 1024 ) { closeNav( false ); } } );
+		var closeOutsideNav = function ( event ) {
+			if ( nav.hidden ) { return; }
+			if ( event.touches && event.touches.length ) {
+				// During momentum scrolling a browser can retain the old touch target.
+				var point = event.touches[ 0 ];
+				var menuBox = nav.getBoundingClientRect();
+				var toggleBox = toggle.getBoundingClientRect();
+				var inMenu = point.clientX >= menuBox.left && point.clientX <= menuBox.right && point.clientY >= menuBox.top && point.clientY <= menuBox.bottom;
+				var inToggle = point.clientX >= toggleBox.left && point.clientX <= toggleBox.right && point.clientY >= toggleBox.top && point.clientY <= toggleBox.bottom;
+				if ( ! inMenu && ! inToggle ) { closeNav( false ); }
+			} else if ( ! nav.contains( event.target ) && ! toggle.contains( event.target ) ) { closeNav( false ); }
+		};
+		document.addEventListener( 'click', closeOutsideNav );
+		document.addEventListener( 'touchstart', closeOutsideNav, { passive: true } );
+		document.addEventListener( 'focusin', function ( event ) { if ( ! nav.contains( event.target ) && ! toggle.contains( event.target ) ) { closeNav( false ); } } );
+		window.addEventListener( 'resize', function () { if ( window.innerWidth > 1024 ) { closeNav( false ); } else { scheduleNavSpace(); } } );
+		window.addEventListener( 'scroll', scheduleNavSpace, { passive: true } );
+		if ( window.visualViewport ) {
+			window.visualViewport.addEventListener( 'resize', scheduleNavSpace );
+			window.visualViewport.addEventListener( 'scroll', scheduleNavSpace );
+		}
 	}
 	var drawer = document.querySelector( '[data-helanak-cart-drawer]' );
 	if ( ! drawer || ! window.helanakDialog ) { return; }
@@ -152,43 +235,38 @@
 ( function () {
 	'use strict';
 
-	var track = document.querySelector( '[data-helanak-worlds-track]' );
-	if ( ! track ) {
-		return;
-	}
-
-	function scrollByAmount( direction ) {
-		var card = track.querySelector( '.helanak-world-card' );
-		var step = ( card ? card.getBoundingClientRect().width : 180 ) + 18;
-		var rtl = window.getComputedStyle( track ).direction === 'rtl';
-		var animate = ! window.helanakMotionAllowed || window.helanakMotionAllowed();
-		track.scrollBy( { left: direction * step * 2 * ( rtl ? -1 : 1 ), behavior: animate ? 'smooth' : 'auto' } );
-	}
-
-	var prevBtn = document.querySelector( '[data-helanak-worlds-prev]' );
-	var nextBtn = document.querySelector( '[data-helanak-worlds-next]' );
-	function updateControls() {
-		var maximum = Math.max( 0, track.scrollWidth - track.clientWidth );
-		var position = Math.min( maximum, Math.abs( track.scrollLeft ) );
-		if ( prevBtn ) { prevBtn.disabled = position <= 1; }
-		if ( nextBtn ) { nextBtn.disabled = maximum <= 1 || position >= maximum - 1; }
-	}
-	if ( prevBtn ) {
-		prevBtn.textContent = window.getComputedStyle( track ).direction === 'rtl' ? '›' : '‹';
-		prevBtn.addEventListener( 'click', function () {
-			scrollByAmount( -1 );
-		} );
-	}
-	if ( nextBtn ) {
-		nextBtn.textContent = window.getComputedStyle( track ).direction === 'rtl' ? '‹' : '›';
-		nextBtn.addEventListener( 'click', function () {
-			scrollByAmount( 1 );
-		} );
-	}
-	track.addEventListener( 'scroll', updateControls, { passive: true } );
-	window.addEventListener( 'resize', updateControls );
-	window.addEventListener( 'load', updateControls );
-	updateControls();
+	document.querySelectorAll( '[data-helanak-category-carousel]' ).forEach( function ( carousel ) {
+		var track = carousel.querySelector( '[data-helanak-worlds-track]' );
+		if ( ! track ) { return; }
+		var prevBtn = carousel.querySelector( '[data-helanak-worlds-prev]' );
+		var nextBtn = carousel.querySelector( '[data-helanak-worlds-next]' );
+		function scrollByAmount( direction ) {
+			var card = track.querySelector( '.helanak-world-card' );
+			var step = ( card ? card.getBoundingClientRect().width : 180 ) + 18;
+			var rtl = window.getComputedStyle( track ).direction === 'rtl';
+			var animate = ! window.helanakMotionAllowed || window.helanakMotionAllowed();
+			track.scrollBy( { left: direction * step * 2 * ( rtl ? -1 : 1 ), behavior: animate ? 'smooth' : 'auto' } );
+		}
+		function updateControls() {
+			var maximum = Math.max( 0, track.scrollWidth - track.clientWidth );
+			var position = Math.min( maximum, Math.abs( track.scrollLeft ) );
+			if ( prevBtn ) { prevBtn.disabled = position <= 1; }
+			if ( nextBtn ) { nextBtn.disabled = maximum <= 1 || position >= maximum - 1; }
+		}
+		if ( prevBtn ) {
+			prevBtn.textContent = window.getComputedStyle( track ).direction === 'rtl' ? '›' : '‹';
+			prevBtn.addEventListener( 'click', function () { scrollByAmount( -1 ); } );
+		}
+		if ( nextBtn ) {
+			nextBtn.textContent = window.getComputedStyle( track ).direction === 'rtl' ? '‹' : '›';
+			nextBtn.addEventListener( 'click', function () { scrollByAmount( 1 ); } );
+		}
+		track.addEventListener( 'scroll', updateControls, { passive: true } );
+		window.addEventListener( 'resize', updateControls );
+		window.addEventListener( 'load', updateControls );
+		if ( window.ResizeObserver ) { new window.ResizeObserver( updateControls ).observe( track ); }
+		updateControls();
+	} );
 } )();
 /** Bounded, event-driven character motion with a persistent pause control. */
 ( function () {
@@ -286,35 +364,58 @@
 		[ 'pointermove', 'keydown', 'touchstart', 'scroll', 'click' ].forEach( function ( name ) { window.addEventListener( name, activity, { passive: true } ); } );
 		document.addEventListener( 'helanak:motionchange', wake ); wake();
 	}
-	var birdHasFlown = false;
 	var flybyStage = document.querySelector( '[data-helanak-flyby-stage]' );
-	function flyby() {
-		if ( birdHasFlown || ! flybyStage || ! allowed() || ! settings.idleBehaviors ) { return; }
-		var rect = flybyStage.getBoundingClientRect();
-		if ( rect.bottom <= 0 || rect.top >= window.innerHeight ) { return; }
-		birdHasFlown = true;
-		flybyStage.querySelectorAll( '.helanak-character[data-character="bird"][data-behavior="fly"]' ).forEach( function ( el ) {
-			el.classList.add( 'is-flying' );
-			window.setTimeout( function () { el.classList.remove( 'is-flying' ); }, 9200 );
-		} );
+	var bird = flybyStage ? flybyStage.querySelector( '[data-character="bird"][data-behavior="fly"]' ) : null;
+	var flybyTimer = null;
+	var flybyEndTimer = null;
+	var flybyHeight = 0.5;
+	function placeFlyby() {
+		var viewport = window.visualViewport;
+		var viewTop = viewport ? viewport.offsetTop : 0;
+		var viewHeight = viewport ? viewport.height : window.innerHeight;
+		var header = document.querySelector( '.helanak-header' );
+		var minimum = Math.max( viewTop + 40, header ? header.getBoundingClientRect().bottom + 40 : 0 );
+		var maximum = viewTop + viewHeight - bird.offsetHeight - 40;
+		if ( maximum < minimum ) { return false; }
+		flybyStage.style.setProperty( '--helanak-flyby-top', Math.round( minimum + ( maximum - minimum ) * flybyHeight ) + 'px' );
+		return true;
 	}
-	if ( flybyStage ) {
-		if ( 'IntersectionObserver' in window ) {
-			var flybyObserver = new window.IntersectionObserver( function ( entries ) {
-				if ( entries[ 0 ].isIntersecting ) { flyby(); }
-				if ( birdHasFlown ) { flybyObserver.disconnect(); }
-			} );
-			flybyObserver.observe( flybyStage );
-		} else {
-			var ticking = false;
-			window.addEventListener( 'scroll', function () {
-				if ( ticking || birdHasFlown ) { return; }
-				ticking = true;
-				window.requestAnimationFrame( function () { ticking = false; flyby(); } );
-			}, { passive: true } );
-		}
-		document.addEventListener( 'helanak:motionchange', flyby );
-		flyby();
+	function scheduleFlyby( delay ) {
+		window.clearTimeout( flybyTimer );
+		flybyTimer = null;
+		if ( bird && allowed() && settings.idleBehaviors ) { flybyTimer = window.setTimeout( flyby, delay ); }
+	}
+	function finishFlyby() {
+		window.clearTimeout( flybyEndTimer );
+		flybyEndTimer = null;
+		bird.classList.remove( 'is-flying' );
+		scheduleFlyby( 24000 + Math.random() * 14000 );
+	}
+	function flyby() {
+		flybyTimer = null;
+		if ( ! bird || ! allowed() || ! settings.idleBehaviors ) { return; }
+		flybyHeight = 0.2 + Math.random() * 0.6;
+		if ( ! placeFlyby() ) { scheduleFlyby( 24000 ); return; }
+		bird.classList.add( 'is-flying' );
+		flybyEndTimer = window.setTimeout( finishFlyby, 9200 );
+	}
+	function resetFlyby() {
+		window.clearTimeout( flybyEndTimer );
+		flybyEndTimer = null;
+		bird.classList.remove( 'is-flying' );
+		scheduleFlyby( 1800 );
+	}
+	function resizeFlyby() {
+		if ( bird.classList.contains( 'is-flying' ) && ! placeFlyby() ) { resetFlyby(); }
+	}
+	if ( bird ) {
+		bird.addEventListener( 'animationend', function ( event ) {
+			if ( event.target === bird && ( event.animationName === 'scfly' || event.animationName === 'scfly-rtl' ) ) { finishFlyby(); }
+		} );
+		document.addEventListener( 'helanak:motionchange', resetFlyby );
+		window.addEventListener( 'resize', resizeFlyby );
+		if ( window.visualViewport ) { window.visualViewport.addEventListener( 'resize', resizeFlyby ); }
+		resetFlyby();
 	}
 } )();
 

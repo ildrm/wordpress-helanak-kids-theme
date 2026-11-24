@@ -27,6 +27,8 @@
 }
 
 [dir="rtl"] .helanak-character[data-character="bird"][data-behavior="fly"].is-flying {
+	left: auto;
+	right: 0;
 	animation-name: scfly-rtl;
 }
 

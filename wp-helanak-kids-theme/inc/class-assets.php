@@ -128,6 +128,8 @@ class Helanak_Theme_Assets {
 			'searchSuggestNonce' => wp_create_nonce( 'helanak_search_suggest' ),
 			'wishlistLabel'    => __( 'Wishlist', 'wp-helanak-kids-theme' ),
 			'closeLabel'       => __( 'Close', 'wp-helanak-kids-theme' ),
+			/* translators: %s: parent navigation item title. */
+			'submenuToggleLabel' => __( 'Toggle submenu for %s', 'wp-helanak-kids-theme' ),
 			'addedToCartLabel' => __( 'Added to cart', 'wp-helanak-kids-theme' ),
 			'characters'       => Helanak_Character_Engine::enabled_characters(),
 			'ambientEffects'   => (bool) get_theme_mod( 'helanak_character_ambient', true ),
@@ -153,6 +155,22 @@ class Helanak_Theme_Assets {
 			self::asset_version( '/assets/js/quick-view.js' ),
 			true
 		);
+
+		// WooCommerce's accessible picker keeps opened variation options in the
+		// document font instead of an operating-system menu's fallback font.
+		if ( function_exists( 'is_product' ) && is_product() && wp_script_is( 'selectWoo', 'registered' ) ) {
+			$helanak_product = wc_get_product( get_queried_object_id() );
+			if ( $helanak_product && $helanak_product->is_type( 'variable' ) ) {
+				wp_enqueue_style( 'select2' );
+				wp_enqueue_script(
+					'helanak-variation-picker',
+					HELANAK_THEME_URI . '/assets/js/variation-picker.js',
+					array( 'jquery', 'selectWoo', 'wc-add-to-cart-variation' ),
+					self::asset_version( '/assets/js/variation-picker.js' ),
+					true
+				);
+			}
+		}
 
 		// No-ops itself (via an early `return`) when the flash-sale countdown
 		// markup isn't present on the page, so it's cheap to enqueue globally.

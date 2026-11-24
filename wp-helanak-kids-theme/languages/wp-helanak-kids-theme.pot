@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Helanak Kids Theme 0.7.1\n"
+"Project-Id-Version: WP Helanak Kids Theme 0.7.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/wp-helanak-kids-theme\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-06T20:54:33+01:00\n"
+"POT-Creation-Date: 2026-11-23T05:17:18+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-helanak-kids-theme\n"
@@ -53,7 +53,7 @@ msgstr ""
 
 #: 404.php:35
 #: 404.php:38
-#: woocommerce/archive-product.php:104
+#: woocommerce/archive-product.php:106
 msgid "Search"
 msgstr ""
 
@@ -66,34 +66,38 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
-#: footer.php:17
+#: footer.php:19
+msgid "E-Namad electronic trust seal"
+msgstr ""
+
+#: footer.php:22
 #: header.php:20
 #: inc/class-assets.php:124
 msgid "Pause animations"
 msgstr ""
 
-#: footer.php:18
+#: footer.php:23
 msgid "All rights reserved."
 msgstr ""
 
-#: footer.php:22
+#: footer.php:27
 msgid "Open cart"
 msgstr ""
 
-#: footer.php:27
+#: footer.php:32
 msgid "Your cart"
 msgstr ""
 
-#: footer.php:29
+#: footer.php:34
 #: inc/class-assets.php:130
 msgid "Close"
 msgstr ""
 
-#: footer.php:33
+#: footer.php:38
 msgid "Your cart is napping — nothing in it yet."
 msgstr ""
 
-#: footer.php:34
+#: footer.php:39
 msgid "Start shopping"
 msgstr ""
 
@@ -237,11 +241,17 @@ msgstr ""
 msgid "%s says hello!"
 msgstr ""
 
-#: inc/class-assets.php:131
+#. translators: %s: parent navigation item title.
+#: inc/class-assets.php:132
+#, php-format
+msgid "Toggle submenu for %s"
+msgstr ""
+
+#: inc/class-assets.php:133
 msgid "Added to cart"
 msgstr ""
 
-#: inc/class-assets.php:139
+#: inc/class-assets.php:141
 msgid "Reduced motion is respected automatically via prefers-reduced-motion."
 msgstr ""
 
@@ -252,7 +262,8 @@ msgid "Product not found."
 msgstr ""
 
 #: inc/class-compare.php:52
-#: woocommerce/archive-product.php:134
+#: woocommerce/archive-product.php:137
+#: woocommerce/archive-product.php:139
 msgid "Price"
 msgstr ""
 
@@ -709,7 +720,7 @@ msgid "Explore clothes, toys, and everyday finds for little ones."
 msgstr ""
 
 #: page-about.php:15
-#: woocommerce/archive-product.php:174
+#: woocommerce/archive-product.php:184
 msgid "Explore the shop"
 msgstr ""
 
@@ -825,6 +836,28 @@ msgstr ""
 msgid "Almost there! Just a few details and the fun is on its way."
 msgstr ""
 
+#: template-parts/archive-subcategories.php:25
+msgid "Subcategories"
+msgstr ""
+
+#: template-parts/archive-subcategories.php:27
+#: template-parts/section-category-slider.php:34
+msgid "Previous"
+msgstr ""
+
+#: template-parts/archive-subcategories.php:28
+#: template-parts/section-category-slider.php:35
+msgid "Next"
+msgstr ""
+
+#. translators: %d: number of products in this category.
+#: template-parts/category-rail.php:53
+#, php-format
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
 #: template-parts/section-age-selector.php:33
 #: template-parts/section-trust-badges.php:5
 msgid "Shop by age"
@@ -838,32 +871,16 @@ msgstr ""
 msgid "Add age ranges in Products → Age Ranges to enable age browsing."
 msgstr ""
 
-#: template-parts/section-category-slider.php:28
+#: template-parts/section-category-slider.php:29
 msgid "Shop by category"
 msgstr ""
 
-#: template-parts/section-category-slider.php:31
+#: template-parts/section-category-slider.php:32
 #: template-parts/section-product-rail.php:39
 msgid "See all →"
 msgstr ""
 
-#: template-parts/section-category-slider.php:33
-msgid "Previous"
-msgstr ""
-
-#: template-parts/section-category-slider.php:34
-msgid "Next"
-msgstr ""
-
-#. translators: %d: number of products in this category
-#: template-parts/section-category-slider.php:76
-#, php-format
-msgid "%d item"
-msgid_plural "%d items"
-msgstr[0] ""
-msgstr[1] ""
-
-#: template-parts/section-category-slider.php:86
+#: template-parts/section-category-slider.php:43
 msgid "Categories will appear here once products are added."
 msgstr ""
 
@@ -992,60 +1009,62 @@ msgstr ""
 msgid "Color"
 msgstr ""
 
-#: woocommerce/archive-product.php:101
+#: woocommerce/archive-product.php:103
 msgid "Search product names"
 msgstr ""
 
-#: woocommerce/archive-product.php:103
+#: woocommerce/archive-product.php:105
 msgid "Enter a product name"
 msgstr ""
 
-#: woocommerce/archive-product.php:108
+#: woocommerce/archive-product.php:110
+#: woocommerce/archive-product.php:119
 msgid "Product filters"
 msgstr ""
 
-#: woocommerce/archive-product.php:109
-#: woocommerce/archive-product.php:114
+#: woocommerce/archive-product.php:111
+#: woocommerce/archive-product.php:116
 msgid "Filters"
 msgstr ""
 
-#: woocommerce/archive-product.php:115
+#: woocommerce/archive-product.php:117
 msgid "Clear"
 msgstr ""
 
-#: woocommerce/archive-product.php:136
+#: woocommerce/archive-product.php:141
 msgid "Min"
 msgstr ""
 
-#: woocommerce/archive-product.php:137
+#: woocommerce/archive-product.php:142
 msgid "Max"
 msgstr ""
 
-#: woocommerce/archive-product.php:142
+#: woocommerce/archive-product.php:148
+#: woocommerce/archive-product.php:150
 msgid "Availability and offers"
 msgstr ""
 
-#: woocommerce/archive-product.php:144
+#: woocommerce/archive-product.php:152
 msgid "Only in-stock products"
 msgstr ""
 
-#: woocommerce/archive-product.php:145
+#: woocommerce/archive-product.php:153
 msgid "Discounted products"
 msgstr ""
 
-#: woocommerce/archive-product.php:149
+#: woocommerce/archive-product.php:159
 msgid "Apply filters"
 msgstr ""
 
-#: woocommerce/archive-product.php:172
+#: woocommerce/archive-product.php:182
 msgid "Your wishlist is waiting for a little inspiration."
 msgstr ""
 
-#: woocommerce/archive-product.php:172
+#: woocommerce/archive-product.php:182
 msgid "No products were found matching your selection."
 msgstr ""
 
-#: woocommerce/archive-product.php:174
+#: woocommerce/archive-product.php:184
 msgid "Clear filters"
 msgstr ""
 

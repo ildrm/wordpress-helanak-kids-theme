@@ -764,10 +764,18 @@ textarea:focus-visible {
 	display: none;
 }
 
-/* The flyby stays inside its reserved footer stage, clear of store copy. */
+/* A clipped viewport layer lets the bird pass wherever the visitor is reading. */
+.helanak-flyby {
+	position: fixed;
+	inset: 0;
+	z-index: 30;
+	overflow: hidden;
+	pointer-events: none;
+}
+
 .helanak-character[data-character="bird"][data-behavior="fly"] {
 	position: absolute;
-	top: 32px;
+	top: var( --helanak-flyby-top, 42% );
 	left: 0;
 	z-index: 3;
 	animation: none;
@@ -799,6 +807,9 @@ textarea:focus-visible {
 	padding-bottom: 8px;
 	scrollbar-width: thin;
 }
+
+.helanak-subcategories { margin-block: 24px 32px; }
+.helanak-subcategories .helanak-section__head { margin-bottom: 16px; }
 
 .helanak-world-card {
 	scroll-snap-align: start;
@@ -850,6 +861,20 @@ textarea:focus-visible {
 	color: var( --helanak-muted );
 	font-size: 11.5px;
 	padding-inline: 12px;
+}
+.helanak-world-card__body { display: block; }
+
+/* Keep complete category artwork and center the copy in equal-height cards. */
+#helanak-category-slider .helanak-worlds__track { align-items: stretch; }
+#helanak-category-slider .helanak-world-card { display: flex; flex-direction: column; flex-basis: 210px; padding: 0; }
+#helanak-category-slider .helanak-world-card__icon { flex: 0 0 auto; aspect-ratio: 1; height: auto; margin: 0; }
+#helanak-category-slider .helanak-world-card__image { width: 100%; height: 100%; max-height: none; object-fit: contain; }
+#helanak-category-slider .helanak-world-card__body { display: flex; flex: 1 0 auto; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 80px; padding: 12px; }
+#helanak-category-slider .helanak-world-card__name { width: 100%; margin: 0; padding: 0; line-height: 1.6; }
+#helanak-category-slider .helanak-world-card__count { display: block; padding: 0; line-height: 1.5; }
+
+@media ( max-width: 600px ) {
+	#helanak-category-slider .helanak-world-card { flex-basis: 190px; }
 }
 
 .helanak-worlds__nav {
@@ -2012,12 +2037,6 @@ textarea:focus-visible {
 	position: relative;
 }
 
-.helanak-character--buybox-peek {
-	position: absolute;
-	top: -20px;
-	inset-inline-end: 0;
-}
-
 .helanak-buy-box__rating {
 	color: #94620F;
 	margin-bottom: 8px;
@@ -3030,6 +3049,21 @@ textarea:focus-visible {
 .helanak-quick-view__cart .variations select { font: inherit; min-height: 44px; line-height: 1.6; }
 .woocommerce .variations select option { font: inherit; }
 
+/* Render variation choices with the page font, including the opened list. */
+body .helanak-variation-control.select2-container { max-width: 100%; font: inherit; }
+body .helanak-variation-control.select2-container .select2-selection--single { height: auto; min-height: 44px; border: 1px solid var( --border-color ); border-radius: 10px; background: var( --background-color ); font: inherit; }
+body .helanak-variation-control.select2-container .select2-selection--single .select2-selection__rendered { padding-block: 9px; padding-inline: 12px 34px; color: var( --text-color ); font: inherit; line-height: 1.6; }
+body .helanak-variation-control.select2-container .select2-selection--single .select2-selection__arrow { top: 0; left: auto; right: auto; inset-inline-end: 8px; height: 100%; }
+body .helanak-variation-control.select2-container--focus .select2-selection--single,
+body .helanak-variation-control .select2-selection--single[aria-expanded="true"] { outline: 2px solid var( --helanak-link ); outline-offset: 2px; }
+body .helanak-variation-control.select2-container--disabled { opacity: .6; }
+body .helanak-variation-menu.select2-container { width: auto; }
+body .helanak-variation-dropdown { border: 1px solid var( --border-color ); border-radius: 10px; overflow: hidden; background: var( --background-color ); color: var( --text-color ); font: inherit; }
+body .helanak-variation-dropdown .select2-results__options { max-height: min( 50vh, 320px ); max-height: min( 50dvh, 320px ); overscroll-behavior: contain; }
+body .helanak-variation-dropdown .select2-results__option { min-height: 44px; padding: 8px 12px; color: var( --text-color ); font: inherit; line-height: 1.6; }
+body .helanak-variation-dropdown .select2-results__option[aria-selected="true"] { background: var( --surface-color ); font-weight: 700; }
+body .helanak-variation-dropdown .select2-results__option.select2-results__option--highlighted { background: var( --surface-color ); color: var( --text-color ); }
+
 .woocommerce div.product div.images .flex-control-thumbs {
 	display: flex;
 	gap: 10px;
@@ -3056,7 +3090,7 @@ textarea:focus-visible {
 
 /* Summary column. */
 .woocommerce div.product div.summary {
-	position: relative; /* anchors the peeking monkey (--buybox-peek) */
+	position: relative;
 }
 
 .woocommerce div.product .product_title {
@@ -3072,6 +3106,26 @@ textarea:focus-visible {
 	font-weight: 800;
 	color: var( --text-color );
 	margin-bottom: 14px;
+}
+
+/* Reserve a price-row column for the mascot at every viewport width. */
+.woocommerce div.product .helanak-product-price-row {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-block: 16px 14px;
+}
+
+.woocommerce div.product .helanak-product-price-row > .price {
+	flex: 1 1 0;
+	min-width: 0;
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.helanak-product-price-row > .helanak-character--buybox-peek {
+	position: static;
+	flex: 0 0 82px;
 }
 
 .woocommerce div.product p.price del {
@@ -3644,7 +3698,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .helanak-card__badge { max-width: calc( 100% - 68px ); }
 .helanak-flash-sale__kicker { color: var( --text-color ); }
 .helanak-countdown__chip { color: var( --text-color ); background: #ffffffb8; }
-.helanak-category-hero > div { flex: 1; min-width: 0; background: #fffffff0; border-radius: 16px; padding: 16px 20px; }
+.helanak-category-hero > div { flex: 1; min-width: 0; background: var( --background-color ); border-radius: 16px; padding: 16px 20px; }
 .helanak-world-card__icon { overflow: hidden; min-height: 0; }
 .helanak-world-card__image { min-height: 0; max-height: 96px; }
 .helanak-worlds__nav button { width: 44px; height: 44px; }
@@ -3739,6 +3793,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .helanak-site-footer p { color: var( --helanak-muted ); }
 .helanak-nav--footer { display: flex; justify-content: center; margin-bottom: 16px; }
 .helanak-nav--footer .helanak-menu { justify-content: center; }
+.helanak-footer-trust { display: flex; justify-content: center; margin-block: 24px; }
+.helanak-enamad { display: inline-flex; align-items: center; justify-content: center; inline-size: 160px; min-block-size: 162px; padding: 12px; border: 1px solid var( --border-color ); border-radius: 16px; background: var( --background-color ); }
+.helanak-enamad:focus-visible { outline: 2px solid var( --helanak-link ); outline-offset: 4px; }
+.helanak-enamad img { display: block; width: 125px; height: 136px; max-width: 100%; object-fit: contain; cursor: pointer; }
 .helanak-breadcrumb, .helanak-card__stock, .helanak-friends-card__sub, .helanak-blog-card__meta, .helanak-blog-featured__meta { opacity: 1; }
 .helanak-blog-featured__media, .helanak-blog-featured__body { min-width: 0; }
 .helanak-blog-featured__media:empty { display: none; }
@@ -3773,12 +3831,21 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 	.helanak-lang-switch { grid-area: language; justify-content: flex-end; }
 	.helanak-nav--desktop { display: none; }
 	.helanak-nav-toggle { display: inline-flex; }
-	.helanak-nav--mobile:not( [hidden] ) { display: block; padding: 8px 20px 16px; }
-	.helanak-nav--mobile .helanak-menu { display: grid; grid-template-columns: repeat( 2, minmax( 0, 1fr ) ); gap: 4px 16px; }
-	.helanak-nav--mobile .helanak-menu a { display: flex; padding: 8px 4px; min-height: 44px; }
-	.helanak-nav--mobile .sub-menu { display: block; position: static; border: 0; box-shadow: none; min-width: 0; padding: 0 12px; background: transparent; }
+	.helanak-nav--mobile:not( [hidden] ) { display: block; position: absolute; top: 100%; inset-inline: 0; z-index: 2; max-height: calc( 100vh - 150px ); max-height: var( --helanak-mobile-nav-height, calc( 100dvh - 150px ) ); overflow-y: auto; overflow-x: hidden; overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; padding: 8px 20px 16px; background: var( --background-color ); border-block: 1px solid var( --border-color ); box-shadow: 0 16px 24px #2b2b3314; }
+	.helanak-nav--mobile .helanak-menu { display: block; margin: 0; padding: 0; }
+	.helanak-nav--mobile li { min-width: 0; list-style: none; }
+	.helanak-nav--mobile .helanak-menu > li { border-block-end: 1px solid var( --border-color ); }
+	.helanak-nav--mobile .helanak-menu a { display: flex; align-items: center; width: 100%; min-height: 48px; padding: 10px 12px; border: 0; font-size: 14px; line-height: 1.6; text-align: start; overflow-wrap: anywhere; }
+	.helanak-nav--mobile li.helanak-nav-parent { display: grid; grid-template-columns: minmax( 0, 1fr ) 44px; align-items: start; }
+	.helanak-nav--mobile .sub-menu { display: block; grid-column: 1 / -1; position: static; min-width: 0; margin: 0; margin-inline-start: 14px; padding: 0; padding-inline-start: 8px; border: 0; border-inline-start: 1px solid var( --border-color ); border-radius: 0; box-shadow: none; background: transparent; }
+	.helanak-nav--mobile .helanak-submenu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; min-height: 48px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var( --text-color ); cursor: pointer; }
+	.helanak-submenu-toggle[aria-expanded="true"] svg { transform: rotate( 180deg ); }
+	.helanak-nav--mobile a:focus-visible, .helanak-submenu-toggle:focus-visible { outline: 2px solid var( --helanak-link ); outline-offset: -2px; border-radius: 8px; }
 	.helanak-nav--no-script { display: block; padding: 4px 20px 16px; }
 }
+#helanak-mobile-nav[hidden], #helanak-mobile-nav .sub-menu[hidden] { display: none !important; }
+.helanak-nav-open .helanak-header { z-index: 60; }
+.helanak-nav-open .helanak-mini-cart-button, .helanak-nav-open .helanak-compare-pill { visibility: hidden; }
 @media ( max-width: 782px ) {
 	.admin-bar .helanak-header { top: 46px; }
 	.helanak-container { padding-inline: 20px; }

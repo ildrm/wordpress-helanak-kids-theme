@@ -5,19 +5,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <footer class="helanak-site-footer">
-	<div class="helanak-footer-companions" data-helanak-flyby-stage aria-hidden="true">
+	<div class="helanak-footer-companions" aria-hidden="true">
 		<?php
 		helanak_character( 'cat', array( 'scale' => .55, 'behavior' => 'sleep', 'class' => 'helanak-character--footer-peek helanak-footer-cat--awake' ) );
 		helanak_character( 'cat', array( 'scale' => .55, 'awake' => false, 'behavior' => 'sleep', 'class' => 'helanak-character--footer-peek helanak-footer-cat--asleep' ) );
-		helanak_character( 'bird', array( 'scale' => 1.4, 'behavior' => 'fly' ) );
 		?>
 	</div>
 	<div class="helanak-container">
 		<nav class="helanak-nav helanak-nav--footer" aria-label="<?php esc_attr_e( 'Footer', 'wp-helanak-kids-theme' ); ?>"><?php wp_nav_menu( array( 'theme_location' => 'footer', 'container' => false, 'menu_id' => 'helanak-footer-menu', 'menu_class' => 'helanak-menu', 'fallback_cb' => 'helanak_primary_menu_fallback' ) ); ?></nav>
+		<div class="helanak-footer-trust">
+			<a class="helanak-enamad" referrerpolicy="origin" target="_blank" rel="noopener" href="https://trustseal.enamad.ir/?id=8602542&amp;Code=mNl62jCD0nm6fYIIYBbwAaKYZnfclC6l">
+				<img referrerpolicy="origin" src="https://trustseal.enamad.ir/logo.aspx?id=8602542&amp;Code=mNl62jCD0nm6fYIIYBbwAaKYZnfclC6l" alt="<?php esc_attr_e( 'E-Namad electronic trust seal', 'wp-helanak-kids-theme' ); ?>" width="125" height="136" loading="lazy" decoding="async" code="mNl62jCD0nm6fYIIYBbwAaKYZnfclC6l">
+			</a>
+		</div>
 		<button type="button" class="helanak-motion-toggle" data-helanak-motion-toggle aria-pressed="false"><span aria-hidden="true">Ⅱ</span> <span data-helanak-motion-label><?php esc_html_e( 'Pause animations', 'wp-helanak-kids-theme' ); ?></span></button>
 		<p>&copy; <?php echo esc_html( wp_date( 'Y' ) ); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. <?php esc_html_e( 'All rights reserved.', 'wp-helanak-kids-theme' ); ?></p>
 	</div>
 </footer>
+<?php if ( Helanak_Character_Engine::is_enabled( 'bird' ) ) : ?>
+	<div class="helanak-flyby" data-helanak-flyby-stage aria-hidden="true">
+		<?php helanak_character( 'bird', array( 'scale' => 1.4, 'behavior' => 'fly' ) ); ?>
+	</div>
+<?php endif; ?>
 <?php if ( function_exists( 'WC' ) ) : ?>
 	<button type="button" class="helanak-mini-cart-button" data-helanak-section="mini_cart" data-helanak-cart-toggle aria-haspopup="dialog" aria-expanded="false" aria-controls="helanak-mini-cart-drawer" aria-label="<?php esc_attr_e( 'Open cart', 'wp-helanak-kids-theme' ); ?>"<?php helanak_section_hidden_attr( 'mini_cart' ); ?>><svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true"><path d="M5 8h14l1 12H4L5 8Zm3 0V6a4 4 0 0 1 8 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg><?php echo helanak_cart_count_badge(); // phpcs:ignore WordPress.Security.EscapeOutput -- pre-escaped markup. ?></button>
 	<div id="helanak-mini-cart-drawer" class="helanak-cart-modal" data-helanak-cart-drawer hidden role="dialog" aria-modal="true" aria-labelledby="helanak-cart-title" tabindex="-1">

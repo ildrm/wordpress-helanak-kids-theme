@@ -113,15 +113,67 @@ function helanak_primary_menu_fallback( array $args = array() ): void {
 	if ( function_exists( 'wc_get_page_permalink' ) && wc_get_page_id( 'shop' ) > 0 ) {
 		$links[ wc_get_page_permalink( 'shop' ) ] = __( 'Shop', 'wp-helanak-kids-theme' );
 	}
-	echo '<ul class="helanak-menu">';
+	echo '<ul class="helanak-menu"' . ( ! empty( $args['menu_id'] ) ? ' id="' . esc_attr( $args['menu_id'] ) . '"' : '' ) . '>';
 	foreach ( $links as $url => $label ) {
 		echo '<li><a href="' . esc_url( add_query_arg( 'lang', helanak_current_lang(), $url ) ) . '">' . esc_html( $label ) . '</a></li>';
+	}
+	if ( 'helanak-mobile-menu' === ( $args['menu_id'] ?? '' ) ) {
+		echo helanak_mobile_category_navigation(); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped by the renderer.
 	}
 	echo '</ul>';
 }
 
+/** Category links also accompany a custom mobile menu containing only pages. */
+function helanak_mobile_menu_categories( string $items, $args ): string {
+	if ( 'helanak-mobile-menu' === ( $args->menu_id ?? '' ) && false === strpos( $items, 'menu-item-object-product_cat' ) ) {
+		$items .= helanak_mobile_category_navigation();
+	}
+	return $items;
+}
+add_filter( 'wp_nav_menu_items', 'helanak_mobile_menu_categories', 10, 2 );
+
+/** Use the same taxonomy ordering and nonempty hierarchy as the storefront. */
+function helanak_mobile_category_navigation(): string {
+	if ( ! taxonomy_exists( 'product_cat' ) ) {
+		return '';
+	}
+	$terms = get_terms( array( 'taxonomy' => 'product_cat', 'hide_empty' => true, 'number' => 0 ) );
+	if ( is_wp_error( $terms ) ) {
+		return '';
+	}
+	$children = array();
+	foreach ( $terms as $term ) {
+		$children[ $term->parent ][] = $term;
+	}
+	ob_start();
+	helanak_mobile_category_menu_items( $children );
+	return (string) ob_get_clean();
+}
+
+/** Present the real category hierarchy without editing stored menu records. */
+function helanak_mobile_category_menu_items( array $children, int $parent_id = 0 ): void {
+	foreach ( $children[ $parent_id ] ?? array() as $term ) {
+		$url = get_term_link( $term );
+		if ( is_wp_error( $url ) ) {
+			continue;
+		}
+		$visuals = class_exists( 'Helanak_Core_Category_Theme' ) ? Helanak_Core_Category_Theme::get_visuals_for_term( $term ) : null;
+		$label = $visuals ? ( 'fa' === helanak_current_lang() ? $visuals['label_fa'] : $visuals['label_en'] ) : $term->name;
+		echo '<li data-helanak-nav-category="' . esc_attr( $term->term_id ) . '"><a href="' . esc_url( add_query_arg( 'lang', helanak_current_lang(), $url ) ) . '">' . esc_html( $label ) . '</a>';
+		if ( ! empty( $children[ $term->term_id ] ) ) {
+			echo '<ul class="sub-menu">';
+			helanak_mobile_category_menu_items( $children, $term->term_id );
+			echo '</ul>';
+		}
+		echo '</li>';
+	}
+}
+
 /** Desktop, mobile and footer instances of one menu need distinct item IDs. */
 function helanak_nav_item_id( string $id, $item, $args ): string {
+	if ( '' === $id ) {
+		return '';
+	}
 	return ! empty( $args->menu_id ) && 0 === strpos( $args->menu_id, 'helanak-' ) ? $id . '-' . sanitize_html_class( $args->menu_id ) : $id;
 }
 add_filter( 'nav_menu_item_id', 'helanak_nav_item_id', 10, 3 );

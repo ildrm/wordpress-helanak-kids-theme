@@ -155,11 +155,11 @@ msgstr "ویرایش نشان"
 
 #: includes/class-badge-engine.php:204 includes/class-badge-engine.php:219
 msgid "Helanak Badge Settings"
-msgstr "تنظیمات نشان‌های هلناک"
+msgstr "تنظیمات نشان‌های هلانک"
 
 #: includes/class-badge-engine.php:205
 msgid "Helanak Badges"
-msgstr "نشان‌های هلناک"
+msgstr "نشان‌های هلانک"
 
 #: includes/class-badge-engine.php:222
 msgid "Manage manual badge definitions"

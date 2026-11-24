@@ -3,7 +3,7 @@
  * Plugin Name: Helanak Core
  * Plugin URI: https://helanak.com
  * Description: Store data and rules for Helanak Kids: age ranges, product safety, badges, languages, shipping eligibility, store forms, image optimization, and WooCommerce HPOS compatibility. Storefront presentation belongs to the Helanak theme.
- * Version: 0.3.4
+ * Version: 0.3.5
  * Requires at least: 6.5
  * Requires PHP: 8.1
  * Author: Helanak
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HELANAK_CORE_VERSION', '0.3.4' );
+define( 'HELANAK_CORE_VERSION', '0.3.5' );
 define( 'HELANAK_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HELANAK_CORE_URL', plugin_dir_url( __FILE__ ) );
 define( 'HELANAK_CORE_FILE', __FILE__ );

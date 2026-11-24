@@ -97,6 +97,8 @@ $helanak_empty_wishlist  = $helanak_is_wishlist && is_scalar( $_GET['helanak_wis
 			<h1 class="helanak-archive__title"><?php echo esc_html( $helanak_is_wishlist ? __( 'Wishlist', 'wp-helanak-kids-theme' ) : woocommerce_page_title( false ) ); ?></h1>
 		<?php endif; ?>
 
+		<?php get_template_part( 'template-parts/archive-subcategories', null, array( 'parent' => $helanak_term ) ); ?>
+
 		<div class="helanak-shop-search" role="search" aria-labelledby="helanak-shop-search-label">
 			<label id="helanak-shop-search-label" for="helanak-shop-search"><?php esc_html_e( 'Search product names', 'wp-helanak-kids-theme' ); ?></label>
 			<div class="helanak-shop-search__controls">
